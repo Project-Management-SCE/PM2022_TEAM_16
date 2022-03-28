@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python -m py_compile Kela_clinic/views.py'
+                sh 'python manage.py jenkins --enable-coverage'
             }
         }
         stage('Test') {
