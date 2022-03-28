@@ -1,6 +1,6 @@
-from django.test import TestCase
+
 from django import urls
-from django.test import TestCase,SimpleTestCase
+
 from django.urls import resolve, reverse
 import unittest
 
