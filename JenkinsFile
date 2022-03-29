@@ -18,7 +18,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python manage.py jenkins --enable-coverage'
+                sh 'py.test --verbose --junit-xml test-reports/results.xml Kela_clinic/tests.py'
             }
             post {
                 always {
