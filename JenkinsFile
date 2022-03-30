@@ -4,11 +4,13 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'python:2-alpine'                    
+                    image 'python:3.7'                    
                 }
             }
             steps {
-                sh 'python -m py_compile Kela_clinic/views.py' 
+                sh 'python -m pip install --upgrade pip'
+                sh 'pip install --user -r requirements.txt'
+                sh 'python 'manage.py runserver'
             }
         }
         stage('Test') {
