@@ -9,7 +9,7 @@ pipeline {
             }
             steps {
                 sh 'python -m py_compile Kela_clinic/views.py'
-                sh 'pip install django'
+                sh 'Pip install django-jenkins'
             }
         }
         stage('Test') {
