@@ -9,8 +9,9 @@ pipeline {
                 }
             }
             steps {
+                sh 'pip install --upgrade pip'
                 sh 'python -m py_compile Kela_clinic/views.py' 
-                sh 'python -m pip install django'
+                sh 'pip install django'
             }
         }
         stage('Test') {
