@@ -18,7 +18,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python manage.py test'
+                sh './manage.py test Kela_clinic/tests.py'
             }
             post {
                 always {
