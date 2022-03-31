@@ -1,4 +1,6 @@
 from random import random
+from tkinter import Frame
+from cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -12,7 +14,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-
+import numpy as np
+import cv2
+import pickle
 # Create your views here.
 
 db_connection = mysql.connector.connect(
@@ -31,3 +35,14 @@ def index(request):
 
 def userlogin(request):
     return render(request, 'customers/loginpage.html')
+
+def login(request):
+    return render(request, 'doctors/loginpage.html')
+
+def userdash(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        password = request.POST.get('password')
+        PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
+        if PatientModel1:
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1})  

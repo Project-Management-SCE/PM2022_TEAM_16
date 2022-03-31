@@ -27,9 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-JENKINS_TASKS = (
-    'django_jenkins.tasks.django_tests',
-)
 
 # Application definition
 
@@ -41,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_jenkins'
+    'django_jenkins',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +134,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/Users/kevyn/KelaclinicProject/Kela_clinic/static',
-    '/Users/andre/KelaclinicProject/Kela_clinic/static',
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
