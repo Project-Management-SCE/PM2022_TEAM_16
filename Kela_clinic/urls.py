@@ -10,4 +10,5 @@ path('index', views.index, name='index'),
 path('userlogin', views.userlogin, name='userlogin'),
 path('userdash', views.userdash, name='userdash'),
 path('login', views.login, name='login'),
+path('workersdash', views.workersdash, name='workersdash'),
 ]

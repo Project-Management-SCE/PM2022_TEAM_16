@@ -22,7 +22,18 @@ class DoctorModel(models.Model):
     lastname=models.TextField(db_column='lastname')
     password=models.CharField(db_column='password',max_length=10)
     patientID=models.CharField(db_column='PID',max_length=9)
+    workday=models.TextField(db_column='workday')
     class Meta:
         managed = False
         db_table = 'doctor'
 
+
+class Adminmodel(models.Model):
+    ID=models.CharField(db_column='ID',max_length=9,primary_key=True)
+    firstname=models.TextField(db_column='firstname')
+    lastname=models.TextField(db_column='lastname')
+    password=models.CharField(db_column='password',max_length=10)
+    messagesent=models.TextField(db_column='messagesent')
+    class Meta:
+        managed = False
+        db_table = 'admin'
