@@ -37,3 +37,12 @@ class Adminmodel(models.Model):
     class Meta:
         managed = False
         db_table = 'admin'
+
+
+
+class MessageModel(models.Model):
+    ID=models.CharField(db_column='ID',max_length=9,primary_key=True)
+    message=models.TextField(db_column='message')
+    class Meta:
+        managed = False
+        db_table = 'generalmessage'       
