@@ -28,6 +28,7 @@ cursor = db_connection.cursor()
 print(db_connection)
 
 # START PAGE WITH ANIMATION
+mess=MessageModel.objects.filter(ID=1)
 
 def index(request):
     return render(request, 'customers/homepage.html')
@@ -63,3 +64,76 @@ def workersdash(request):
             DoctorModelall= DoctorModel.objects.all()
             return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall })  
 #######################################################################################################################################
+def fichinfo(request):
+    if request.method == 'POST':
+        Fichinfo = request.POST.get('FID')
+        ID = request.POST.get('ID')   
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        PatientModel1 = PatientModel.objects.filter(ID=Fichinfo)
+        DoctorModel1 = DoctorModel.objects.filter(ID=Fichinfo)
+        if DoctorModel1:
+          return render(request, 'admin/ficheinfodoc.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModel1, "message":mess})  
+        elif  PatientModel1:     
+          return render(request, 'admin/ficheinfopatient.html', {"AdminModel": Adminmodel1, "PatientModel":PatientModel1, "message":mess })
+
+def doctest(request):
+    test = DoctorModel.objects.filter(ID='111222333').first()
+    workday2=test.workday
+    x = workday2.split(",")
+    print(x[1])
+
+def addmedicalrecord(request):
+    if request.method == 'POST':
+        PID = request.POST.get('PID')
+        DID = request.POST.get('DID')
+        messages = request.POST.get('message')
+        print(PID,DID,messages)
+        DoctorModel1 = DoctorModel.objects.filter(ID=DID)
+        PatientModel1 = PatientModel.objects.filter(ID=PID).first()
+        mes=PatientModel1.medicalrecod
+        medrecord=messages+" "+mes+" "
+        PatientModel2 = PatientModel.objects.filter(ID=PID)
+        cursor.execute("UPDATE `user` SET `medicalrecod` = '%s' WHERE `user`.`ID` = '%s';"%(medrecord,PID))
+        db_connection.commit()
+        if DoctorModel1:
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
+
+
+
+
+def sentmessage(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        PatientModel1 = PatientModel.objects.filter(ID=ID)
+        if PatientModel1:
+            return render(request, 'customers/messagesent.html', {"PatientModel": PatientModel1, "message":mess})  
+
+def patientpage(request):
+    if request.method == 'POST':
+        PID = request.POST.get('PID')
+        DID = request.POST.get('DIC')
+        print(PID,DID)
+        DoctorModel1 = DoctorModel.objects.filter(ID=DID)
+        PatientModel1 = PatientModel.objects.filter(ID=PID)
+        if DoctorModel1:
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
+
+def patientsending(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        reason = request.POST.get('reason')
+        urgent = request.POST.get('urgent')
+        message = request.POST.get('message')
+        TO = request.POST.get('TO')
+        if TO=='My doctor':
+            messagetodoc='Reason:'+reason+'\n Message:'+message
+            cursor.execute("UPDATE `user` SET `messagesent` = '%s' WHERE `user`.`ID` = '%s';"%(messagetodoc,ID))
+            db_connection.commit()
+        elif TO=='The Manager':
+            messagetodoc='Reason:'+reason+'\n Message:'+message
+            cursor.execute("UPDATE `user` SET `adminmess` = '%s' WHERE `user`.`ID` = '%s';"%(messagetodoc,ID))
+            db_connection.commit()
+        print(reason,urgent,message)
+        PatientModel1 = PatientModel.objects.filter(ID=ID)
+        if PatientModel1:
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess}) 

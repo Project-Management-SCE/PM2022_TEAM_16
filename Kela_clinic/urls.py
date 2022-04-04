@@ -9,6 +9,13 @@ urlpatterns = [
 path('index', views.index, name='index'),
 path('userlogin', views.userlogin, name='userlogin'),
 path('userdash', views.userdash, name='userdash'),
-path('login', views.login, name='login'),
+path('sentmessage', views.sentmessage, name='sentmessage'),
+path('patientsending', views.patientsending, name='patientsending'),
 path('workersdash', views.workersdash, name='workersdash'),
+path('login', views.login, name='login'),
+path('patientpage', views.patientpage, name='patientpage'),
+path('addmedicalrecord', views.addmedicalrecord, name='addmedicalrecord'),
+path('doctest', views.doctest, name='doctest'),
+path('fichinfo', views.fichinfo, name='fichinfo'),
 ]
+    # The home page
