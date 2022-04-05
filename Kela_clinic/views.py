@@ -14,6 +14,13 @@ from django.template import loader
 from django.urls import reverse
 # Create your views here.
 
+db_connection = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    database=" projectapp"
+)
+cursor = db_connection.cursor()
+print(db_connection)
 
 # START PAGE WITH ANIMATION
 mess=MessageModel.objects.filter(ID=1)
