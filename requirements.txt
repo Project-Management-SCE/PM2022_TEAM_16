@@ -13,9 +13,7 @@ coverage==6.3.2
 cycler==0.10.0
 distlib==0.3.1
 dj-database-url==0.5.0
-django-appconf==1.0.4
 django-bootstrap-staticfiles==3.0.0.1
-django-bootstrap4==2.3.1
 django-chartjs==2.2.1
 django-contrib-comments==1.9.2
 django-crispy-forms==1.10.0
