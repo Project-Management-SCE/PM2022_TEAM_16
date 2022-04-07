@@ -50,6 +50,15 @@ def userdash(request):
         if PatientModel1:
             return render(request, 'customers/dash.html', {"PatientModel": PatientModel1})  
 
+def userdashtestfor(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        password = request.POST.get('password')
+        print(ID,password)
+        PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
+        if PatientModel1:
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1})  
+
 def workersdash(request):
     if request.method == 'POST':
         ID = request.POST.get('ID')
