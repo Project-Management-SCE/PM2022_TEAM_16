@@ -26,6 +26,10 @@ def index(request):
 def userlogin(request):
     return render(request, 'customers/loginpage.html')
 
+def userlogin2(request):
+    return render(request, 'doctors/patientinfo.html')
+
+
 #login functions###############################
 def login(request):
     return render(request, 'doctors/loginpage.html')
@@ -126,3 +130,4 @@ def patientsending(request):
         PatientModel1 = PatientModel.objects.filter(ID=ID)
         if PatientModel1:
             return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess}) 
+
