@@ -22,13 +22,14 @@ mess=MessageModel.objects.filter(ID=1)
 def index(request):
     return render(request, 'customers/homepage.html')
 
+def index2(request):
+    return render(request, 'customers/homepage.html')
 
 def userlogin(request):
     return render(request, 'customers/loginpage.html')
 
 def userlogin2(request):
     return render(request, 'doctors/patientinfo.html')
-
 
 #login functions###############################
 def login(request):
