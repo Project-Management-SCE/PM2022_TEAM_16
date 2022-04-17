@@ -42,7 +42,25 @@ def userdash(request):
         print(ID,password)
         PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
         if PatientModel1:
-            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1})  
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1})
+
+def userdash2(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        password = request.POST.get('password')
+        print(ID,password)
+        PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
+        if PatientModel1:
+            return render(request, 'customers/dash_test.html', {"PatientModel": PatientModel1})  
+
+def userdash3(request):
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        password = request.POST.get('password')
+        print(ID,password)
+        PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
+        if PatientModel1:
+            return render(request, 'customers/dash_test2.html', {"PatientModel": PatientModel1})
 
 def userdashtestforu(request):
     if request.method == 'POST':
