@@ -10,7 +10,7 @@ class TestUrls(unittest.TestCase):
         url=reverse('index')
         print(resolve(url))
 
-
+"""
 class test_admin(TestCase):
     def test_admin1(self):
         item=Adminmodel()
@@ -158,3 +158,4 @@ class message_test(TestCase):
         record=DoctorModel.objects.get()
         print("WORKS")
         self.assertEqual(record,item)
+"""
