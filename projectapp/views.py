@@ -1,6 +1,6 @@
 from random import random
 from tkinter import Frame
-from cv2 import COLOR_BGR2GRAY, destroyAllWindows
+#from cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -15,7 +15,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 import numpy as np
-import cv2
+#import cv2
 import pickle
 
 import requests
