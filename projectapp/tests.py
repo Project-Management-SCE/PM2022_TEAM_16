@@ -5,12 +5,11 @@ from projectapp.models import Adminmodel
 import unittest
 
 class TestUrls(unittest.TestCase):
-
     def test_list_url_is_resolved(self):
         url=reverse('index')
         print(resolve(url))
 
-''''
+"""
 class test_admin(TestCase):
     def test_admin1(self):
         item=Adminmodel()
@@ -158,4 +157,4 @@ class message_test(TestCase):
         record=DoctorModel.objects.get()
         print("WORKS")
         self.assertEqual(record,item)
-''''
+"""
