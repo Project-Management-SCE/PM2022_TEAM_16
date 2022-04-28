@@ -25,7 +25,7 @@ class PatientModel(models.Model):
     medrecom=models.TextField(db_column='medrecom')
     appointement=models.TextField(db_column='appointement')
     class Meta:
-        managed = False
+        managed = True
         db_table = 'user'
 
 class DoctorModel(models.Model):
@@ -38,7 +38,7 @@ class DoctorModel(models.Model):
     adminanswer=models.TextField(db_column='adminanswer')
     speciality=models.TextField(db_column='speciality')
     class Meta:
-        managed = False
+        managed = True
         db_table = 'doctor'
 
 
@@ -49,14 +49,14 @@ class Adminmodel(models.Model):
     password=models.CharField(db_column='password',max_length=10)
     messagesent=models.TextField(db_column='messagesent')
     class Meta:
-        managed = False
+        managed = True
         db_table = 'admin'
 
 class MessageModel(models.Model):
     ID=models.CharField(db_column='ID',max_length=9,primary_key=True)
     message=models.TextField(db_column='message')
     class Meta:
-        managed = False
+        managed = True
         db_table = 'generalmessage'
 
 
@@ -70,7 +70,7 @@ class MedsModel(models.Model):
     estock=models.IntegerField(db_column='estock')
     pstock=models.IntegerField(db_column='pstock')
     class Meta:
-        managed = False
+        managed = True
         db_table = 'meds'
 
 class cartModel(models.Model):
@@ -79,7 +79,7 @@ class cartModel(models.Model):
     totalprice=models.IntegerField(db_column='totalprice')
     name=models.TextField(db_column='name')
     class Meta:
-        managed = False
+        managed = True
         db_table = 'customercart'
 
 class newcustomerModel(models.Model):
@@ -88,15 +88,6 @@ class newcustomerModel(models.Model):
     email=models.TextField(db_column='email')
     phone=models.CharField(db_column='phone',max_length=10,primary_key=True)
     class Meta:
-        managed = False
+        managed = True
         db_table = 'newcustomer'
 
-class cModel(models.Model):
-    CID=models.CharField(db_column='CID',max_length=9)
-    MIDS=models.IntegerField(db_column='MIDS')
-    quantities=models.IntegerField(db_column='quantities')
-    price=models.IntegerField(db_column='price')
-    class Meta:
-        unique_together = (('CID', 'MIDS'),)
-        managed = False
-        db_table = 'cart'
