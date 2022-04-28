@@ -656,3 +656,16 @@ else:
     WARNINGS = contect_medical["warnings_and_cautions"]
 """
 
+def infodoc(request):
+    mess=MessageModel.objects.filter(ID=100)
+
+    if mess == None:
+        print("Error!")
+        return 
+
+    allmed=MedsModel.objects.all()
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        DoctorModel1 = DoctorModel.objects.filter(ID=ID)
+        if DoctorModel1:
+                return render(request, 'doctors/privateinfo.html', {"DoctorModel": DoctorModel1, "message":mess, 'meds':allmed})
