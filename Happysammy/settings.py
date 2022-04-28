@@ -78,18 +78,16 @@ DATABASES = {
 'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'projectapp',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        },
+        'USER': 'Admin',
+        'PASSWORD': 'Aa123456',
+        'HOST': 'database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com',
+        'PORT': '3306',
+        
         'test':{
             'NAME': 'test_projectapp'
         }
-        }
     }
+}
 
     
 # Password validation

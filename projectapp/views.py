@@ -14,21 +14,22 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-import numpy as np
+#import numpy as np
 #import cv2
 import pickle
-
-import requests
 import json
+import requests
 # Create your views here.
 
-''''db_connection = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    database=" projectapp"
+db_connection = mysql.connector.connect(
+    host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
+    user="Admin",
+    password="Aa123456",
+    database="projectapp"
 )
 cursor = db_connection.cursor()
-print(db_connection)'''
+print(db_connection)
+
 # START PAGE WITH ANIMATION
 medsnames =  ["Methylphenidate Hydrochloride",
                 "Glimepiride",
