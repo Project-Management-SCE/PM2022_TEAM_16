@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'projectapp',
+    'projectapp.apps.projectappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,9 +85,9 @@ DATABASES = {
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         },
-        #'test':{
-         #   'NAME': 'test_civilian'
-       # }
+        'test':{
+            'NAME': 'test_projectapp'
+        }
         }
     }
 
