@@ -605,6 +605,7 @@ def payement(request):
         CommandeenCour1 = cartModel.objects.filter(CID=CID)
         return render(request, 'customers/pay.html',{"CommandeenCour":CommandeenCour1})
  ###########################################################################################################################################################################           
+"""
 def testcam(request):
     mess=MessageModel.objects.filter(ID=1)
     face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
@@ -652,7 +653,7 @@ def testcam(request):
     cap.release()
     cv2.destroyAllWindows()
 
-"""
+
     med1='ciprofloxacin'
     path = "https://api.fda.gov/drug/label.json?search=" + med1
     response = requests.get(path)
