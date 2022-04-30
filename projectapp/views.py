@@ -606,7 +606,7 @@ def payement(request):
         CommandeenCour1 = cartModel.objects.filter(CID=CID)
         return render(request, 'customers/pay.html',{"CommandeenCour":CommandeenCour1})
  ###########################################################################################################################################################################           
-"""
+
 def testcam(request):
     mess=MessageModel.objects.filter(ID=1)
     face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
@@ -704,5 +704,5 @@ elif 'warnings' in contect_medical:
     WARNINGS = contect_medical["warnings"]
 else:
     WARNINGS = contect_medical["warnings_and_cautions"]
-"""
+
 
