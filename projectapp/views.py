@@ -1,6 +1,6 @@
 from random import random
 from tkinter import Frame
-from cv2 import COLOR_BGR2GRAY, destroyAllWindows
+#from cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -14,21 +14,22 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-import numpy as np
-import cv2
+#import numpy as np
+#import cv2
 import pickle
-
-import requests
 import json
+import requests
 # Create your views here.
 
 db_connection = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    database=" projectapp"
+    host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
+    user="Admin",
+    password="Aa123456",
+    database="projectapp"
 )
 cursor = db_connection.cursor()
 print(db_connection)
+
 # START PAGE WITH ANIMATION
 medsnames =  ["Methylphenidate Hydrochloride",
                 "Glimepiride",
@@ -655,3 +656,16 @@ else:
     WARNINGS = contect_medical["warnings_and_cautions"]
 """
 
+def infodoc(request):
+    mess=MessageModel.objects.filter(ID=100)
+
+    if mess == None:
+        print("Error!")
+        return 
+
+    allmed=MedsModel.objects.all()
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        DoctorModel1 = DoctorModel.objects.filter(ID=ID)
+        if DoctorModel1:
+                return render(request, 'doctors/privateinfo.html', {"DoctorModel": DoctorModel1, "message":mess, 'meds':allmed})

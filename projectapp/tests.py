@@ -2,7 +2,7 @@ from unicodedata import name
 from django.test import TestCase
 from django.urls import resolve, reverse
 from projectapp.views import *
-from projectapp.models import *
+from projectapp.models import Adminmodel
 import unittest
 
 class TestUrls(unittest.TestCase):
@@ -21,7 +21,6 @@ class test_admin(TestCase):
         item.messagesent='hello world'
         item.save()
         record=Adminmodel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
     
     def test_admin2(self):
@@ -33,7 +32,6 @@ class test_admin(TestCase):
         item.messagesent='hello world'
         item.save()
         record=Adminmodel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_admin3(self):
@@ -45,7 +43,6 @@ class test_admin(TestCase):
         item.messagesent='hello world'
         item.save()
         record=Adminmodel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
 class doctor_test(TestCase):
@@ -61,7 +58,6 @@ class doctor_test(TestCase):
         item.speciality='cancer'
         item.save()
         record=DoctorModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
     
     def test_doctor2(self):
@@ -76,7 +72,6 @@ class doctor_test(TestCase):
         item.speciality='cancer'
         item.save()
         record=DoctorModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_doctor3(self):
@@ -91,7 +86,6 @@ class doctor_test(TestCase):
         item.speciality='cancer'
         item.save()
         record=DoctorModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
 class patient_test(TestCase):
@@ -118,7 +112,6 @@ class patient_test(TestCase):
         item.appointement='tuesday'
         item.save()
         record=PatientModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_patient2(self):
@@ -144,7 +137,6 @@ class patient_test(TestCase):
         item.appointement='tuesday'
         item.save()
         record=PatientModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_patient3(self):
@@ -170,7 +162,6 @@ class patient_test(TestCase):
         item.appointement='tuesday'
         item.save()
         record=PatientModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
 class message_test(TestCase):
@@ -180,7 +171,6 @@ class message_test(TestCase):
         item.message='hello world'
         item.save()
         record=MessageModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_message2(self):
@@ -189,7 +179,6 @@ class message_test(TestCase):
         item.message='hello israel'
         item.save()
         record=MessageModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_message3(self):
@@ -198,7 +187,6 @@ class message_test(TestCase):
         item.message='hello taiwan'
         item.save()
         record=MessageModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
 class meds_test(TestCase):
@@ -214,7 +202,6 @@ class meds_test(TestCase):
         item.pstock=20
         item.save()
         record=MedsModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
     
     def test_meds2(self):
@@ -229,7 +216,6 @@ class meds_test(TestCase):
         item.pstock=30
         item.save()
         record=MedsModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_meds3(self):
@@ -244,7 +230,6 @@ class meds_test(TestCase):
         item.pstock=205
         item.save()
         record=MedsModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
 class cart_test(TestCase):
@@ -256,7 +241,6 @@ class cart_test(TestCase):
         item.name='Matan'
         item.save()
         record=cartModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
     
     def test_cart2(self):
@@ -267,7 +251,6 @@ class cart_test(TestCase):
         item.name='Matan'
         item.save()
         record=cartModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
     
     def test_cart3(self):
@@ -278,7 +261,6 @@ class cart_test(TestCase):
         item.name='Matan'
         item.save()
         record=cartModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
 class newcust_test(TestCase):
@@ -290,7 +272,6 @@ class newcust_test(TestCase):
         item.phone='0521234567'
         item.save()
         record=newcustomerModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_newcust2(self):
@@ -301,7 +282,6 @@ class newcust_test(TestCase):
         item.phone='0521234467'
         item.save()
         record=newcustomerModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
 
     def test_newcust3(self):
@@ -312,8 +292,4 @@ class newcust_test(TestCase):
         item.phone='0521334567'
         item.save()
         record=newcustomerModel.objects.get()
-        print("WORKS")
         self.assertEqual(record,item)
-
-        
-
