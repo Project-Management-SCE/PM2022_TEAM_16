@@ -1,6 +1,6 @@
 from random import random
 from tkinter import Frame
-#from cv2 import COLOR_BGR2GRAY, destroyAllWindows
+from cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -14,23 +14,23 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-#import numpy as np
-#import cv2
+import numpy as np
+import cv2
 import pickle
-import json
+from django.core.files.storage import FileSystemStorage
 import requests
+import json
 # Create your views here.
 
 db_connection = mysql.connector.connect(
-    host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
-    user="Admin",
-    password="Aa123456",
-    database="projectapp"
+    host="localhost",
+    user="root",
+    database=" projectapp"
 )
 cursor = db_connection.cursor()
 print(db_connection)
-
 # START PAGE WITH ANIMATION
+"""
 medsnames =  ["Methylphenidate Hydrochloride",
                 "Glimepiride",
                 "Methocarbamol",
@@ -68,7 +68,8 @@ for med in medsnames:
                 Warn+=WARNINGS
 zip_iterator = zip(medsnames, Warn)
 a_dictionary = dict(zip_iterator)
-
+"""
+a_dictionary={1:1}
 def index(request):
     return render(request, 'customers/homepage.html')
 
@@ -200,6 +201,80 @@ def dochomebut(request):
         print(PatientModel1)
         if DoctorModel1:
             return render(request, 'doctors/dash.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
+
+def adminpharmacy(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        allmed=MedsModel.objects.all()      
+        return render(request, 'admin/pharmacy.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
+
+def addmeds(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        allmed=MedsModel.objects.all()      
+        return render(request, 'admin/addmeds.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
+
+def addmed(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST' and request.FILES['myfile']:
+        ID = request.POST.get('AID')
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        price = request.POST.get('price')
+        pstock = request.POST.get('pstock')
+        estock = request.POST.get('estock')
+        reason= request.POST.get('reason')
+        saveobj=MedsModel()
+        saveobj.name=name
+        saveobj.description=description
+        saveobj.price=price
+        saveobj.pstock=pstock
+        saveobj.estock=estock
+        saveobj.reason=reason
+        saveobj.save()
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        fs.save('C:\\Users\\kevyn\\Happysammy\\projectapp\\static\\pharmacieimg\\18.jpg', myfile)
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        allmed=MedsModel.objects.all()      
+        return render(request, 'admin/addmeds.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
+
+
+def adminmedinfo(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        ID = request.POST.get('DID')
+        MID = request.POST.get('MID')
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        MedsModel1 = MedsModel.objects.filter(ID=MID)
+        samemeds=MedsModel.objects.filter(ID=MID).first()
+        samemedsreason=samemeds.reason
+        MedsModelR = MedsModel.objects.filter(reason=samemedsreason)
+        if Adminmodel1 and MedsModel1 :
+            return render(request, 'admin/medinfo.html', {"Adminmodel": Adminmodel1, "message":mess, 'meds':MedsModel1,'meds2':MedsModelR,"a_dictionary":a_dictionary})
+
+def medchange(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        ID = request.POST.get('AID')
+        MID = request.POST.get('MID')
+        estock = request.POST.get('estock')
+        pstock = request.POST.get('pstock')
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        MedsModel1 = MedsModel.objects.filter(ID=MID)
+        cursor.execute("UPDATE `meds` SET `estock` = '%s' WHERE `meds`.`ID` = '%s';"%(estock,MID))
+        db_connection.commit()
+        cursor.execute("UPDATE `meds` SET `pstock` = '%s' WHERE `meds`.`ID` = '%s';"%(pstock,MID))
+        db_connection.commit()
+        samemeds=MedsModel.objects.filter(ID=MID).first()
+        samemedsreason=samemeds.reason
+        MedsModelR = MedsModel.objects.filter(reason=samemedsreason)
+        if Adminmodel1 and MedsModel1 :
+            return render(request, 'admin/medinfo.html', {"Adminmodel": Adminmodel1, "message":mess, 'meds':MedsModel1,'meds2':MedsModelR,"a_dictionary":a_dictionary})    
 
 def addpatpage(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -656,16 +731,3 @@ else:
     WARNINGS = contect_medical["warnings_and_cautions"]
 """
 
-def infodoc(request):
-    mess=MessageModel.objects.filter(ID=100)
-
-    if mess == None:
-        print("Error!")
-        return 
-
-    allmed=MedsModel.objects.all()
-    if request.method == 'POST':
-        ID = request.POST.get('ID')
-        DoctorModel1 = DoctorModel.objects.filter(ID=ID)
-        if DoctorModel1:
-                return render(request, 'doctors/privateinfo.html', {"DoctorModel": DoctorModel1, "message":mess, 'meds':allmed})

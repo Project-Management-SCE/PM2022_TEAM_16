@@ -38,6 +38,11 @@ path('rdv', views.rdv, name='rdv'),
 path('addprivaterecord', views.addprivaterecord, name='addprivaterecord'),
 path('adminanswer', views.adminanswer, name='adminanswer'),
 path('admintodoc', views.admintodoc, name='admintodoc'),
+path('adminpharmacy', views.adminpharmacy, name='adminpharmacy'),
+path('adminmedinfo', views.adminmedinfo, name='adminmedinfo'),
+path('medchange', views.medchange, name='medchange'),
+path('addmeds', views.addmeds, name='addmeds'),
+path('addmed', views.addmed, name='addmed'),
 ]
 
     # The home page
