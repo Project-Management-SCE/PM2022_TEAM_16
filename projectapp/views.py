@@ -1,6 +1,6 @@
 from random import random
 from tkinter import Frame
-from cv2 import COLOR_BGR2GRAY, destroyAllWindows
+#from cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -15,7 +15,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 import numpy as np
-import cv2
+#import cv2
 import pickle
 from django.core.files.storage import FileSystemStorage
 import requests
@@ -70,6 +70,7 @@ zip_iterator = zip(medsnames, Warn)
 a_dictionary = dict(zip_iterator)
 """
 a_dictionary={1:1}
+print(a_dictionary)
 def index(request):
     return render(request, 'customers/homepage.html')
 
@@ -593,35 +594,7 @@ def pay(request):
         return render(request, 'customers/resumercomande.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"CommandeenCour":CommandeenCour,'res':res,'dic':dic})
 
 
-def test1(request):
-    allmed=MedsModel.objects.all()
-    mess=MessageModel.objects.filter(ID=1)
-    if request.method == 'POST':
-        CID = request.POST.get('CID') 
-        MID = request.POST.get('MID')
-        comanndCust= cModel.objects.filter(CID=CID)
-        CommandeenCour = cModel.objects.filter(CID=CID, MIDS=MID)
-        PatientModel1 = PatientModel.objects.filter(ID=CID)
-        CommandeenCour1 = cModel.objects.filter(CID=CID, MIDS=MID).first()
-        Medic = MedsModel.objects.filter(ID=MID).first()
-        prix=Medic.price
-        if CommandeenCour: 
-          quanti=CommandeenCour1.quantities
-          quanti += 1
-          CommandeenCour1.price+=prix         
-          cursor.execute("UPDATE `cart` SET `quantities` = '%s' WHERE `cart`.`CID` AND `cart`.`MIDS`= '%s';"%(quanti,CID,MID))
-          db_connection.commit()
-          cursor.execute("UPDATE `cart` SET `price` = '%s' WHERE `cart`.`CID` AND `cart`.`MIDS`= '%s';"%(CommandeenCour1,CID,MID))
-          db_connection.commit()
-          return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"CommandeenCour":comanndCust})
-        else:
-            saveobject=cModel()
-            saveobject.CID=CID
-            saveobject.MIDS=MID
-            saveobject.price=prix
-            saveobject.quantities=1
-            saveobject.save()
-            return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"CommandeenCour":comanndCust})   
+
 
 def payement(request):
     allmed=MedsModel.objects.all()
