@@ -23,9 +23,10 @@ import json
 # Create your views here.
 
 db_connection = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    database=" projectapp"
+    host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
+    user="Admin",
+    password="Aa123456",
+    database="projectapp"
 )
 cursor = db_connection.cursor()
 print(db_connection)
