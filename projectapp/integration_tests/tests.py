@@ -15,7 +15,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
         #service = Service(f"{settings.BASE_DIR}/chromedriver")
-        cls.driver = webdriver.Chrome(executable_path='C:\\Users\\elady\\Desktop\\KelaclinicProject\\PM2022_TEAM_16\\projectapp\\integration_tests\\chromedriver.exe', options=options)
+        cls.driver = webdriver.Chrome(executable_path='KelaclinicProject\\PM2022_TEAM_16\\projectapp\\integration_tests\\chromedriver.exe', options=options)
         # cls.driver = webdriver.Remote(
         #     f"http://localhost:4444/wd/hub", options=options
         # )
