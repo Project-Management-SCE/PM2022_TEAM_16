@@ -5,11 +5,84 @@ from projectapp.views import *
 from projectapp.models import Adminmodel
 import unittest
 
+from django.test import Client
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.conf import settings
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
+from django.contrib.auth.models import User
+
+# from integration_tests.testing_tools import SeleniumTestCase
+import time
+
+
+
+
 class TestUrls(unittest.TestCase):
     def test_list_url_is_resolved(self):
         url=reverse('index')
         print(resolve(url))
 
+class SeleniumTestCase(StaticLiveServerTestCase):
+    
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        options = webdriver.ChromeOptions()
+        options.add_argument("--start-maximized")
+        service = Service(f"{settings.BASE_DIR}/chromedriver")
+        cls.driver = webdriver.Chrome(service=service, options=options)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+# from django.core import reverse 
+
+
+
+class AuthenticationFormTest(SeleniumTestCase):
+    def test_authentication_form(self):
+        # Create a user to login with
+        user = User.objects.create_user(
+            username="test@user.com", password="12345"
+        )
+
+        # Go to the login page
+        
+        #self.driver.get("http://8000/projectapp/userlogin")
+        self.driver.get(self.live_server_url + "/customers/loginpage/")
+
+        # Find HTML elements
+        username_input = self.driver.find_element_by_name("ID")
+        password_input = self.driver.find_element_by_name("password")
+        login_button = self.driver.find_elements_by_name("but_sub")
+        
+        username_input.send_keys("test@user.com")
+        password_input.send_keys("12345")
+        login_button.click()
+
+        # Wait for request
+        time.sleep(0.5)
+
+        # Check that the user is logged in
+        self.assertEqual(self.driver.current_url, self.live_server_url + "/userdash/")
+
+# client = Client()
+# class MainTest(TestCase):
+# #     ##user login in django
+# #    def user_login(self, username, password):
+# #         response = self.client.login(username=username, password=username)
+# #         return self.assertEqual(response.status_code, 200)
+#    ## first case
+#    def detail(self):
+#      response = self.client.get('/testcam/<test_num>/') ## url regex
+#      self.assertEquals(response.status_code, 200)
+
+#    def detail2(self):
+#        response = self.client.get(reverse('userlogin'))
+#        self.assertEqual(response.status_code, 200)
 
 class test_admin(TestCase):
     def test_admin1(self):
