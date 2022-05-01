@@ -366,6 +366,3 @@ class newcust_test(TestCase):
         item.save()
         record=newcustomerModel.objects.get()
         self.assertEqual(record,item)
-
-        
-
