@@ -1,4 +1,4 @@
-    from random import random
+from random import random
 from tkinter import Frame
 from cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
