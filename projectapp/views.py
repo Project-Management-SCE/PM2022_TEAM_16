@@ -441,6 +441,7 @@ def sentmessage(request):
             return render(request, 'customers/messagesent.html', {"PatientModel": PatientModel1, "message":mess})  
 
 def patientpage(request):
+    #personal patient page for doctor
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
