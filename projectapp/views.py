@@ -210,7 +210,7 @@ def adminpharmacy(request):
         ID = request.POST.get('ID')
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         allmed=MedsModel.objects.all()      
-        return render(request, 'admin/pharmacy.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
+        return render(request, 'admin/pharmacygest.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
 
 def addmeds(request):
     mess=MessageModel.objects.filter(ID=1)
