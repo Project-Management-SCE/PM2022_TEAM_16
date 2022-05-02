@@ -32,7 +32,6 @@ cursor = db_connection.cursor()
 print(db_connection)
 # START PAGE WITH ANIMATION
 """
-test test test 4343 5423653
 medsnames =  ["Methylphenidate Hydrochloride",
                 "Glimepiride",
                 "Methocarbamol",
