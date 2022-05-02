@@ -6,13 +6,12 @@
 		</div>
 		<br>
 		<div class="login">
-			{% comment %} <form action="/projectapp/userdash" method="POST" id="login-form" autocomplete="off" role="main"> {% endcomment %}
-			<form action="">
+	 <form action="/projectapp/userdash" method="POST" id="login-form" autocomplete="off" role="main"> 
 				{% csrf_token %}
 				<input type="text" placeholder="username" id="Id" name="ID"><br>
 				<input type="password" placeholder="password" id="password" name="password"><br>
-				{% comment %} <button type="submit" name="but_sub" class="button" > LOGIN </button> {% endcomment %}
 				<button  id="but_sub" class="button" disabled="disabled"> LOGIN </button>
+				<button type="submit" name="but_sub" style="visibility: hidden;" class="button" > LOGIN </button>
 				<div class="error hidden">A user with this email address does not exist.</div>
 			</form>
 		</div>
@@ -38,31 +37,31 @@
 					}
 				});
 			});
-			document.querySelector('button').addEventListener('click', function() {
+			// document.querySelector('button').addEventListener('click', function() {
 	
-			   	const username = document.querySelector('#Id').value; 
-				const password = document.querySelector('#password').value;
-				const error = document.querySelector('.error');
-				//const csrftoken = getCookie('csrftoken');
+			//    	const username = document.querySelector('#Id').value; 
+			// 	const password = document.querySelector('#password').value;
+			// 	const error = document.querySelector('.error');
+			// 	//const csrftoken = getCookie('csrftoken');
 	
-				var req = new XMLHttpRequest();
-				req.overrideMimeType("application/json");
-				req.open('POST', '/api/auth/', true);
-				//req.setRequestHeader("X-CSRFToken", csrftoken);
-				//req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-				req.send(JSON.stringify({ "user": username, "password": password }));
-				req.onload  = function() {
-					if (req.status == 200) {
-						window.location.href = '/home/';
-					} else {
-						var jsonResponse = JSON.parse(req.responseText);
-						error.innerHTML = jsonResponse.error;
-						error.classList.remove('hidden');
-					}
-				};
-				req.send(null);
+			// 	var req = new XMLHttpRequest();
+			// 	req.overrideMimeType("application/json");
+			// 	req.open('POST', '/api/auth/', true);
+			// 	//req.setRequestHeader("X-CSRFToken", csrftoken);
+			// 	//req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			// 	req.send(JSON.stringify({ "user": username, "password": password }));
+			// 	req.onload  = function() {
+			// 		if (req.status == 200) {
+			// 			window.location.href = '/home/';
+			// 		} else {
+			// 			var jsonResponse = JSON.parse(req.responseText);
+			// 			error.innerHTML = jsonResponse.error;
+			// 			error.classList.remove('hidden');
+			// 		}
+			// 	};
+			// 	req.send(null);
 	
-			});
+			//});
 		</script>
 
 <style>
