@@ -372,7 +372,8 @@ def addmedicalrecord(request):
         if DoctorModel1:
             return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
 
-def addmedicalrecomandation(request): 
+def addmedicalrecomandation(request):
+    # add medical recomandation for the patient 
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
@@ -440,6 +441,7 @@ def sentmessage(request):
             return render(request, 'customers/messagesent.html', {"PatientModel": PatientModel1, "message":mess})  
 
 def patientpage(request):
+    #personal patient page for doctor
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
