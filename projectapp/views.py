@@ -373,7 +373,8 @@ def addmedicalrecord(request):
         if DoctorModel1:
             return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
 
-def addmedicalrecomandation(request): 
+def addmedicalrecomandation(request):
+    # add medical recomandation for the patient 
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')

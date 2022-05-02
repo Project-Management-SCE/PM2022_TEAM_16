@@ -295,6 +295,8 @@
                                     {% csrf_token %}
                                     <input name="DID" type="hidden" value={{doc.ID}} />
                                     <input name="PID" type="hidden" value={{pat1.ID}} />
+                                    <input name="test1" type="hidden" value={{doc.firstname}} />
+                                    <input name="test2" type="hidden" value={{pat1.lastname}} />
                                     <textarea name='message' class="form-control" aria-label="With textarea"></textarea>
                                     <button style="align-items: center;" class="btn1" type="submit">Add</button>
                                 </form>
@@ -305,8 +307,6 @@
                                     {% csrf_token %}
                                     <input name="DID" type="hidden" value={{doc.ID}} />
                                     <input name="PID" type="hidden" value={{pat1.ID}} />
-                                    <input name="test" type="hidden" value={{doc.firstname}} />
-                                    <input name="test2" type="hidden" value={{pat1.firstname}} />
 
                                     <textarea name='message' class="form-control" aria-label="With textarea"></textarea>
                                     <button style="align-items: center;" class="btn1" type="submit">Add</button>
