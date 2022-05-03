@@ -7,11 +7,11 @@ pipeline {
     agent any
     stages{
         stage('Install requirements'){
-            agent{
-                docker{
-                    docker.build registry + ":$BUILD_NUMBER"
-                }
+            
+            script{
+                docker.build registry + ":$BUILD_NUMBER"
             }
+            
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
                     sh 'python -m pip install django==2.1.15'
@@ -20,10 +20,10 @@ pipeline {
             }
         }
         stage('Compile'){
-            agent{
-                docker{
-                    docker.build registry + ":$BUILD_NUMBER"
-                }
+            script{
+                
+                docker.build registry + ":$BUILD_NUMBER"
+                
             }
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
