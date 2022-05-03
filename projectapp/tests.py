@@ -23,6 +23,9 @@ class TestUrls(unittest.TestCase):
     def test_list_url_is_resolved(self):
         url=reverse('index')
         print(resolve(url))
+    def test_list_url_is_resolved2(self):
+        url=reverse('userlogin')
+        print(resolve(url))
 
 class SeleniumTestCase(StaticLiveServerTestCase):
     
@@ -33,7 +36,6 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         options.add_argument("--start-maximized")
         #service = Service(f"{settings.BASE_DIR}/chromedriver")
         service = Service(binary_path)
-        ###
         cls.driver = webdriver.Chrome(service=service, options=options)
         cls.driver.implicitly_wait(10)
 
