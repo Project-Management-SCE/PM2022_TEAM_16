@@ -32,7 +32,6 @@ cursor = db_connection.cursor()
 print(db_connection)
 # START PAGE WITH ANIMATION
 """
-test test test 4343 5423653
 medsnames =  ["Methylphenidate Hydrochloride",
                 "Glimepiride",
                 "Methocarbamol",
@@ -211,7 +210,7 @@ def adminpharmacy(request):
         ID = request.POST.get('ID')
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         allmed=MedsModel.objects.all()      
-        return render(request, 'admin/pharmacy.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
+        return render(request, 'admin/pharmacygest.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
 
 def addmeds(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -373,7 +372,8 @@ def addmedicalrecord(request):
         if DoctorModel1:
             return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
 
-def addmedicalrecomandation(request): 
+def addmedicalrecomandation(request):
+    # add medical recomandation for the patient 
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
@@ -441,6 +441,7 @@ def sentmessage(request):
             return render(request, 'customers/messagesent.html', {"PatientModel": PatientModel1, "message":mess})  
 
 def patientpage(request):
+    #personal patient page for doctor
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')

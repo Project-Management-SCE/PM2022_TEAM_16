@@ -1,12 +1,11 @@
 {%load static %}
-{% for doc in DoctorModel%}
-{% for med in meds %}
+{% for item in AdminModel%}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Kela - personal clinic online</title>
+    <title>KELA Clinic - your private Clinic</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -119,6 +118,8 @@
             </nav>
         </div>
         <!-- Sidebar End -->
+
+
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
@@ -134,6 +135,33 @@
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <hr class="dropdown-divider">
+                            <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% for pat in PatientModel%}
+                            {% if pat.messagesent != '' %}
+                            <button type="submit" class="button1">
+                                {% csrf_token %}
+                                <input name="PID" type="hidden" value={{pat.ID}} />
+                                <input name="DIC" type="hidden" value={{item.ID}} />            
+                                <div class="d-flex align-items-center">                                
+                                    <img class="rounded-circle" src="/static/dashstatic/img/{{pat.ID}}.png" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">   
+                                        <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
+                                        <small>{{pat.sentmessage}}</small>
+                                    </div>
+                                </div>
+                            </button>
+                            {%endif%}
+                            {%endfor%}
+                            </form>
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                        </div>
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -161,8 +189,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/{{med.ID}}.jpg"  alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{doc.firstname}}</span>
+                            <img class="rounded-circle me-lg-2" src="{%static 'dashstatic/img/332531235.png' %}"  alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
@@ -176,80 +204,55 @@
 
 
             <!-- Sale & Revenue Start -->
-            
-            <!-- Sale & Revenue End -->
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4"style="text-align: center;">Testimonial</h6>
-                            <div class="owl-carousel testimonial-carousel owl-loaded owl-drag">    
-                            <div class="owl-item" style="width: 451.031px;"><div class="testimonial-item text-center">
-                                    <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/pharmacieimg/{{med.ID}}.jpg" style="width: 100px; height: 100px;">
-                                    <br>
-                                    <h3 class="display-6 text-primary" >{{med.name}}</h3>
-                                    <p class="text-black-50">{{med.description}}</p>
-                                        <div class="form-floating mb-3">
-                                            <label for="floatingSelect" _msthash="2144636" _msttexthash="327613" style="text-align: center;">Select a day</label>
-                                        </div>  
-                            </div></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Same meds</h6>
-                            
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">description</th>
-                                        <th scope="col">Goto</th>
-                                        <th scope="col">Goto</th>
-                                    </tr>
-                                </thead>
-                                {%for md2 in meds2%}
-                                <tbody>
-                                    <tr>
-                                        <td>{{md2.name}}</td>
-                                        <td>{{md2.type}}</td>
-                                        <td>{{md2.description}}</td>
-                                        <form action="/projectapp/medinfo" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            <div class="container-fluid pt-4 px-4">
+                                <div class="bg-light text-center rounded p-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h1 class="mb-1" style="text-align: center;">Meds</h1>
+                                        <form action="/projectapp/addmeds" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                             {% csrf_token %}
-                                            <input name="MID" type="hidden" value={{md2.ID}} />
-                                            <input name="DID" type="hidden" value={{doc.ID}} />
-                                        <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
+                                            <input name="ID" type="hidden" value={{item.ID}} />
+                                        <td><button type="submit" class='btn1' style="text-align:center;">add med</button></td>
                                     </form>
-                                    </tr> 
-                                    </tr>
-                                </tbody>
-                                {%endfor%}
-                            </table>
-                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                            <thead>
+                                                <tr class="text-dark">
+                
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Description</th>
+                                                    <th scope="col">Medical Use</th>
+                                                    <th scope="col">Phy. Quan</th>
+                                                    <th scope="col">Int. Quan</th>
+                                                    <th scope="col">See more</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for med in meds%}
+                                                <tr>
+                                                    <td>{{med.name}}</td>
+                                                    <td>{{med.description}}</td>
+                                                    <td>{{med.reason}}</td>
+                                                    <td>{{med.pstock}}</td>
+                                                    <td>{{med.estock}}</td>
+                                                    <form action="/projectapp/adminmedinfo" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                                        {% csrf_token %}
+                                                        <input name="MID" type="hidden" value={{med.ID}} />
+                                                        <input name="DID" type="hidden" value={{item.ID}} />
+                                                    <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
+                                                </form>
+                                                </tr> 
+                                                {%endfor%}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    </div>
                     </div>
                 </div>
-            </div>
+            <!-- Widgets End -->
 
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded h-100 p-4">
-                            <div class="border rounded p-4 pb-0 mb-4">
-                                <figure class="text-center">
-                                    <blockquote class="blockquote">
-                                        <p class="text-danger">Warning</p>
-                                    </blockquote>
-                                    {%for value,key in a_dictionary.items %}                                   
-                                    {% if value == med.name %}
-                                    {{ key }}
-                                    {% endif %}
-                                    {% endfor %}
-                                    </figcaption>
-                                </figure>
-                            </div>
-                </div>
-            </div>
-            <!-- Recent Sales End -->
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
@@ -275,6 +278,7 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -287,9 +291,8 @@
     <script src="{%static 'dashstatic/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %} "></script>
 
     <!-- Template Javascript -->
-    <script src="{%static 'dashstatic/js/main.js' %}"></script>  
+    <script src="{%static 'dashstatic/js/main.js' %}"></script>
 </body>
-{%endfor%}
 {%endfor%}
 </html>
 
@@ -319,4 +322,24 @@
   border: 2px solid #1ECD97;
   text-decoration: none;
 }
+
+.button1 {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;        
+}
+.button1:hover {
+  background-color: rgba(36, 107, 90, 0.382);
+}
+
+.button2 {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;        
+}
+
 </style>
