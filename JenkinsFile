@@ -29,7 +29,7 @@ pipeline {
 		    sh 'pip install requests'
 		    sh 'pip install selenium'
 		    sh 'pip install chromedriver_py'
-            sh 'pip install mysql==0.0.2'
+            sh 'pip install mysql'
                 }
             }
         }
