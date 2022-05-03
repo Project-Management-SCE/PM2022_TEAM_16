@@ -25,8 +25,8 @@ pipeline {
 		    sh 'python -m compileall PM2022_TEAM_16//'//manage.py'
                     sh 'pip install django_jenkins'
 		    sh 'pip install requests'
-		    sh 'pip install seleniumbase'
-		    sh 'sbase install chromedriver latest'
+		    sh 'pip install selenium'
+		    sh 'pip install chromedriver_py'
                 }
             }
         }

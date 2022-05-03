@@ -11,6 +11,7 @@ from django.conf import settings
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from django.contrib.auth.models import User
+from chromedriver_py import binary_path
 
 # from integration_tests.testing_tools import SeleniumTestCase
 import time
@@ -30,7 +31,8 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         super().setUpClass()
         options = webdriver.ChromeOptions()
         options.add_argument("--start-maximized")
-        service = Service(f"{settings.BASE_DIR}/chromedriver")
+        #service = Service(f"{settings.BASE_DIR}/chromedriver")
+        service = Service(binary_path)
         cls.driver = webdriver.Chrome(service=service, options=options)
         cls.driver.implicitly_wait(10)
 
