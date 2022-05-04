@@ -211,6 +211,7 @@
                                         <form action="/projectapp/addmeds" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                             {% csrf_token %}
                                             <input name="ID" type="hidden" value={{item.ID}} />
+                                            {% comment %} add medical {% endcomment %}
                                         <td><button type="submit" class='btn1' style="text-align:center;">add med</button></td>
                                     </form>
                                     </div>

@@ -221,6 +221,7 @@ def addmeds(request):
         return render(request, 'admin/addmeds.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
 
 def addmed(request):
+    #add new medical
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST' and request.FILES['myfile']:
         ID = request.POST.get('AID')
@@ -260,6 +261,7 @@ def adminmedinfo(request):
             return render(request, 'admin/medinfo.html', {"Adminmodel": Adminmodel1, "message":mess, 'meds':MedsModel1,'meds2':MedsModelR,"a_dictionary":a_dictionary})
 
 def medchange(request):
+    #change quantities remove med
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         ID = request.POST.get('AID')
@@ -378,7 +380,6 @@ def logout(request):
 
 def addmedicalrecomandation(request):
     #doctor send drug recomandation
-   
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
