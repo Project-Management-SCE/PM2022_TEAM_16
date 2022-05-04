@@ -293,6 +293,7 @@
                             <div class="d-flex align-items-center border-bottom py-3">
                                 <form action="/projectapp/addmedicalrecomandation" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                     {% csrf_token %}
+                                    {% comment %} add medical recomandation {% endcomment %}
                                     <input name="DID" type="hidden" value={{doc.ID}} />
                                     <input name="PID" type="hidden" value={{pat1.ID}} />
                                     <input name="test1" type="hidden" value={{doc.firstname}} />

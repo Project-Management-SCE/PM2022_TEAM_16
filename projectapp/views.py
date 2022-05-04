@@ -377,7 +377,8 @@ def logout(request):
 
 
 def addmedicalrecomandation(request):
-    # add medical recomandation for the patient 
+    #doctor send drug recomandation
+   
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
