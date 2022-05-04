@@ -372,6 +372,10 @@ def addmedicalrecord(request):
         if DoctorModel1:
             return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
 
+def logout(request):
+    return render(request, 'doctors/loginpage.html')
+
+
 def addmedicalrecomandation(request):
     # add medical recomandation for the patient 
     mess=MessageModel.objects.filter(ID=1)

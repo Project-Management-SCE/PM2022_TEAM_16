@@ -42,6 +42,7 @@ path('adminmedinfo', views.adminmedinfo, name='adminmedinfo'),
 path('medchange', views.medchange, name='medchange'),
 path('addmeds', views.addmeds, name='addmeds'),
 path('addmed', views.addmed, name='addmed'),
+path('logout', views.logout, name='logout'),
 ]
 
     # The home page
