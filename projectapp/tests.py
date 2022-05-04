@@ -20,130 +20,27 @@ import time
 class TestUrls(unittest.TestCase):
 
     def test_list_url_is_resolved(self):
-        list_url = ["index","userlogin","userdash","testcam","sentmessage",
-        "patientsending","workersdash","login","patientpage","addmedicalrecord",
-        "fichinfo","userhome","doctoranswer","doctorinfo","adminsentmess",
-        "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
-        "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
-        "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
-        "adminpharmacy","adminmedinfo","medchange","addmeds","addmed"
-        ]
+        list_url = [
+            "index","userlogin","userdash","testcam","sentmessage",
+            "patientsending","workersdash","login","patientpage","addmedicalrecord",
+            "fichinfo","userhome","doctoranswer","doctorinfo","adminsentmess",
+            "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
+            "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
+            "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
+            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed"
+            ]
         for u in list_url:
             url=reverse(u)
             print(resolve(url))
 
-
     # def test_list_url_is_resolved(self):
     #     url=reverse('index')
     #     print(resolve(url))
-    # def test_list_url_is_resolved2(self):
-    #     url=reverse('userlogin')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved3(self):
-    #     url=reverse('userdash')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved4(self):
-    #     url=reverse('testcam')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved5(self):
-    #     url=reverse('sentmessage')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved6(self):
-    #     url=reverse('patientsending')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved7(self):
-    #     url=reverse('workersdash')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved8(self):
-    #     url=reverse('login')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved9(self):
-    #     url=reverse('patientpage')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved9(self):
-    #     url=reverse('addmedicalrecord')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved10(self):
-    #     url=reverse('fichinfo')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved11(self):
-    #     url=reverse('userhome')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved11(self):
-    #     url=reverse('doctoranswer')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved12(self):
-    #     url=reverse('doctorinfo')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved13(self):
-    #     url=reverse('adminsentmess')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved14(self):
-    #     url=reverse('medinfo')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved15(self):
-    #     url=reverse('addcart')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved16(self):
-    #     url=reverse('genmessage')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved17(self):
+    
+    # def test_list_url_is_resolved_pharmacy(self):
     #     url=reverse('pharmacy')
     #     print(resolve(url))
-    # def test_list_url_is_resolved18(self):
-    #     url=reverse('allMedsdoc')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved19(self):
-    #     url=reverse('pay')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved20(self):
-    #     url=reverse('payement')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved21(self):
-    #     url=reverse('checkout')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved22(self):
-    #     url=reverse('addmedicalrecomandation')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved23(self):
-    #     url=reverse('doctordash')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved24(self):
-    #     url=reverse('addpatpage')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved25(self):
-    #     url=reverse('newcust')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved26(self):
-    #     url=reverse('rdv')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved27(self):
-    #     url=reverse('addprivaterecord')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved28(self):
-    #     url=reverse('adminanswer')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved29(self):
-    #     url=reverse('admintodoc')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved30(self):
-    #     url=reverse('adminpharmacy')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved31(self):
-    #     url=reverse('adminmedinfo')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved32(self):
-    #     url=reverse('medchange')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved33(self):
-    #     url=reverse('addmeds')
-    #     print(resolve(url))
-    # def test_list_url_is_resolved34(self):
-    #     url=reverse('addmed')
-    #     print(resolve(url))
-
-
-
+   
 class SeleniumTestCase(StaticLiveServerTestCase):
     
     @classmethod
