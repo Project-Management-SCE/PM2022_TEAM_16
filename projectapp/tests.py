@@ -27,7 +27,7 @@ class TestUrls(unittest.TestCase):
             "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
             "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
             "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
-            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed"
+            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout"
             ]
         for u in list_url:
             url=reverse(u)
@@ -47,6 +47,10 @@ class TestUrls(unittest.TestCase):
 
     # def test_list_url_is_resolved_pharmacy(self):
     #     url=reverse('addmedicalrecord')
+    #     print(resolve(url))
+
+    # def test_list_url_is_resolved_pharmacy_warnings(self):
+    #     url=reverse('pharmacy')
     #     print(resolve(url))
 
     # def test_list_url_is_resolved_pharmacy_warnings(self):
