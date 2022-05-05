@@ -260,6 +260,7 @@
                                     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
                                         <div style="align-items: center;" class="accordion-body">
                                             <span style="align-items: center;" class="input-group-text">Add record</span>
+                                            <!--Add Medical Record-->
                                             <form action="/projectapp/addmedicalrecord" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                                 {% csrf_token %}
                                                 <input name="DID" type="hidden" value={{doc.ID}} />
