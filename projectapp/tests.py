@@ -48,6 +48,10 @@ class TestUrls(unittest.TestCase):
     # def test_list_url_is_resolved_pharmacy(self):
     #     url=reverse('addmedicalrecord')
     #     print(resolve(url))
+
+    # def test_list_url_is_resolved_pharmacy_warnings(self):
+    #     url=reverse('pharmacy')
+    #     print(resolve(url))
     
    
 class SeleniumTestCase(StaticLiveServerTestCase):
