@@ -448,7 +448,7 @@ def sentmessage(request):
 
 def patientpage(request):
     #personal patient page for doctor
-    #patient model page
+    #patients model page
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         PID = request.POST.get('PID')
@@ -456,7 +456,7 @@ def patientpage(request):
         print(PID,DID)
         DoctorModel1 = DoctorModel.objects.filter(ID=DID)
         PatientModel1 = PatientModel.objects.filter(ID=PID)
-        #display data of patient
+        #display data of patients
         if DoctorModel1:
             return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
 
