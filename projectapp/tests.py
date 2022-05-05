@@ -56,6 +56,15 @@ class TestUrls(unittest.TestCase):
     # def test_list_url_is_resolved_pharmacy_warnings(self):
     #     url=reverse('pharmacy')
     #     print(resolve(url))
+
+    # def test_list_url_is_resolved_medinfo(self):
+    #     url=reverse('medinfo')
+    #     print(resolve(url))
+
+    # def test_list_url_is_resolved_allMedsdoc(self):
+    #     url=reverse('allMedsdoc')
+    #     print(resolve(url))
+
     
    
 class SeleniumTestCase(StaticLiveServerTestCase):
