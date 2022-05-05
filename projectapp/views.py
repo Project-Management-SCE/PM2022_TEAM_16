@@ -356,7 +356,7 @@ def fichinfo(request):
             DoctorModel1 = DoctorModel.objects.filter(ID=DID)
             return render(request, 'admin/ficheinfopatient.html', {"AdminModel": Adminmodel1, "PatientModel":PatientModel1,"DoctorModel":DoctorModel1, "message":mess })
 
-
+# Add Medical Record
 def addmedicalrecord(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
