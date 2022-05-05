@@ -62,6 +62,7 @@ class MessageModel(models.Model):
 
 
 class MedsModel(models.Model):
+    # med data base
     ID=models.IntegerField(db_column='ID',primary_key=True)
     name=models.TextField(db_column='name')
     description=models.TextField(db_column='description')
