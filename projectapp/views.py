@@ -261,7 +261,7 @@ def adminmedinfo(request):
             return render(request, 'admin/medinfo.html', {"Adminmodel": Adminmodel1, "message":mess, 'meds':MedsModel1,'meds2':MedsModelR,"a_dictionary":a_dictionary})
 
 def medchange(request):
-    #change quantities remove med
+    # change quantities
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         ID = request.POST.get('AID')
