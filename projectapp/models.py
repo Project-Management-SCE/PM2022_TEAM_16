@@ -16,7 +16,7 @@ class PatientModel(models.Model):
     privaterecord=models.TextField(db_column='privaterecord')
     adminmess=models.TextField(db_column='adminmess')
     adminanswer=models.TextField(db_column='adminanswer')
-    #model PatientInfo
+    #model PatientInfos
     age=models.IntegerField(db_column='age')
     poids=models.IntegerField(db_column='poids')
     taille=models.IntegerField(db_column='taille')
