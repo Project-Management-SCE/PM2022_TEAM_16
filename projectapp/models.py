@@ -76,6 +76,7 @@ class MedsModel(models.Model):
         db_table = 'meds'
 
 class cartModel(models.Model):
+     # cart data base
     CID=models.CharField(db_column='CID',max_length=9,primary_key=True)
     MIDS=models.CharField(db_column='MIDS',max_length=50)
     totalprice=models.IntegerField(db_column='totalprice')
