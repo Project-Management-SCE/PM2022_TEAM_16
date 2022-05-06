@@ -538,6 +538,7 @@ def adminsentmess(request):
 
 
 def checkout(request):
+    #checkout payeement 
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         CID = request.POST.get('CID')
