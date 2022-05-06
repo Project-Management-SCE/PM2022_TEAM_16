@@ -549,6 +549,7 @@ def checkout(request):
 
 
 def addcart(request):
+    #add cart function
     allmed=MedsModel.objects.all()
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
