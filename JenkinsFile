@@ -36,7 +36,7 @@ pipeline {
         stage('Tests'){
             agent{
                 docker{
-                    image 'robcherry/docker-chromedriver'
+                    image 'joyzoursky/python-chromedriver/'
                 }
             }
             steps{
