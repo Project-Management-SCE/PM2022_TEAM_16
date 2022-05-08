@@ -12,9 +12,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from django.contrib.auth.models import User
 from chromedriver_py import binary_path
+from django.test import Client,LiveServerTestCase
 
-# from integration_tests.testing_tools import SeleniumTestCase
-import time
+
 
 
 class TestUrls(unittest.TestCase):
@@ -65,54 +65,111 @@ class TestUrls(unittest.TestCase):
     #     url=reverse('allMedsdoc')
     #     print(resolve(url))
 
+class integration_patient_Test(LiveServerTestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+
+    def test_login(self):
+        # Get login page
+        response = self.client.get("http://127.0.0.1:8000/projectapp/userlogin")
+      
+        # Check response code
+        self.assertEquals(response.status_code, 200)
+
+        
+        # Log the user in
+        self.client.login(ID='332531235', password="Aa123456")
+
+    #     # Check response code
+        response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
+        self.assertEquals(response.status_code, 200)
+        self.client.logout()
+        # Check response code
+        response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
+        self.assertTrue(response.status_code, 404)
+
+
+
+class integration_Admin_Test(LiveServerTestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+
+    def test_login(self):
+        # Get login page
+        response = self.client.get("http://127.0.0.1:8000/projectapp/login")
+      
+        # Check response code
+        self.assertEquals(response.status_code, 200)
+
+        # Check 'Log in' in response
+        #self.assertTrue('LOGIN' response.content)
+
+        # Log the user in
+        self.client.login(ID='222333444', password="Aa123456")
+
+    #     # Check response code
+        response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
+        self.assertEquals(response.status_code, 200)
+        self.client.logout()
+        # Check response code
+        response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
+        self.assertTrue(response.status_code, 404)
+
+    #     # Check 'Log out' in response
+    #     self.assertTrue('Log out' in response.content)
+
     
    
-class SeleniumTestCase(StaticLiveServerTestCase):
+# class SeleniumTestCase(StaticLiveServerTestCase):
     
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument("--start-maximized")
-        #service = Service(f"{settings.BASE_DIR}/chromedriver")
-        service = Service(binary_path)
-        cls.driver = webdriver.Chrome(service=service, options=options)
-        cls.driver.implicitly_wait(10)
+#     @classmethod
+#     def setUpClass(cls):
+#         super().setUpClass()
+#         options = webdriver.ChromeOptions()
+#         options.add_argument("--start-maximized")
+#         #service = Service(f"{settings.BASE_DIR}/chromedriver")
+#         service = Service(binary_path)
+#         cls.driver = webdriver.Chrome(service=service, options=options)
+#         cls.driver.implicitly_wait(10)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.quit()
-        super().tearDownClass()
+#     @classmethod
+#     def tearDownClass(cls):
+#         cls.driver.quit()
+#         super().tearDownClass()
 # from django.core import reverse 
 
 
 
-class AuthenticationFormTest(SeleniumTestCase):
-    def test_authentication_form(self):
-        # Create a user to login with
-        user = User.objects.create_user(
-            username="test@user.com", password="12345"
-        )
+# class AuthenticationFormTest(SeleniumTestCase):
+#     def test_authentication_form(self):
+#         # Create a user to login with
+#         user = User.objects.create_user(
+#             username="test@user.com", password="12345"
+#         )
 
-        # Go to the login page
+#         # Go to the login page
         
-        #self.driver.get("http://8000/projectapp/userlogin")
-        self.driver.get(self.live_server_url + "/customers/loginpage/")
+#         #self.driver.get("http://8000/projectapp/userlogin")
+#         self.driver.get(self.live_server_url + "/customers/loginpage/")
 
-        # Find HTML elements
-        username_input = self.driver.find_element_by_name("ID")
-        password_input = self.driver.find_element_by_name("password")
-        login_button = self.driver.find_elements_by_name("but_sub")
+#         # Find HTML elements
+#         username_input = self.driver.find_element_by_name("ID")
+#         password_input = self.driver.find_element_by_name("password")
+#         login_button = self.driver.find_elements_by_name("but_sub")
         
-        username_input.send_keys("test@user.com")
-        password_input.send_keys("12345")
-        login_button.click()
+#         username_input.send_keys("test@user.com")
+#         password_input.send_keys("12345")
+#         login_button.click()
 
-        # Wait for request
-        time.sleep(0.5)
+#         # Wait for request
+#         time.sleep(0.5)
 
-        # Check that the user is logged in
-        self.assertEqual(self.driver.current_url, self.live_server_url + "/userdash/")
+#         # Check that the user is logged in
+#         self.assertEqual(self.driver.current_url, self.live_server_url + "/userdash/")
 
 # client = Client()
 # class MainTest(TestCase):
@@ -412,62 +469,62 @@ class newcust_test(TestCase):
         record=newcustomerModel.objects.get()
         self.assertEqual(record,item)
 
-from django.contrib.auth.models import User
-# from integration_tests.testing_tools import SeleniumTestCase
-import time
+# from django.contrib.auth.models import User
+# # from integration_tests.testing_tools import SeleniumTestCase
+# import time
 
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.conf import settings
-from selenium.webdriver.chrome.service import Service
-from selenium import webdriver
+# from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+# from django.conf import settings
+# from selenium.webdriver.chrome.service import Service
+# from selenium import webdriver
 
-class SeleniumTestCase(StaticLiveServerTestCase):
+# class SeleniumTestCase(StaticLiveServerTestCase):
 
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        options = webdriver.ChromeOptions()
-        options.add_argument("--start-maximized")
-        #service = Service(f"{settings.BASE_DIR}/chromedriver")
-        cls.driver = webdriver.Chrome(executable_path='projectapp/chromedriver.exe', options=options)
-        # cls.driver = webdriver.Remote(
-        #     f"http://localhost:4444/wd/hub", options=options
-        # )
-        cls.driver.implicitly_wait(10)
+#     @classmethod
+#     def setUpClass(cls):
+#         super().setUpClass()
+#         options = webdriver.ChromeOptions()
+#         options.add_argument("--start-maximized")
+#         #service = Service(f"{settings.BASE_DIR}/chromedriver")
+#         cls.driver = webdriver.Chrome(executable_path='projectapp/chromedriver.exe', options=options)
+#         # cls.driver = webdriver.Remote(
+#         #     f"http://localhost:4444/wd/hub", options=options
+#         # )
+#         cls.driver.implicitly_wait(10)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.driver.quit()
-        super().tearDownClass()
+#     @classmethod
+#     def tearDownClass(cls):
+#         cls.driver.quit()
+#         super().tearDownClass()
 
 
-class AuthenticationFormTest(SeleniumTestCase):
-    def test_authentication_form(self):
-        # Create a user to login with
-        user = User.objects.create_user(
-            username="332531235", password="Aa123456"
-        )
-        print("usercreated")
+# class AuthenticationFormTest(SeleniumTestCase):
+#     def test_authentication_form(self):
+#         # Create a user to login with
+#         user = User.objects.create_user(
+#             username="332531235", password="Aa123456"
+#         )
+#         print("usercreated")
 
-        # Go to the login page
-        self.driver.get("http://localhost:8000/projectapp/userlogin")
-        print("connection to website")
-        # Find HTML elements
-        username_input = self.driver.find_element_by_id("Id")
-        password_input = self.driver.find_element_by_id("password")
-        error_message = self.driver.find_element_by_css_selector(".error")
-        login_button = self.driver.find_element_by_id("but_sub")
+#         # Go to the login page
+#         self.driver.get("http://localhost:8000/projectapp/userlogin")
+#         print("connection to website")
+#         # Find HTML elements
+#         username_input = self.driver.find_element_by_id("Id")
+#         password_input = self.driver.find_element_by_id("password")
+#         error_message = self.driver.find_element_by_css_selector(".error")
+#         login_button = self.driver.find_element_by_id("but_sub")
 
-        # Type in an email that doesn't exist
-        username_input.send_keys("332531235")
+#         # Type in an email that doesn't exist
+#         username_input.send_keys("332531235")
 
-        # Ensure that the submit button is disabled
-        # Type in a password
-        password_input.send_keys("Aa123456")
-        login_button.click()
+#         # Ensure that the submit button is disabled
+#         # Type in a password
+#         password_input.send_keys("Aa123456")
+#         login_button.click()
 
-        # Wait for request
-        time.sleep(0.5)
+#         # Wait for request
+#         time.sleep(0.5)
 
-        # Check that the user is logged in
-        self.assertEqual(self.driver.current_url,"http://localhost:8000/projectapp/index")
+#         # Check that the user is logged in
+#         self.assertEqual(self.driver.current_url,"http://localhost:8000/projectapp/index")
