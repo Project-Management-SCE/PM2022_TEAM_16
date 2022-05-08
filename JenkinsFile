@@ -5,7 +5,7 @@ pipeline {
         stage('Install requirements'){
             agent{
                 docker{
-                    image 'joyzoursky/python-chromedriver'
+                    image 'robcherry/docker-chromedriver'
                 }
             }
             steps{
@@ -19,7 +19,7 @@ pipeline {
         stage('Compile'){
             agent{
                 docker{
-                    image 'joyzoursky/python-chromedriver'
+                    image 'robcherry/docker-chromedriver'
                 }
             }
             steps{
@@ -36,7 +36,7 @@ pipeline {
         stage('Tests'){
             agent{
                 docker{
-                    image 'joyzoursky/python-chromedriver'
+                    image 'robcherry/docker-chromedriver'
                 }
             }
             steps{
