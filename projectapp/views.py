@@ -261,7 +261,7 @@ def adminmedinfo(request):
             return render(request, 'admin/medinfo.html', {"Adminmodel": Adminmodel1, "message":mess, 'meds':MedsModel1,'meds2':MedsModelR,"a_dictionary":a_dictionary})
 
 def medchange(request):
-    # change quantities
+    #change quantities remove med
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         ID = request.POST.get('AID')
@@ -290,6 +290,16 @@ def addpatpage(request):
         print(Adminmodel1)
         if Adminmodel1:
             return render(request, 'admin/addpat.html', {"Adminmodel":Adminmodel1,"message":mess,'newcustomerModel':newcustomerModel1})  
+
+def adddocpage(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        print(Adminmodel1)
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall}) 
 
 def allMedsdoc(request):   
     mess=MessageModel.objects.filter(ID=1)
@@ -538,7 +548,6 @@ def adminsentmess(request):
 
 
 def checkout(request):
-    #checkout payeement 
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         CID = request.POST.get('CID')
@@ -550,7 +559,6 @@ def checkout(request):
 
 
 def addcart(request):
-    #add cart function
     allmed=MedsModel.objects.all()
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':

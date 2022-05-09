@@ -75,6 +75,11 @@
                             <input name="ID" type="hidden" value={{item.ID}} />
                             <button class="button1" type='submit'><a class="dropdown-item">Add Patient</a></button>
                         </form>  
+                        <form action="/projectapp/adddocpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'><a class="dropdown-item">Add Doctor</a></button>
+                        </form>    
                         <a href="signup.html" class="dropdown-item">Add Doctor</a>
                         <a href="404.html" class="dropdown-item">Remove Patient</a>
                         <a href="blank.html" class="dropdown-item">Remove Doctor</a>
