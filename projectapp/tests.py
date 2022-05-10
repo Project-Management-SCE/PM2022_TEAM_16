@@ -5,16 +5,16 @@ from projectapp.views import *
 from projectapp.models import Adminmodel
 import unittest
 
-from django.test import Client
+from django.test import Client,LiveServerTestCase
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.conf import settings
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from django.contrib.auth.models import User
 from chromedriver_py import binary_path
-from django.test import Client,LiveServerTestCase
 
-
+# from integration_tests.testing_tools import SeleniumTestCase
+import time
 
 
 class TestUrls(unittest.TestCase):
@@ -27,11 +27,16 @@ class TestUrls(unittest.TestCase):
             "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
             "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
             "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
-            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout"
+            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout","adddocpage","deletedoc"
             ]
         for u in list_url:
             url=reverse(u)
             print(resolve(url))
+
+
+
+
+
 
     # def test_list_url_is_resolved(self):
     #     url=reverse('index')
@@ -64,6 +69,8 @@ class TestUrls(unittest.TestCase):
     # def test_list_url_is_resolved_allMedsdoc(self):
     #     url=reverse('allMedsdoc')
     #     print(resolve(url))
+
+
 
 class integration_patient_Test(LiveServerTestCase):
 
@@ -123,6 +130,17 @@ class integration_Admin_Test(LiveServerTestCase):
     #     self.assertTrue('Log out' in response.content)
 
     
+
+class test_admin(TestCase):
+    def test_admin1(self):
+        item=Adminmodel()
+        item.id='222333444'
+        item.password='Aa123456'
+        
+        record=Adminmodel.objects.get()
+        self.assertEqual(record,item)
+
+    
    
 # class SeleniumTestCase(StaticLiveServerTestCase):
     
@@ -140,7 +158,7 @@ class integration_Admin_Test(LiveServerTestCase):
 #     def tearDownClass(cls):
 #         cls.driver.quit()
 #         super().tearDownClass()
-# from django.core import reverse 
+# # from django.core import reverse 
 
 
 
