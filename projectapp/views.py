@@ -301,6 +301,42 @@ def adddocpage(request):
             DoctorModelall= DoctorModel.objects.all()
             return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall}) 
 
+def adddoctor(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        AID = request.POST.get('AID')
+        ID = request.POST.get('ID')
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        speciality = request.POST.get('spec')
+        password='Aa123456'
+        saveobj=DoctorModel()
+        saveobj.ID=ID
+        saveobj.firstname=firstname
+        saveobj.lastname=lastname
+        saveobj.speciality=speciality
+        saveobj.password=password
+        saveobj.workdays=None
+        saveobj.adminmess=None
+        saveobj.adminanswer=None
+        saveobj.save()
+        Adminmodel1 = Adminmodel.objects.filter(ID=AID)
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall}) 
+
+def deletedoc(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        DID = request.POST.get('DID')
+        ID = request.POST.get('ID')    
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        cursor.execute("DELETE FROM `doctor` WHERE `doctor`.`ID` = '%s';"%(DID))
+        db_connection.commit()
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall}) 
+
 def allMedsdoc(request):   
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':

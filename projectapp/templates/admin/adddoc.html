@@ -166,16 +166,10 @@
             <!-- Navbar End -->
 
             
-            <div class="container-xxl position-relative bg-white d-flex p-0">
-                <!-- Spinner Start -->
-                <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
                 <!-- Spinner End -->
                 <!-- Sign Up Start -->
-                <div class="container-fluid">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light text-center rounded p-4">
                     <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                         <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                             <div class="bg-light rounded p-4 p-sm-5 my-4 mx-30" style="padding-top: 0px;width: 446px;" >
@@ -187,20 +181,21 @@
                                 </div>
                                 <form action="/projectapp/adddoctor" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                     {% csrf_token %}
+                                    <input name="AID" type="hidden" value={{item.ID}} />
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="floatingText" placeholder="ID" name="ID">
                                     <label for="floatingText">ID</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingText" placeholder="ID" name="firstname">
+                                    <input type="text" class="form-control" id="floatingText" placeholder="firstname" name="firstname">
                                     <label for="floatingText">Firstname</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingText" placeholder="ID" name="lastname">
+                                    <input type="text" class="form-control" id="floatingText" placeholder="lastname" name="lastname">
                                     <label for="floatingText">Lastname</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingText" placeholder="ID" name="spec">
+                                    <input type="text" class="form-control" id="floatingText" placeholder="spec" name="spec">
                                     <label for="floatingText">Speciality</label>
                                 </div>
                                 <div>
@@ -212,7 +207,7 @@
                             </div>
                         </form>
                         </div>
-                    </div>
+                    </div></div>
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -238,7 +233,7 @@
                                         <td>{{pat.lastname}}</td>
                                         <form action="/projectapp/deletedoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                             {% csrf_token %}
-                                            <input name="FID" type="hidden" value={{pat.ID}} />
+                                            <input name="DID" type="hidden" value={{pat.ID}} />
                                             <input name="ID" type="hidden" value={{item.ID}} />
                                         <td><button type="submit" class='btn1' style="text-align:center;">delete</button></td>
                                     </tr> 
@@ -271,7 +266,6 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
