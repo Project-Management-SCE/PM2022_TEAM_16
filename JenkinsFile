@@ -44,6 +44,11 @@ pipeline {
                     sh 'python manage.py test --keepdb'
                 }
             }
+	    post {
+	       always {
+	         junit 'build/reports/**/*.xml
+		}
+	    }
          }
     }
 }
