@@ -1,7 +1,7 @@
 FROM python:3.7
 WORKDIR /PM2022_TEAM_16
 ADD . /PM2022_TEAM_16
-RUN pip install --upgrade pip
+#RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install django==2.1.15
 RUN pip install django_jenkins
