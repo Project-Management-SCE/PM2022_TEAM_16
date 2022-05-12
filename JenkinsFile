@@ -48,7 +48,9 @@ pipeline {
         }
         stage('Deploy'){
             agent{
-                args '-u root'
+                any{
+                    args '-u root'
+                }
             }
             steps{
                 withEnv(["HOME=${env.WORKSPACE}"]){
