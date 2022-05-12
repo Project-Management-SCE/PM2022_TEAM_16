@@ -44,11 +44,25 @@ pipeline {
                     sh 'python manage.py test --keepdb'
                 }
             }
-	    post {
-	       always {
-	         junit 'build/reports/**/*.xml
-		}
-	    }
-         }
+	    
+        }
+        stage('Deploy'){
+            agent{
+                docker{
+                    image 'joyzoursky/python-chromedriver'
+                }
+            }
+            steps{
+                withEnv(["HOME=${env.WORKSPACE}"]){
+                    sh '''
+                        curl https://cli-assets.heroku.com/install.sh | sh;
+                        heroku container:login
+                        heroku container:push web --app kela-clinic
+                        heroku container:release web --app kela-clinic
+                    '''
+                }
+            }
+	    
+        }
     }
 }
