@@ -50,6 +50,7 @@ pipeline {
             agent{
                 docker{
                     image 'joyzoursky/python-chromedriver'
+                    args '-u root'
                 }
             }
             steps{
