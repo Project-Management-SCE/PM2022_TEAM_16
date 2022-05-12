@@ -45,6 +45,7 @@ path('addmed', views.addmed, name='addmed'),
 path('logout', views.logout, name='logout'),
 path('adddocpage', views.adddocpage, name='adddocpage'),
 path('deletedoc', views.deletedoc, name='deletedoc'),
+path("admintodocworkday",views.admintodocworkday,name="admintodocworkday"),
 ]
 
     # The home page
