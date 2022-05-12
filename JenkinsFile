@@ -49,7 +49,7 @@ pipeline {
         stage('Deploy'){
             agent{
                 docker{
-                    image 'joyzoursky/python-chromedriver'
+                    image 'cimg/base:stable'
                     args '-u root'
                 }
             }
