@@ -49,8 +49,13 @@ pipeline {
         stage('Deploy'){
             agent{
                 docker{
+<<<<<<< HEAD
                     image 'joyzoursky/python-chromedriver'
                     args '-u root'
+=======
+                    image 'cimg/base:stable'
+                    -args '-u root'
+>>>>>>> hackathon
                 }
             }
             steps{
