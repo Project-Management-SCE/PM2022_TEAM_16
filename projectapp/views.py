@@ -634,6 +634,25 @@ def addcart(request):
             CommandeenCour2 = cartModel.objects.filter(CID=CID)
             return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"a_dictionary":a_dictionary,"CommandeenCour":CommandeenCour2})
 
+def admintodocworkday(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        DID = request.POST.get('DID')
+        ID = request.POST.get('ID')
+        Monday = request.POST.get('Monday')
+        Thuesday = request.POST.get('Thuesday') 
+        Wednesday = request.POST.get('Wednesday') 
+        Thurday = request.POST.get('Thurday')    
+        Friday = request.POST.get('Friday') 
+        Sunday = request.POST.get('Sunday') 
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        workdays=Monday+Thuesday+Wednesday+Thurday+Friday+Sunday
+        cursor.execute("UPDATE `doctors` SET `workday` = '%s' WHERE `doctors`.`ID` = '%s';"%(workdays,DID))
+        db_connection.commit()
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall})
+
 def pay(request):
     allmed=MedsModel.objects.all()
     mess=MessageModel.objects.filter(ID=1)

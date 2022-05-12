@@ -5,16 +5,16 @@ from projectapp.views import *
 from projectapp.models import Adminmodel
 import unittest
 
-from django.test import Client,LiveServerTestCase
+from django.test import Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.conf import settings
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from django.contrib.auth.models import User
 from chromedriver_py import binary_path
+from django.test import Client,LiveServerTestCase
 
-# from integration_tests.testing_tools import SeleniumTestCase
-import time
+
 
 
 class TestUrls(unittest.TestCase):
@@ -27,16 +27,11 @@ class TestUrls(unittest.TestCase):
             "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
             "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
             "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
-            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout","adddocpage","deletedoc"
+            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout"
             ]
         for u in list_url:
             url=reverse(u)
             print(resolve(url))
-
-
-
-
-
 
     # def test_list_url_is_resolved(self):
     #     url=reverse('index')
@@ -70,75 +65,94 @@ class TestUrls(unittest.TestCase):
     #     url=reverse('allMedsdoc')
     #     print(resolve(url))
 
+class test_exist_med(unittest.TestCase):
+
+    def test_exist(self):
+        db_connection = mysql.connector.connect(
+        host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
+        user="Admin",
+        password="Aa123456",
+        database="projectapp")
+        cursor = db_connection.cursor()
+        cursor.execute("SELECT name FROM meds")
+        result = cursor.fetchall()
+        medsnames =  ["Methylphenidate Hydrochloride",
+                "Glimepiride",
+                "Methocarbamol",
+                "Acetaminophen",
+                "Oasis TEARS PLUS",
+                "Selenium",
+                "Calcium Acetate",
+                "entresto",
+                "Etodolac",
+                "Ciclosporin",
+                "Lithium Bromatum",
+                "Flovent Diskus",
+                "Methyldopa",
+                "Tazorac",
+                "Linezolid",
+                "Losartan",
+                "ciprofloxacin",
+                ]   
+        for x in range(len(medsnames)):
+            self.assertEqual(medsnames[x],result[x][0])
+        cursor.close()
+# class integration_patient_Test(LiveServerTestCase):
+
+#     def setUp(self):
+#         self.client = Client()
 
 
-class integration_patient_Test(LiveServerTestCase):
-
-    def setUp(self):
-        self.client = Client()
-
-
-    def test_login(self):
-        # Get login page
-        response = self.client.get("http://127.0.0.1:8000/projectapp/userlogin")
+#     def test_login(self):
+#         # Get login page
+#         response = self.client.get("http://127.0.0.1:8000/projectapp/userlogin")
       
-        # Check response code
-        self.assertEquals(response.status_code, 200)
+#         # Check response code
+#         self.assertEquals(response.status_code, 200)
 
         
-        # Log the user in
-        self.client.login(ID='332531235', password="Aa123456")
+#         # Log the user in
+#         self.client.login(ID='332531235', password="Aa123456")
 
-    #     # Check response code
-        response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
-        self.assertEquals(response.status_code, 200)
-        self.client.logout()
-        # Check response code
-        response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
-        self.assertTrue(response.status_code, 404)
-
-
-
-class integration_Admin_Test(LiveServerTestCase):
-
-    def setUp(self):
-        self.client = Client()
+#     #     # Check response code
+#         response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
+#         self.assertEquals(response.status_code, 200)
+#         self.client.logout()
+#         # Check response code
+#         response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
+#         self.assertTrue(response.status_code, 404)
 
 
-    def test_login(self):
-        # Get login page
-        response = self.client.get("http://127.0.0.1:8000/projectapp/login")
+
+# class integration_Admin_Test(LiveServerTestCase):
+
+#     def setUp(self):
+#         self.client = Client()
+
+
+#     def test_login(self):
+#         # Get login page
+#         response = self.client.get("http://127.0.0.1:8000/projectapp/login")
       
-        # Check response code
-        self.assertEquals(response.status_code, 200)
+#         # Check response code
+#         self.assertEquals(response.status_code, 200)
 
-        # Check 'Log in' in response
-        #self.assertTrue('LOGIN' response.content)
+#         # Check 'Log in' in response
+#         #self.assertTrue('LOGIN' response.content)
 
-        # Log the user in
-        self.client.login(ID='222333444', password="Aa123456")
+#         # Log the user in
+#         self.client.login(ID='222333444', password="Aa123456")
 
-    #     # Check response code
-        response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
-        self.assertEquals(response.status_code, 200)
-        self.client.logout()
-        # Check response code
-        response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
-        self.assertTrue(response.status_code, 404)
+#     #     # Check response code
+#         response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
+#         self.assertEquals(response.status_code, 200)
+#         self.client.logout()
+#         # Check response code
+#         response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
+#         self.assertTrue(response.status_code, 404)
 
-    #     # Check 'Log out' in response
-    #     self.assertTrue('Log out' in response.content)
-
-    
-
-class test_admin(TestCase):
-    def test_admin1(self):
-        item=Adminmodel()
-        item.id='222333444'
-        item.password='Aa123456'
-        
-        record=Adminmodel.objects.get()
-        self.assertEqual(record,item)
+#     #     # Check 'Log out' in response
+#     #     self.assertTrue('Log out' in response.content)
 
     
    
@@ -158,7 +172,7 @@ class test_admin(TestCase):
 #     def tearDownClass(cls):
 #         cls.driver.quit()
 #         super().tearDownClass()
-# # from django.core import reverse 
+# from django.core import reverse 
 
 
 
