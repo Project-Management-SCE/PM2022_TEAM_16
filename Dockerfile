@@ -10,5 +10,5 @@ RUN	pip install selenium
 RUN	pip install chromedriver_py
 RUN pip install mysql
 EXPOSE 8000
-CMD ["python", "manage.py","runserver","0.0.0.0:8000"]
+CMD ["python", "manage.py","runserver","0.0.0.0:$PORT"]
 
