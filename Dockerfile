@@ -10,5 +10,4 @@ RUN	pip install selenium
 RUN	pip install chromedriver_py
 RUN pip install mysql
 EXPOSE $PORT
-CMD gunicorn --bind 0.0.0.0:$PORT wsgi
 
