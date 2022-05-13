@@ -16,8 +16,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from projectapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('projectapp.urls')),
+    path('projectapp/', include('projectapp.urls')),
 ]

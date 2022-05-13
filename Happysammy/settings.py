@@ -22,7 +22,7 @@ SECRET_KEY = 'x%$@zx-dj08*(3imd+4p^td5b)dewq07l+3$*#(j37^(drpt3h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kela-clinic.herokuapp.com']
+ALLOWED_HOSTS = ['kela-clinic.herokuapp.com','localhost']
 
 
 # Application definition
