@@ -9,6 +9,5 @@ RUN	pip install requests
 RUN	pip install selenium
 RUN	pip install chromedriver_py
 RUN pip install mysql
-ENV PORT=${PORT}
-CMD ["python","manage.py","runserver","0.0.0.0:PORT"]
+ENTRYPOINT [ "entrypoint.sh" ]
 
