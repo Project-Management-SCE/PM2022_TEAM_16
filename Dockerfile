@@ -1,12 +1,17 @@
 FROM python:3.7
-WORKDIR /PM2022_TEAM_16
-ADD . /PM2022_TEAM_16
-RUN python -m pip install --upgrade pip
-RUN pip install -r requirements.txt
-RUN pip install django==2.1.15
-RUN pip install django_jenkins
-RUN	pip install requests
-RUN	pip install selenium
-RUN	pip install chromedriver_py
-RUN pip install mysql
-ENTRYPOINT [ "entrypoint.sh" ]
+
+WORKDIR /app
+ADD requirements.txt /app
+
+RUN python -m pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install django==2.1.15 && \
+    pip install django_jenkins && \ 
+    pip install requests && \
+    pip install selenium && \
+    pip install chromedriver_py && \
+    pip install mysql
+
+ADD . /app
+
+ENTRYPOINT ["sh","/app/entrypoint.sh"]
