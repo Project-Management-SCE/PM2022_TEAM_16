@@ -12,7 +12,9 @@ RUN python -m pip install --upgrade pip && \
     pip install requests && \
     pip install selenium && \
     pip install chromedriver_py && \
-    pip install mysql
+    pip install mysql && \
+    pip install opencv-contrib-python && \
+    pip install numpy
 
 ADD . /app
 
