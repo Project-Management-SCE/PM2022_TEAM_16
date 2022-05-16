@@ -21,7 +21,7 @@ class TestUrls(unittest.TestCase):
 
     def test_list_url_is_resolved(self):
         list_url = [
-            "index","userlogin","userdash","testcam","sentmessage",
+            "userlogin","userdash","testcam","sentmessage",
             "patientsending","workersdash","login","patientpage","addmedicalrecord",
             "fichinfo","userhome","doctoranswer","doctorinfo","adminsentmess",
             "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
