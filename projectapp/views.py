@@ -116,9 +116,11 @@ def userdash(request):
         dictOfWords = { i : 10 for i in x }
         meds = PatientModeltest.medrecom.split(",")
         dictOfWords1 = { i : 10 for i in meds }
+        hours=['10:00','10:30','11:00','11:30','12:00','12:30','13:00']
+        dichours = { i : 10 for i in hours }
         print(dictOfWords) 
         if PatientModel1:
-            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':dictOfWords,'medslist':dictOfWords1})  
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':dictOfWords,'medslist':dictOfWords1,"dichours":dichours})  
         else:
             return render(request, 'customers/loginpage.html')
     else:
@@ -138,15 +140,18 @@ def userdashbutton(request):
         workday = { i : 10 for i in x }
         meds = PatientModeltest.medrecom.split(",")
         dictOfWords1 = { i : 10 for i in meds }
+        hours=['10:00','10:30','11:00','11:30','12:00','12:30','13:00']
+        dichours = { i : 10 for i in hours }
         print(workday) 
         if PatientModel1:
-            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':workday,'medslist':dictOfWords1})  
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':workday,'medslist':dictOfWords1,"dichours":dichours})  
 
 def rdv(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
         ID = request.POST.get('CID')
         day=request.POST.get('Cday')
+        hour=request.POST.get('hour')
         print(ID,day)
         PatientModel1 = PatientModel.objects.filter(ID=ID)
         PatientModeltest = PatientModel.objects.filter(ID=ID).first()
@@ -159,11 +164,14 @@ def rdv(request):
         dictOfWords = { i : 10 for i in x }
         meds = PatientModeltest.medrecom.split(",")
         dictOfWords1 = { i : 10 for i in meds }
-        cursor.execute("UPDATE `user` SET `appointement` = '%s' WHERE `user`.`ID` = '%s';"%(day,ID))
+        hours=['10:00','10:30','11:00','11:30','12:00','12:30','13:00']
+        dichours = { i : 10 for i in hours }
+        app=day+" "+hour
+        cursor.execute("UPDATE `user` SET `appointement` = '%s' WHERE `user`.`ID` = '%s';"%(app,ID))
         db_connection.commit()
         print(dictOfWords) 
         if PatientModel1:
-            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':dictOfWords,'medslist':dictOfWords1}) 
+            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':dictOfWords,'medslist':dictOfWords1,'dichours':dichours}) 
 
 def doctorinfo(request):
     mess=MessageModel.objects.filter(ID=1)
