@@ -342,6 +342,30 @@
                     </div>
                 </div>
             </div>
+            </form>
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded h-100 p-4">
+                    <form action="/projectapp/changepatientdoctor" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                    {% csrf_token %}
+                    <h1 class="mb-4" style="text-align: center;">Sent to doctor</h1>
+                    <input name="DID" type="hidden" value={{doc.ID}}>
+                    <input name="PID" type="hidden" value={{pat1.ID}}>
+                    <div class="form-floating">
+                        <select name='docpassid' value="{{ad.ID}}" class="form-select mb-3" aria-label="Default select example" style="text-align:center;">
+                            {%for ad in alldoc%}
+                                {% if doc.firstname  != ad.firstname %}
+                                <option> Dr {{ad.firstname}} {{ad.lastname}}</option>
+                                {%endif%}
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-floating mb-3" style="text-align:center;">
+                        <br>
+                        <button type="submit" class='btn1' style="text-align:center;">Submit</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
             <!-- Recent Sales End -->
 
             <!-- Footer Start -->
