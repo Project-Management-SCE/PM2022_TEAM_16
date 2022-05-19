@@ -317,11 +317,7 @@ class patient_test(TestCase):
         item.phone='0521234567'
         item.medrecom='get away of bees'
         item.appointement='tuesday'
-<<<<<<< HEAD
         item.autorizations='no'
-=======
-        #item.autorizations='no'
->>>>>>> 741508a0fcc63cf32db98f826c7fc36edc5421ec
         item.save()
         record=PatientModel.objects.get()
         self.assertEqual(record,item)
@@ -347,11 +343,7 @@ class patient_test(TestCase):
         item.phone='0521234567'
         item.medrecom='get away of bees'
         item.appointement='tuesday'
-<<<<<<< HEAD
         item.autorizations='no'
-=======
-        #item.autorizations='no'
->>>>>>> 741508a0fcc63cf32db98f826c7fc36edc5421ec
         item.save()
         record=PatientModel.objects.get()
         self.assertEqual(record,item)
@@ -377,11 +369,7 @@ class patient_test(TestCase):
         item.phone='0521234567'
         item.medrecom='get away of bees'
         item.appointement='tuesday'
-<<<<<<< HEAD
         item.autorizations='no'
-=======
-        #item.autorizations='no'
->>>>>>> 741508a0fcc63cf32db98f826c7fc36edc5421ec
         item.save()
         record=PatientModel.objects.get()
         self.assertEqual(record,item)
