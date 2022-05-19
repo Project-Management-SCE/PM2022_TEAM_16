@@ -472,7 +472,7 @@ def autorization(request):
         AID = request.POST.get('AID')
         PID = request.POST.get('PID')
         message = request.POST.get('autor')
-        cursor.execute("UPDATE `user` SET `autorization` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
+        cursor.execute("UPDATE `user` SET `autorizations` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
         db_connection.commit()
         Adminmodel1 = Adminmodel.objects.filter(ID=AID)
         PatientModel1 = PatientModel.objects.filter(ID=PID)
