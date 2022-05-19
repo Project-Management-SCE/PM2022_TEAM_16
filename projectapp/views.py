@@ -634,7 +634,7 @@ def addcart(request):
         CommandeenCour1 = cartModel.objects.filter(CID=CID).first()
         Medic = MedsModel.objects.filter(ID=MID).first()
         if Medic.type=='narcoleptics':
-            if PatientModeltest.autorization=='no':
+            if PatientModeltest.autorizations=='no':
                     face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
                     recognizer = cv2.face.LBPHFaceRecognizer_create() 
                     recognizer.read("C:\\Users\\kevyn\\Happysammy\\projectapp\\trainner.yml")
