@@ -25,7 +25,7 @@ class PatientModel(models.Model):
     phone=models.CharField(db_column='phone',max_length=10)
     medrecom=models.TextField(db_column='medrecom')
     appointement=models.TextField(db_column='appointement')
-    autorization=models.TextField(db_column='autorizations')
+    autorizations=models.TextField(db_column='autorizations')
     class Meta:
         managed = True
         db_table = 'user'
