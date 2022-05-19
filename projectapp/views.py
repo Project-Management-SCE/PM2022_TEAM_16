@@ -465,6 +465,22 @@ def adminanswer(request):
         DID=PatientModel2.DID
         DoctorModel1 = DoctorModel.objects.filter(ID=DID)
         return render(request, 'admin/ficheinfopatient.html', {"AdminModel": Adminmodel1, "PatientModel":PatientModel1,"DoctorModel":DoctorModel1, "message":mess })
+
+def autorization(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        AID = request.POST.get('AID')
+        PID = request.POST.get('PID')
+        message = request.POST.get('autor')
+        cursor.execute("UPDATE `user` SET `autorization` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
+        db_connection.commit()
+        Adminmodel1 = Adminmodel.objects.filter(ID=AID)
+        PatientModel1 = PatientModel.objects.filter(ID=PID)
+        PatientModel2 = PatientModel.objects.filter(ID=PID).first()
+        DID=PatientModel2.DID
+        DoctorModel1 = DoctorModel.objects.filter(ID=DID)
+        return render(request, 'admin/ficheinfopatient.html', {"AdminModel": Adminmodel1, "PatientModel":PatientModel1,"DoctorModel":DoctorModel1, "message":mess })
+
 def admintodoc(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -618,72 +634,73 @@ def addcart(request):
         CommandeenCour1 = cartModel.objects.filter(CID=CID).first()
         Medic = MedsModel.objects.filter(ID=MID).first()
         if Medic.type=='narcoleptics':
-            face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
-            recognizer = cv2.face.LBPHFaceRecognizer_create() 
-            recognizer.read("C:\\Users\\kevyn\\Happysammy\\projectapp\\trainner.yml")
-            labels = {}
-            with open("C:\\Users\\kevyn\\Happysammy\\projectapp\\labels.pickle", "rb") as f :
-                og_labels = pickle.load(f)
-                labels = {v:k for k,v in og_labels.items()}
-            cap = cv2.VideoCapture(0)
-            while(True):
-                ret,frame= cap.read()
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
-                faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5,minNeighbors=5)
-                for(x,y,w,h) in faces:
-                    #print(x,y,w,h)
-                    roi_gray= gray[y:y+h ,x:x+w]
-                    roi_color = frame[y:y+h ,x:x+w]
-                    id_,conf = recognizer.predict(roi_gray)
-                    if conf >= 45 or conf < 85 :
-                        #print(id_)
-                        #print(labels[id_])
-                        font = cv2.FONT_HERSHEY_SIMPLEX
-                        name = labels[id_]
-                        color = (255,255,255)
-                        stroke= 2
-                    cv2.putText(frame,name,(x+1,y+1),font,2,color, stroke, cv2.LINE_AA)
-                    # use recognize
-                    color = (250,0,0)
-                    stroke=5
-                    end_cord_x = x+w
-                    end_cord_y = y + h 
-                    cv2.rectangle(frame, (x,y),(end_cord_x,end_cord_y), color,stroke) #dessign le rectagle  
-                    cv2.imshow('Autentificator 2000!',frame) 
-                    if pname==name or cv2.waitKey(20) & 0xFF == ord('q'):
-                        cv2.imshow('Autentificator 2000!',frame)
-                        prixmed=Medic.price
-                        if CommandeenCour:          
-                            listmedoc=CommandeenCour1.MIDS+','+MID
-                            prixajouter=CommandeenCour1.totalprice+prixmed
-                            names=CommandeenCour1.name+','+NAME
-                            cursor.execute("UPDATE `customercart` SET `totalprice` = '%s' WHERE `customercart`.`CID` = '%s';"%(prixajouter,CID))
-                            db_connection.commit()
-                            cursor.execute("UPDATE `customercart` SET `MIDS` = '%s' WHERE `customercart`.`CID` = '%s';"%(listmedoc,CID))
-                            db_connection.commit()
-                            cursor.execute("UPDATE `customercart` SET `name` = '%s' WHERE `customercart`.`CID` = '%s';"%(names,CID))
-                            db_connection.commit()
-                            x = names.split(",")
-                            dictOfWords = { i : 10 for i in x }
-                            meds = PatientModeltest.medrecom.split(",")
-                            dictOfWords1 = { i : 10 for i in meds }
-                            print(dictOfWords1)                    
-                            cap.release()
-                            cv2.destroyAllWindows()
-                            return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"a_dictionary":a_dictionary,"CommandeenCour":dictOfWords,"medslist":dictOfWords1})
-                        else:
-                            saveobject=cartModel()
-                            print(NAME)
-                            saveobject.CID=CID
-                            saveobject.MIDS=MID
-                            saveobject.totalprice=prixmed
-                            saveobject.name=NAME
-                            saveobject.save()
-                            CommandeenCour2 = cartModel.objects.filter(CID=CID)
-                                                
-                            cap.release()
-                            cv2.destroyAllWindows()
-                            return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"a_dictionary":a_dictionary,"CommandeenCour":CommandeenCour2})
+            if PatientModeltest.autorization=='no':
+                    face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
+                    recognizer = cv2.face.LBPHFaceRecognizer_create() 
+                    recognizer.read("C:\\Users\\kevyn\\Happysammy\\projectapp\\trainner.yml")
+                    labels = {}
+                    with open("C:\\Users\\kevyn\\Happysammy\\projectapp\\labels.pickle", "rb") as f :
+                        og_labels = pickle.load(f)
+                        labels = {v:k for k,v in og_labels.items()}
+                    cap = cv2.VideoCapture(0)
+                    while(True):
+                        ret,frame= cap.read()
+                        gray = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
+                        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5,minNeighbors=5)
+                        for(x,y,w,h) in faces:
+                            #print(x,y,w,h)
+                            roi_gray= gray[y:y+h ,x:x+w]
+                            roi_color = frame[y:y+h ,x:x+w]
+                            id_,conf = recognizer.predict(roi_gray)
+                            if conf >= 45 or conf < 85 :
+                                #print(id_)
+                                #print(labels[id_])
+                                font = cv2.FONT_HERSHEY_SIMPLEX
+                                name = labels[id_]
+                                color = (255,255,255)
+                                stroke= 2
+                            cv2.putText(frame,name,(x+1,y+1),font,2,color, stroke, cv2.LINE_AA)
+                            # use recognize
+                            color = (250,0,0)
+                            stroke=5
+                            end_cord_x = x+w
+                            end_cord_y = y + h 
+                            cv2.rectangle(frame, (x,y),(end_cord_x,end_cord_y), color,stroke) #dessign le rectagle  
+                            cv2.imshow('Autentificator 2000!',frame) 
+                            if pname==name or cv2.waitKey(20) & 0xFF == ord('q'):
+                                cv2.imshow('Autentificator 2000!',frame)
+                                prixmed=Medic.price
+                                if CommandeenCour:          
+                                    listmedoc=CommandeenCour1.MIDS+','+MID
+                                    prixajouter=CommandeenCour1.totalprice+prixmed
+                                    names=CommandeenCour1.name+','+NAME
+                                    cursor.execute("UPDATE `customercart` SET `totalprice` = '%s' WHERE `customercart`.`CID` = '%s';"%(prixajouter,CID))
+                                    db_connection.commit()
+                                    cursor.execute("UPDATE `customercart` SET `MIDS` = '%s' WHERE `customercart`.`CID` = '%s';"%(listmedoc,CID))
+                                    db_connection.commit()
+                                    cursor.execute("UPDATE `customercart` SET `name` = '%s' WHERE `customercart`.`CID` = '%s';"%(names,CID))
+                                    db_connection.commit()
+                                    x = names.split(",")
+                                    dictOfWords = { i : 10 for i in x }
+                                    meds = PatientModeltest.medrecom.split(",")
+                                    dictOfWords1 = { i : 10 for i in meds }
+                                    print(dictOfWords1)                    
+                                    cap.release()
+                                    cv2.destroyAllWindows()
+                                    return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"a_dictionary":a_dictionary,"CommandeenCour":dictOfWords,"medslist":dictOfWords1})
+                                else:
+                                    saveobject=cartModel()
+                                    print(NAME)
+                                    saveobject.CID=CID
+                                    saveobject.MIDS=MID
+                                    saveobject.totalprice=prixmed
+                                    saveobject.name=NAME
+                                    saveobject.save()
+                                    CommandeenCour2 = cartModel.objects.filter(CID=CID)
+                                                        
+                                    cap.release()
+                                    cv2.destroyAllWindows()
+                                    return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"a_dictionary":a_dictionary,"CommandeenCour":CommandeenCour2})
         prixmed=Medic.price
         if CommandeenCour:          
           listmedoc=CommandeenCour1.MIDS+','+MID

@@ -27,7 +27,7 @@ class TestUrls(unittest.TestCase):
             "medinfo","addcart","genmessage","pharmacy","allMedsdoc","pay",
             "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
             "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
-            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout"
+            "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout", "autorization"
             ]
         for u in list_url:
             url=reverse(u)
