@@ -101,30 +101,32 @@ def login(request):
 
 def userdash(request):
     mess=MessageModel.objects.filter(ID=1)
-    if request.method == 'POST':
-        ID = request.POST.get('ID')
-        password = request.POST.get('password')
-        print(ID,password)
-        PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
-        PatientModeltest = PatientModel.objects.filter(ID=ID, password=password).first()
-        DID=PatientModeltest.DID
-        DoctorModel3 = DoctorModel.objects.filter(ID=DID).first()
-        print(DoctorModel3)
-        workday2=DoctorModel3.workdays
-        print(workday2)
-        x = workday2.split(",")
-        dictOfWords = { i : 10 for i in x }
-        meds = PatientModeltest.medrecom.split(",")
-        dictOfWords1 = { i : 10 for i in meds }
-        hours=['10:00','10:30','11:00','11:30','12:00','12:30','13:00']
-        dichours = { i : 10 for i in hours }
-        print(dictOfWords) 
-        if PatientModel1:
-            return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':dictOfWords,'medslist':dictOfWords1,"dichours":dichours})  
-        else:
-            return render(request, 'customers/loginpage.html')
-    else:
+    try:        
+        if request.method == 'POST':
+                ID = request.POST.get('ID')
+                password = request.POST.get('password')
+                print(ID,password)
+                PatientModel1 = PatientModel.objects.filter(ID=ID, password=password)
+                PatientModeltest = PatientModel.objects.filter(ID=ID, password=password).first()
+                DID=PatientModeltest.DID
+                DoctorModel3 = DoctorModel.objects.filter(ID=DID).first()
+                print(DoctorModel3)
+                workday2=DoctorModel3.workdays
+                print(workday2)
+                x = workday2.split(",")
+                dictOfWords = { i : 10 for i in x }
+                meds = PatientModeltest.medrecom.split(",")
+                dictOfWords1 = { i : 10 for i in meds }
+                hours=['10:00','10:30','11:00','11:30','12:00','12:30','13:00']
+                dichours = { i : 10 for i in hours }
+                print(dictOfWords) 
+                if PatientModel1:
+                    return render(request, 'customers/dash.html', {"PatientModel": PatientModel1, "message":mess,'dictOfWords':dictOfWords,'medslist':dictOfWords1,"dichours":dichours})  
+                else:
+                    return render(request, 'customers/loginpage.html')
+    except:
         return render(request, 'customers/loginpage.html')
+
 def userdashbutton(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -426,9 +428,10 @@ def addmedicalrecord(request):
         medrecord=messages+" "+mes+" "
         PatientModel2 = PatientModel.objects.filter(ID=PID)
         cursor.execute("UPDATE `user` SET `medicalrecord` = '%s' WHERE `user`.`ID` = '%s';"%(medrecord,PID))
+        alldoc=DoctorModel.objects.all()
         db_connection.commit()
         if DoctorModel1:
-            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess,"alldoc":alldoc})  
 
 def logout(request):
     return render(request, 'doctors/loginpage.html')
@@ -448,9 +451,32 @@ def addmedicalrecomandation(request):
         addmeds=mes+','+messages
         PatientModel2 = PatientModel.objects.filter(ID=PID)
         cursor.execute("UPDATE `user` SET `medrecom` = '%s' WHERE `user`.`ID` = '%s';"%(addmeds,PID))
+        alldoc=DoctorModel.objects.all()
         db_connection.commit()
         if DoctorModel1:
-            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess,"alldoc":alldoc})  
+
+def changepatientdoctor(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        PID = request.POST.get('PID')
+        DID = request.POST.get('DID')
+        docpassid = request.POST.get('docpassid')
+        temp=str(docpassid)
+        temp= temp.split(" ")
+        y=temp[-1]
+        print(y)
+        NewDoctor1 = DoctorModel.objects.filter(lastname=y).first()
+        docid=NewDoctor1.ID
+        DoctorModel1 = DoctorModel.objects.filter(ID=DID)
+        PatientModel2 = PatientModel.objects.filter(ID=PID)
+        print(type(docid))
+        cursor.execute("UPDATE `user` SET `DID` = '%s' WHERE `user`.`ID` = '%s';"%(docid,PID))
+        alldoc=DoctorModel.objects.all()
+        db_connection.commit()
+        if DoctorModel1:
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess,"alldoc":alldoc})  
+
 def adminanswer(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -472,7 +498,7 @@ def autorization(request):
         AID = request.POST.get('AID')
         PID = request.POST.get('PID')
         message = request.POST.get('autor')
-        cursor.execute("UPDATE `user` SET `autorizations` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
+        cursor.execute("UPDATE `user` SET `autorization` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
         db_connection.commit()
         Adminmodel1 = Adminmodel.objects.filter(ID=AID)
         PatientModel1 = PatientModel.objects.filter(ID=PID)
@@ -506,9 +532,10 @@ def addprivaterecord(request):
         mess=PatientModel1.privaterecord
         add= messages+" "+mess
         cursor.execute("UPDATE `user` SET `privaterecord` = '%s' WHERE `user`.`ID` = '%s';"%(add,PID))
+        alldoc=DoctorModel.objects.all()
         db_connection.commit()
         if DoctorModel1:
-            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess})  
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel2, "message":mess,"alldoc":alldoc})  
 
 def sentmessage(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -528,9 +555,10 @@ def patientpage(request):
         print(PID,DID)
         DoctorModel1 = DoctorModel.objects.filter(ID=DID)
         PatientModel1 = PatientModel.objects.filter(ID=PID)
+        alldoc=DoctorModel.objects.all()
         #display data of patients
         if DoctorModel1:
-            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess,"alldoc":alldoc})  
 
 def patientsending(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -569,8 +597,9 @@ def doctoranswer(request):
         db_connection.commit()
         DoctorModel1 = DoctorModel.objects.filter(ID=DID)
         PatientModel1 = PatientModel.objects.filter(ID=PID)
+        alldoc=DoctorModel.objects.all()
         if DoctorModel1:
-            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
+            return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess,"alldoc":alldoc})  
 
 def genmessage(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -608,7 +637,6 @@ def adminsentmess(request):
         if DoctorModel1:
             return render(request, 'doctors/dash.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
 
-
 def checkout(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -634,7 +662,7 @@ def addcart(request):
         CommandeenCour1 = cartModel.objects.filter(CID=CID).first()
         Medic = MedsModel.objects.filter(ID=MID).first()
         if Medic.type=='narcoleptics':
-            if PatientModeltest.autorizations=='no':
+            if PatientModeltest.autorization=='no':
                     face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
                     recognizer = cv2.face.LBPHFaceRecognizer_create() 
                     recognizer.read("C:\\Users\\kevyn\\Happysammy\\projectapp\\trainner.yml")
