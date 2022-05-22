@@ -498,7 +498,7 @@ def autorization(request):
         AID = request.POST.get('AID')
         PID = request.POST.get('PID')
         message = request.POST.get('autor')
-        cursor.execute("UPDATE `user` SET `autorization` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
+        cursor.execute("UPDATE `user` SET `autorizations` = '%s' WHERE `user`.`ID` = '%s';"%(message,PID))
         db_connection.commit()
         Adminmodel1 = Adminmodel.objects.filter(ID=AID)
         PatientModel1 = PatientModel.objects.filter(ID=PID)
@@ -662,12 +662,12 @@ def addcart(request):
         CommandeenCour1 = cartModel.objects.filter(CID=CID).first()
         Medic = MedsModel.objects.filter(ID=MID).first()
         if Medic.type=='narcoleptics':
-            if PatientModeltest.autorization=='no':
+            if PatientModeltest.autorizations=='no':
                     face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
                     recognizer = cv2.face.LBPHFaceRecognizer_create() 
-                    recognizer.read("C:\\Users\\kevyn\\Happysammy\\projectapp\\trainner.yml")
+                    recognizer.read('C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/trainner.yml')
                     labels = {}
-                    with open("C:\\Users\\kevyn\\Happysammy\\projectapp\\labels.pickle", "rb") as f :
+                    with open("C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
                         og_labels = pickle.load(f)
                         labels = {v:k for k,v in og_labels.items()}
                     cap = cv2.VideoCapture(0)
@@ -806,9 +806,9 @@ def testcam(request):
     mess=MessageModel.objects.filter(ID=1)
     face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
     recognizer = cv2.face.LBPHFaceRecognizer_create() 
-    recognizer.read("C:\\Users\\kevyn\\Happysammy\\projectapp\\trainner.yml")
+    recognizer.read('C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/trainner.yml')
     labels = {}
-    with open("C:\\Users\\kevyn\\Happysammy\\projectapp\\labels.pickle", "rb") as f :
+    with open("C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
         og_labels = pickle.load(f)
         labels = {v:k for k,v in og_labels.items()}
 
