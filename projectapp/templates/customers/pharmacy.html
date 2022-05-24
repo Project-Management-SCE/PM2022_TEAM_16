@@ -130,7 +130,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
+                    <div class="nav-item dropdown" id="drop">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-credit-card me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">in orders</span>
@@ -143,8 +143,8 @@
                                 {%endfor%}   
                                 <form action="/projectapp/pay" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                     {% csrf_token %}
-                                    <input name="CID" type="hidden" value={{item.ID}} />
-                                    <button class="button1" type='submit'>
+                                    <input name="CID" id='CID' type="hidden" value={{item.ID}} />
+                                    <button class="button1" id='sal' type='submit'>
                                         <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
                                 </form>                      
                             </a>
@@ -204,7 +204,7 @@
                                         <input name="CID" type="hidden" value={{item.ID}} />
                                         <input name="MID" type="hidden" value={{m.ID}} />
                                         <input name="NAME" type="hidden" value={{m.name}} />
-                                        <button class="button1" type='submit'>
+                                        <button class="button1" id={{m.name}} type='submit'>
                                             <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
                                     </form> 
                                 </div>

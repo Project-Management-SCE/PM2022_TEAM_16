@@ -209,7 +209,6 @@
                               <tr>
                                   <th scope="col">Med name</th>
                                   <th scope="col">Med Quantities</th>
-                                  <th scope="col">change quantities</th>
                                   <th scope="col"></th>
                                   <th scope="col">Total</th>
                               </tr>
@@ -217,13 +216,8 @@
                           <tbody>
                             {% for key, values in res.items %}
                               <tr>
-                                <form action="/projectapp/test1" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                  {% csrf_token %}
-                                  <td>{{key}}</td>
-                                  <input name="name" type="hidden" value={{key}} />
-                                  <input name="CID" type="hidden" value={{item.ID}} />
-                                  <td><div class="form-check form-check-inline" style="background: transparent;">
-                                    <input name="quantities" class="form-check-input" type="text" style="background: transparent; border-color: transparent;" id="quantities"  value="{{values}}">
+                                  <td id="key">{{key}}</td>
+                                    <td id={{key}}> {{values}}</td>
                                     <label class="form-check-label" for="inlineCheckbox1"></label>
                                 </div></td>
                                 <td><div class="form-switch form-check-inline" >
@@ -232,7 +226,6 @@
                               </div>
                                   </td>
                                   <td><button class="btn1" type='submit'>Change</button></td>
-                                </form>
                               </tr>
                             {%endfor%}
                             <tr>

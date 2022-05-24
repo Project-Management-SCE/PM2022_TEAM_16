@@ -8,11 +8,9 @@
 		<div class="login">
 	 <form action="/projectapp/userdash" method="POST" id="login-form" autocomplete="off" role="main"> 
 				{% csrf_token %}
-				<input type="text" placeholder="username" id="Id" name="ID"><br>
+				<input type="text" placeholder="username" id="ID" name="ID"><br>
 				<input type="password" placeholder="password" id="password" name="password"><br>
-				<button  id="but_sub" class="button" disabled="disabled"> LOGIN </button>
-				<button type="submit" name="but_sub" style="visibility: hidden;" class="button" > LOGIN </button>
-				<div class="error hidden">A user with this email address does not exist.</div>
+				<button  id="but_sub" type="submit" class="button" > LOGIN </button>
 			</form>
 		</div>
 
