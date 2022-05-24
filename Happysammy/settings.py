@@ -22,7 +22,7 @@ SECRET_KEY = 'x%$@zx-dj08*(3imd+4p^td5b)dewq07l+3$*#(j37^(drpt3h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kela-clinic.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['kela-clinic.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/Users/liorl/KelaclinicProject/PM2022_TEAM_16/projectapp/static',
-    '/Users/kevyn/add/PM2022_TEAM_16/projectapp/static',
+    'C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/static',
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',

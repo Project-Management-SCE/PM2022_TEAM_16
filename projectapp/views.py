@@ -1,3 +1,5 @@
+<<<<<<< Updated upstream
+=======
 from random import random
 from tkinter import Frame
 from cv2 import COLOR_BGR2GRAY, destroyAllWindows
@@ -191,9 +193,10 @@ def workersdash(request):
         ID = request.POST.get('ID')
         password = request.POST.get('password')
         DoctorModel1 = DoctorModel.objects.filter(ID=ID, password=password)
+        PatientModel1 = PatientModel.objects.filter(DID=ID)
         Adminmodel1 = Adminmodel.objects.filter(ID=ID, password=password)
+        print(PatientModel1)
         if DoctorModel1:
-            PatientModel1 = PatientModel.objects.filter(DID=ID)## doc patients
             return render(request, 'doctors/dash.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
         elif Adminmodel1:
             DoctorModelall= DoctorModel.objects.all()
@@ -662,18 +665,20 @@ def addcart(request):
         Medic = MedsModel.objects.filter(ID=MID).first()
         if Medic.type=='narcoleptics':
             if PatientModeltest.autorizations=='no':
-                    face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
+                    face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
                     recognizer = cv2.face.LBPHFaceRecognizer_create() 
-                    recognizer.read('C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/trainner.yml')
+                    recognizer.read('C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/trainner.yml')
                     labels = {}
-                    with open("C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
+                    with open("C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
                         og_labels = pickle.load(f)
                         labels = {v:k for k,v in og_labels.items()}
                     cap = cv2.VideoCapture(0)
-                    while(True):
+                    cv2.namedWindow('Autentificator 2000!')
+                    while True:
                         ret,frame= cap.read()
                         gray = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
                         faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5,minNeighbors=5)
+                        cv2.imshow('Autentificator 2000!',frame)      
                         for(x,y,w,h) in faces:
                             #print(x,y,w,h)
                             roi_gray= gray[y:y+h ,x:x+w]
@@ -693,9 +698,8 @@ def addcart(request):
                             end_cord_x = x+w
                             end_cord_y = y + h 
                             cv2.rectangle(frame, (x,y),(end_cord_x,end_cord_y), color,stroke) #dessign le rectagle  
-                            cv2.imshow('Autentificator 2000!',frame) 
+                            
                             if pname==name or cv2.waitKey(20) & 0xFF == ord('q'):
-                                cv2.imshow('Autentificator 2000!',frame)
                                 prixmed=Medic.price
                                 if CommandeenCour:          
                                     listmedoc=CommandeenCour1.MIDS+','+MID
@@ -900,3 +904,4 @@ else:
     WARNINGS = contect_medical["warnings_and_cautions"]
 
 
+>>>>>>> Stashed changes
