@@ -232,7 +232,7 @@
                                     <td>{{pat.lastname}}</td>
                                     {% for doc in DoctorModel%}
                                     {%if pat.DID == doc.ID%}
-                                    <td>{{doc.firstname}}</td>
+                                    <td>DR {{doc.firstname}} {{doc.lastname}}</td>
                                     {%endif%}
                                     {%endfor%}
                                     <form action="/projectapp/fichinfo" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">

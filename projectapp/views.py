@@ -191,10 +191,9 @@ def workersdash(request):
         ID = request.POST.get('ID')
         password = request.POST.get('password')
         DoctorModel1 = DoctorModel.objects.filter(ID=ID, password=password)
-        PatientModel1 = PatientModel.objects.filter(DID=ID)
         Adminmodel1 = Adminmodel.objects.filter(ID=ID, password=password)
-        print(PatientModel1)
         if DoctorModel1:
+            PatientModel1 = PatientModel.objects.filter(DID=ID)## doc patients
             return render(request, 'doctors/dash.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
         elif Adminmodel1:
             DoctorModelall= DoctorModel.objects.all()
