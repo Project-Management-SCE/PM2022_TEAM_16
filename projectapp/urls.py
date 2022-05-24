@@ -48,6 +48,7 @@ path('deletedoc', views.deletedoc, name='deletedoc'),
 path("admintodocworkday",views.admintodocworkday,name="admintodocworkday"),
 path("autorization",views.autorization,name="autorization"),
 path("changepatientdoctor",views.changepatientdoctor,name="changepatientdoctor"),
+path("addpatient",views.addpatient, name="addpatient"),
 ]
 
     # The home page

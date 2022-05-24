@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 from random import random
 from tkinter import Frame
 from cv2 import COLOR_BGR2GRAY, destroyAllWindows
@@ -7,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.contrib import messages
+from traitlets import All
 from projectapp.models import *
 import mysql.connector
 from django.http import JsonResponse
@@ -22,9 +21,10 @@ import pickle
 from django.core.files.storage import FileSystemStorage
 import requests
 import json
-# Create your views here.
+import os
 import time
-
+from PIL import Image  
+import PIL  
 db_connection = mysql.connector.connect(
     host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
     user="Admin",
@@ -301,9 +301,59 @@ def addpatpage(request):
         NID = request.POST.get('NID')
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         newcustomerModel1 = newcustomerModel.objects.filter(phone=NID)
+        docmodels1 = DoctorModel.objects.all()
         print(Adminmodel1)
         if Adminmodel1:
-            return render(request, 'admin/addpat.html', {"Adminmodel":Adminmodel1,"message":mess,'newcustomerModel':newcustomerModel1})  
+            return render(request, 'admin/addpat.html', {"Adminmodel":Adminmodel1,"message":mess,'newcustomerModel':newcustomerModel1,'docmodels':docmodels1})  
+
+def addpatient(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST' and request.FILES['myfile']and request.FILES['myfile2']and request.FILES['myfile3']and request.FILES['myfile4']:
+        ID = request.POST.get('AID') 
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        password = request.POST.get('password')
+        CID = request.POST.get('CID')
+        Age = request.POST.get('Age')
+        Weight = request.POST.get('Weight')
+        Size = request.POST.get('Size')
+        phone = request.POST.get('phone')
+        Allergies = request.POST.get('Allergies')
+        DID = request.POST.get('DID')
+        print(ID,firstname,lastname,password,CID,Age,Weight,Size,All,DID)
+        directory = str(CID)
+        parent_dir = 'C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/images/'
+        path = os.path.join(parent_dir, directory)
+        print(path)
+        os.mkdir(path)
+        saveob=PatientModel()
+        saveob.ID=CID
+        saveob.firstname=firstname
+        saveob.lastname=lastname
+        saveob.password=password
+        saveob.DID=DID
+        saveob.age=Age
+        saveob.poids=Weight
+        saveob.taille=Size
+        saveob.BMI=(int(Weight)*(int(Size)/100))*(int(Weight)*(int(Size)/100))
+        saveob.phone=phone
+        saveob.allergies=Allergies
+        saveob.autorizations='no'
+        saveob.save()
+        img1 = request.FILES['myfile']
+        img2 = request.FILES['myfile2']
+        img3 = request.FILES['myfile3']
+        img4 = request.FILES['myfile4']
+        fs = FileSystemStorage()
+        fs.save(path+'/img1.jpg', img1)
+        fs.save(path+'/img2.jpg', img2)
+        fs.save(path+'/img3.jpg', img3)
+        fs.save(path+'/img4.jpg', img4)
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            PatientModelall= PatientModel.objects.all()
+            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess }) 
 
 def adddocpage(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -697,8 +747,7 @@ def addcart(request):
                             stroke=5
                             end_cord_x = x+w
                             end_cord_y = y + h 
-                            cv2.rectangle(frame, (x,y),(end_cord_x,end_cord_y), color,stroke) #dessign le rectagle  
-                            
+                            cv2.rectangle(frame, (x,y),(end_cord_x,end_cord_y), color,stroke) #dessign le rectagle          
                             if pname==name or cv2.waitKey(20) & 0xFF == ord('q'):
                                 prixmed=Medic.price
                                 if CommandeenCour:          
@@ -807,11 +856,11 @@ def payement(request):
 
 def testcam(request):
     mess=MessageModel.objects.filter(ID=1)
-    face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
+    face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
     recognizer = cv2.face.LBPHFaceRecognizer_create() 
-    recognizer.read('C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/trainner.yml')
+    recognizer.read('C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/trainner.yml')
     labels = {}
-    with open("C:/Users/kevyn/add/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
+    with open("C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
         og_labels = pickle.load(f)
         labels = {v:k for k,v in og_labels.items()}
 
@@ -904,4 +953,3 @@ else:
     WARNINGS = contect_medical["warnings_and_cautions"]
 
 
->>>>>>> Stashed changes
