@@ -1,3 +1,4 @@
+from lib2to3.pgen2.token import EQEQUAL
 from unicodedata import name
 from django.test import TestCase
 from django.urls import resolve, reverse
@@ -419,7 +420,6 @@ class AuthenticationFormTest(SeleniumTestCase):
         )
 
         # Go to the login page
-        
         self.driver.get("http://localhost:8000/projectapp/userlogin")
        
         # Find HTML elements
@@ -431,7 +431,7 @@ class AuthenticationFormTest(SeleniumTestCase):
         password_input.send_keys("Aa123456")
         button_i = self.driver.find_element_by_xpath("//button[@id='but_sub']")
         self.driver.execute_script('arguments[0].click()', button_i)
-        # login_button.click()
+      
 
         # Wait for request
         time.sleep(0.5)
@@ -461,7 +461,6 @@ class AuthenticationFormTest2(SeleniumTestCase):
         # Type in an email that doesn't exist
         username_input.send_keys("222333444")
 
-        # Ensure that the submit button is disabled
         # Type in a password
         password_input.send_keys("Aa123456")
         login_button.click()
@@ -469,7 +468,7 @@ class AuthenticationFormTest2(SeleniumTestCase):
 
         more_button = self.driver.find_element_by_xpath("//button[@id='but_more']")
         self.driver.execute_script('arguments[0].click()', more_button)
-        # time.sleep(1)
+       
         txtaera_message = self.driver.find_element_by_id("floatingTextarea")
         test_list = ["welocme","test","intergtion test","POPintergtion","doctor testing"]
         txt_message = "intergtion test {0}".format(str(random.randint(1, 999999999)))
@@ -480,13 +479,74 @@ class AuthenticationFormTest2(SeleniumTestCase):
         new_message = self.driver.find_element_by_xpath("//button[@id='btAns']")
         self.driver.execute_script('arguments[0].click()', new_message)
         elem_newMess = self.driver.find_element_by_id("newMessage").text
-        #textFromDiv = self.driver.find_element_by_xpath("//div[@id='newMessage']").text
-       
         self.assertEqual(elem_newMess,txt_message)
 
+##############################################################################################
+class AuthenticationFormTest3(SeleniumTestCase):
+    def test_authentication_form(self):
+        # Create a user to login with
+        user = User.objects.create_user(
+            username="test@user.com", password="12345"
+        )
+
+        # Go to the login page
+        self.driver.get("http://localhost:8000/projectapp/userlogin")
        
+        # Find HTML elements
+        username_input = self.driver.find_element_by_name("ID")
+        password_input = self.driver.find_element_by_name("password")
+        username_input.send_keys("332531235")
+        password_input.send_keys("Aa123456")
+
+        script_format = 'arguments[0].click()'
+        but_i = self.driver.find_element_by_xpath("//button[@id='but_sub']")
+        self.driver.execute_script(script_format, but_i)
+        but_to_phar=self.driver.find_element_by_xpath("//button[@id='button']")
+        self.driver.execute_script(script_format, but_to_phar)
+        time.sleep(1)
+
+        list_select_med = ["Selenium","Etodolac","Selenium","Tazorac","Selenium"]
+        for med in list_select_med:
+              but_to_phar=self.driver.find_element_by_xpath("//button[@id='{0}']".format(med))
+              self.driver.execute_script(script_format, but_to_phar)
+
+        WebDriverWait(self.driver,12).until(EC.element_to_be_clickable((By.XPATH,"//div[@id='drop']"))).click()
+        self.driver.execute_script(script_format,  self.driver.find_element_by_xpath("//button[@id='sal']"))
+
+        txt_count_med1 = self.driver.find_element_by_xpath("//td[@id='{0}']".format(list_select_med[0])).text
+        txt_count_med2 = self.driver.find_element_by_xpath("//td[@id='{0}']".format(list_select_med[1])).text
+        txt_count_med3 = self.driver.find_element_by_xpath("//td[@id='{0}']".format(list_select_med[3])).text
+        total_count = int(txt_count_med1) + int(txt_count_med2) + int(txt_count_med3)
+        self.assertEqual(len(list_select_med), total_count)
+        
+        
 
 
+
+class AuthenticationFormTest4(SeleniumTestCase):
+    def test_authentication_form(self):
+
+        user = User.objects.create_user(
+            username="222333444", password="Aa123456"
+        )
+       
+        
+        self.driver.get("http://localhost:8000/projectapp/login")
+        username_input = self.driver.find_element_by_id("Id")
+        password_input = self.driver.find_element_by_id("password")
+        login_button = self.driver.find_element_by_id("but_sub")
+        username_input.send_keys("222333444")
+        password_input.send_keys("Aa123456")
+        login_button.click()
+        time.sleep(1)
+        self.assertEqual(self.driver.current_url, "http://localhost:8000/projectapp/workersdash")
+        ##---------------------need to add code down
+        # WebDriverWait(self.driver,20).until(EC.element_to_be_clickable((By.XPATH,"//div[@id='drop']"))).click()
+        # self.driver.execute_script('arguments[0].click()',  self.driver.find_element_by_xpath("//button[@id='sal']"))    
+        # self.assertEqual(self.driver.current_url, "http://localhost:8000/projectapp/login")
+        #time.sleep(0.5)
+
+##############################################################################################
 # class integration_Admin_Test(LiveServerTestCase):
 
 #     def setUp(self):
