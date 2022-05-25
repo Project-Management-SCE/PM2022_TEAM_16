@@ -49,6 +49,7 @@ path("admintodocworkday",views.admintodocworkday,name="admintodocworkday"),
 path("autorization",views.autorization,name="autorization"),
 path("changepatientdoctor",views.changepatientdoctor,name="changepatientdoctor"),
 path("addpatient",views.addpatient, name="addpatient"),
+path("bloodtestpage",views.bloodtestpage, name="bloodtestpage"),
 ]
 
     # The home page

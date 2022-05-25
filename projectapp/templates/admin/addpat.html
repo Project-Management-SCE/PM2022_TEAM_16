@@ -196,16 +196,16 @@
                                     <label for="floatingInput">Lastname: {{nc.lastname}}</label>
                                 </div>
                                 <div class="form-floating mb-4">
-                                    <input type="text" name="CID" class="form-control" id="floatingPassword" placeholder="ID">
-                                    <label for="floatingPassword"></label>
+                                    <input type="text" name="CID" class="form-control" placeholder="ID">
+                                    <label for="floatingPassword">Enter ID</label>
                                 </div>
                                 <div class="form-floating mb-4">
-                                    <input type="text" name="phone" class="form-control" id="floatingPassword" placeholder="Phone">
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone">
                                     <label for="floatingPassword">Phone: {{nc.phone}}</label>
                                 </div>
                                 <div class="form-floating mb-4">
-                                    <input name="password" type="text" class="form-control" id="floatingPassword" placeholder="password">
-                                    <label for="floatingPassword"></label>
+                                    <input name="password" type="text" class="form-control"  placeholder="password">
+                                    <label for="floatingPassword">Enter Password</label>
                                 </div>
                             </div>
                             <div class="bg-light rounded p-4 p-sm-5 my-4 mx-30" style="padding-top: 0px;width: 446px;" >
@@ -220,10 +220,10 @@
                                     <input type="text" name="Allergies" class="form-control" placeholder="Allergies" aria-label="Allergies">
                                 </div>
                                 <select name="DID" value="{{doc.ID}}" class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
-                                {%for doc in docmodels%}
-                                    <option  name="DID" value="{{doc.ID}}" selected="">Choose Doctor</option>  
-                                    <option>{{doc.firstname}}</option>
-                                {%endfor%}  
+                                    <option  name="DID" value="{{doc.ID}}" selected="">Chosse Doctor</option>  
+                                    {%for doc in docmodels%}
+                                    <option value="{{doc.ID}}">{{doc.firstname}}</option>
+                                    {%endfor%}  
                                 </select>
                                 <div>
                                     <label for="myfile" class="form-label">Input Image</label>
@@ -233,9 +233,7 @@
                                     <input class="form-control form-control-sm" type="file" name ='myfile4'>
                                     <br>
                                 </div>
-                                <br>
                                 <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
-                                <p class="text-center mb-0">Already have an Account? <a href="">Sign In</a></p>
                             </div>
                         </form>
                         </div>

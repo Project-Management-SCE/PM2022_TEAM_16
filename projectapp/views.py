@@ -320,6 +320,7 @@ def addpatient(request):
         phone = request.POST.get('phone')
         Allergies = request.POST.get('Allergies')
         DID = request.POST.get('DID')
+        bloodtest(CID)
         print(ID,firstname,lastname,password,CID,Age,Weight,Size,All,DID)
         directory = str(CID)
         parent_dir = 'C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/images/'
@@ -349,11 +350,14 @@ def addpatient(request):
         fs.save(path+'/img2.jpg', img2)
         fs.save(path+'/img3.jpg', img3)
         fs.save(path+'/img4.jpg', img4)
+        cursor.execute("DELETE FROM `newcustomer` WHERE `newcustomer`.`phone` = '%s';"%(phone))
+        db_connection.commit()
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         if Adminmodel1:
+            newcustomerModelall = newcustomerModel.objects.all()
             DoctorModelall= DoctorModel.objects.all()
             PatientModelall= PatientModel.objects.all()
-            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess }) 
+            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,"newcustomerModel":newcustomerModelall }) 
 
 def adddocpage(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -449,7 +453,17 @@ def pharmacybutton(request):
             meds = PatientModeltest.medrecom.split(",")
             dictOfWords1 = { i : 10 for i in meds } 
             return render(request, 'customers/pharmacy.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"a_dictionary":a_dictionary,'medslist':dictOfWords1})        
-             
+
+
+def bloodtestpage(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        ID = request.POST.get('ID')
+        PatientModel1 = PatientModel.objects.filter(ID=ID)
+        Bloodtest= bloodTestModel.objects.filter(CID=ID)
+        if PatientModel1:
+            return render(request, 'customers/bloodtestpage.html', {"PatientModel": PatientModel1, "message":mess,"Bloodtest":Bloodtest})
+
 def fichinfo(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -841,7 +855,23 @@ def pay(request):
         print(res)
         return render(request, 'customers/resumercomande.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"CommandeenCour":CommandeenCour,'res':res,'dic':dic})
 
-
+def bloodtest(id):
+    tests = []
+    creat = random.uniform(0, 1)
+    hdl = random.randint(0, 40)
+    hb = random.randint(0, 50)
+    iron = random.randint(0, 100)
+    urea = random.randint(0,50)
+    alk_phos = random.randint(0,100)
+    saveobj=bloodTestModel()
+    saveobj.CID=id
+    saveobj.creat=creat
+    saveobj.hdl=hdl
+    saveobj.hb=hb
+    saveobj.iron=iron
+    saveobj.urea=urea 
+    saveobj.alk_phos=alk_phos
+    saveobj.save()
 
 
 def payement(request):

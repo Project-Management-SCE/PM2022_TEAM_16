@@ -1,18 +1,17 @@
 {%load static %}
 {% for item in PatientModel%}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Kela - personal clinic online</title>
+    <title>KELA - personal clinic online</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
- <!-- PHARMACY -->
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,9 +126,25 @@
                                 </button>
                                 {%endif%}
                             </a>
+                            <a href="#" class="dropdown-item">
+                                {% if item.adminanswer != '' %}
+                                <button type="submit" class="button1">
+                                    {% csrf_token %}
+                                    <input name="PID" type="hidden" value={{pat.ID}} />
+                                    <input name="DIC" type="hidden" value={{item.ID}} />            
+                                    <div class="d-flex align-items-center">                                
+                                        <img class="rounded-circle" src="/static/dashstatic/img/222333444.png" alt="" style="width: 40px; height: 40px;">
+                                        <div class="ms-2">   
+                                            <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
+                                            <small>{{pat.sentmessage}}</small>
+                                        </div>
+                                    </div>
+                                </button>
+                                {%endif%}
+                            </a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown" id="drop">
+                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-credit-card me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">in orders</span>
@@ -142,8 +157,8 @@
                                 {%endfor%}   
                                 <form action="/projectapp/pay" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                     {% csrf_token %}
-                                    <input name="CID" id='CID' type="hidden" value={{item.ID}} />
-                                    <button class="button1" id='sal' type='submit'>
+                                    <input name="CID" type="hidden" value={{item.ID}} />
+                                    <button class="button1" type='submit'>
                                         <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
                                 </form>                      
                             </a>
@@ -156,6 +171,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
+                                {% comment %} medical recomandation {% endcomment %}
                                 {% for me in medslist%}
                                 <h6 class="fw-normal mb-0">{{me}}</h6>
                                 <hr class="dropdown-divider">
@@ -177,64 +193,30 @@
                     </div>
                 </div>
             </nav>
-
             <!-- Navbar End -->
-
-
+           
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 {% for item in message %}
                 <marquee direction="right" bgcolor="white" width="600">{{item.message}}</marquee>
               {% endfor %}
-
-            <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                {% for m in med %}      
-                    <div class="col-sm-12 col-xl-6">
+            <!-- Sale & Revenue End -->
+                <div class="row g-4">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Basic Navs &amp; Tabs</h6>
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-home-tab{{m.ID}}" data-bs-toggle="tab" data-bs-target="#nav-home{{m.ID}}" type="button" role="tab" aria-controls="nav-home{{m.ID}}" aria-selected="true">Name</button>
-                                    <button class="nav-link" id="nav-profile-tab{{m.ID}}" data-bs-toggle="tab" data-bs-target="#nav-profile{{m.ID}}" type="button" role="tab" aria-controls="nav-profile{{m.ID}}" aria-selected="false">Description</button>
-                                    <button class="nav-link" id="nav-contact-tab{{m.ID}}" data-bs-toggle="tab" data-bs-target="#nav-contact{{m.ID}}" type="button" role="tab" aria-controls="nav-contact{{m.ID}}" aria-selected="false">Warnings</button>
-                                    <form action="/projectapp/addcart" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                        {% csrf_token %}
-                                        <input name="CID" type="hidden" value={{item.ID}} />
-                                        <input name="MID" type="hidden" value={{m.ID}} />
-                                        <input name="NAME" type="hidden" value={{m.name}} />
-                                        <button class="button1" id={{m.name}} type='submit'>
-                                            <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
-                                    </form> 
-                                </div>
-                            </nav>
-                            <div class="tab-content pt-3" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home{{m.ID}}" role="tabpanel" aria-labelledby="nav-home-tab">
-                                <img class="rounded-circle me-lg-2" src="/static/pharmacieimg/{{m.ID}}.jpg" alt="" style="width: 80px; height: 80px;">
-                                {{m.name}}
-                                </div>
-                                <div class="tab-pane fade" id="nav-profile{{m.ID}}" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <img class="rounded-circle me-lg-2" src="/static/pharmacieimg/{{m.ID}}.jpg" alt="" style="width: 80px; height: 80px;">
-                                    {{m.description}}
-                                </div>
-                                <div class="tab-pane fade" id="nav-contact{{m.ID}}" role="tabpanel" aria-labelledby="nav-contact-tab">
-                                    {%for value,key in a_dictionary.items %}                                   
-                                    {% if value == m.name %}
-                                    {{ key }}
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                
-                            </div>
+                            <h6 class="mb-4">Blood Test</h6>
+                            <canvas id="bar-chart1" width="465" height="232" style="display: block; box-sizing: border-box; height: 232px; width: 465px;"></canvas>
                         </div>
-                    </div>
-                    {%endfor%}
                 </div>
-                <!--API Credits-->
-                <h6 style="text-align: center;">Warnings data provided by
-                    <a href="https://open.fda.gov">openFDA</a> </h6>
+                <br><br>
+                <div class="row g-4">
+                    <div class="bg-light rounded h-100 p-4">
+                        <h6 class="mb-4">Blood Test</h6>
+                        <canvas id="bar-chart2" width="465" height="232" style="display: block; box-sizing: border-box; height: 232px; width: 465px;"></canvas>
+                    </div>
+                </div>
             </div>
-            
+            <!-- Sales Chart Start -->
+           
             <!-- Widgets End -->
 
 
@@ -243,13 +225,12 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblim.com"></a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>
@@ -260,7 +241,6 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -288,4 +268,115 @@
     cursor:pointer;
     overflow: hidden;        
 }
+.btn {
+  text-align:center;
+  background: transparent;
+  width: 200px;
+  position: relative;
+  padding: 15px;
+  color: #1ECD97;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  border-radius: 4px;
+  font-weight: 600;
+  overflow: hidden;
+  border: 2px solid #1ECD97;
+  text-decoration: none;
+}
+
+/* In Progress Button */
+.btn-progress {
+  width: 500px;
+  color: transparent;
+}
+
+.btn-fill:after {
+  content: '';
+  background: #1ECD97;
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0;
+  display: block;
+  animation: fill 3.2s linear forwards;
+}
+
+/* Button Complete */
+.btn-complete {
+  padding: 15px;
+  width: 50px;
+  color: #fff;
+  pointer-events: none;
+}
+
+.btn-complete:after {
+  font-family: FontAwesome;
+  content: "OK";
+  color: rgb(18, 77, 54);
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1ECD97;
+  padding: 15px;
+}
+
 </style>
+<script>
+var alk_phos ="{%for item in Bloodtest%} {{item.alk_phos}} {%endfor%}"
+var HDL= "{%for item in Bloodtest%} {{item.hdl}} {%endfor%}"
+var IRON="{%for item in Bloodtest%} {{item.iron}} {%endfor%}"
+var UREA= "{%for item in Bloodtest%} {{item.urea}} {%endfor%}"
+
+
+    var ctx4 = $("#bar-chart1").get(0).getContext("2d");
+    var myChart4 = new Chart(ctx4, {
+        type: "bar",
+        data: {
+            labels: ["alk_phos", "HDL", "IRON","UREA"],
+            datasets: [{
+                backgroundColor: [
+                    "rgba(80, 70, 155, .6)",
+                    "rgba(100,56, 35, .5)",
+                    "rgba(30, 0, 145, .4)",
+                    "rgba(0, 156, 255, .3)"
+                ],
+                data: [alk_phos, HDL, IRON,UREA]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+	
+var HB="{%for item in Bloodtest%} {{item.hb}} {%endfor%}"
+var CREAT= "{%for item in Bloodtest%} {{item.creat}} {%endfor%}"
+
+
+    var ctx4 = $("#bar-chart2").get(0).getContext("2d");
+    var myChart4 = new Chart(ctx4, {
+        type: "bar",
+        data: {
+            labels: ["HB","CREAT"],
+            datasets: [{
+                backgroundColor: [
+                    "rgba(182, 106, 255, .4)",
+                    "rgba(0, 156, 255, .3)"
+                ],
+                data: [HB, CREAT]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+	
+
+</script>
