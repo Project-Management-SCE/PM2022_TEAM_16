@@ -323,7 +323,7 @@ def addpatient(request):
         bloodtest(CID)
         print(ID,firstname,lastname,password,CID,Age,Weight,Size,All,DID)
         directory = str(CID)
-        parent_dir = 'C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/images/'
+        parent_dir = 'projectapp/images/'
         path = os.path.join(parent_dir, directory)
         print(path)
         os.mkdir(path)
