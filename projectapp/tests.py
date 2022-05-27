@@ -394,7 +394,7 @@ class newcust_test(TestCase):
         record=newcustomerModel.objects.get()
         self.assertEqual(record,item)
 
-
+"""
 class SeleniumTestCase(StaticLiveServerTestCase):
     
     @classmethod
@@ -545,7 +545,7 @@ class AuthenticationFormTest4(SeleniumTestCase):
         # self.driver.execute_script('arguments[0].click()',  self.driver.find_element_by_xpath("//button[@id='sal']"))    
         # self.assertEqual(self.driver.current_url, "http://localhost:8000/projectapp/login")
         #time.sleep(0.5)
-
+"""
 ##############################################################################################
 # class integration_Admin_Test(LiveServerTestCase):
 
