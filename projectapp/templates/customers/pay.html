@@ -1,5 +1,4 @@
-{%load static %}\
-<!--PAY PAGE-->
+{%load static %}
 <div id="root">
     <div id="card">
       <div id="card-bottom"></div>
@@ -46,24 +45,24 @@
         </div>
       </div>  
     </div>
-    <form action="/CofeeShopapp/paying" method="POST" id="form" class="form form-login" autocomplete="off" role="main">
-
+    <form action="/projectapp/checkout" method="POST" id="form" class="form form-login" autocomplete="off" role="main">
+      {% csrf_token %}
       <header>
-        <h2 style="font-family: 'Montserrat', sans-serif;">Payment Information</h2>
+        <h2 style="font-family: 'Montserrat', sans-serif; color: #eff1f4">Payment Information</h2>
       </header>
       <fieldset class="card-number">
-        <legend>Card Number</legend>
+        <legend style='color: #eff1f4'>Card Number</legend>
         <span>
-          <input id="card-number" maxlength="19" placeholder="1234 5678 9123 4567"/>
+          <input id="card-number" style='color: #eff1f4' maxlength="19" placeholder="1234 5678 9123 4567" required/>
         </span>
       </fieldset>
-      <fieldset class="card-holder">
+      <fieldset style='color: #eff1f4' class="card-holder">
         <legend>Card holder</legend>
-        <input type="text" id="card-holder" placeholder="John Doe"/>
+        <input type="text"style='color: #eff1f4' id="card-holder" placeholder="John Doe" required/>
       </fieldset>
       <div class="row-container">
-        <fieldset class="expiry-month">
-          <legend>Expiray Month</legend>
+        <fieldset style='color: #eff1f4' class="expiry-month">
+          <legend style='color: #eff1f4'>Expiray Month</legend>
           <select>
               <option></option>
               <option value="01">01</option>
@@ -80,7 +79,7 @@
               <option value="12">12</option>
             </select>
         </fieldset>
-        <fieldset class="expiry-year">
+        <fieldset style='color: #eff1f4'class="expiry-year">
           <legend>Expiry Year</legend>
           <select id="card-expiration-year">
             <option></option>
@@ -97,20 +96,16 @@
             <option value="30">2030</option>
           </select>
         </fieldset>
-        <fieldset class="cvc">
-          <legend>CVC</legend>
-          <input type="text" maxlength="3" />
+        <fieldset style='color: #eff1f4' class="cvc">
+          <legend style='color: #eff1f4'>CVC</legend>
+          <input type="text" maxlength="3" / required>
         </fieldset>
       </div>
       {% for item in CommandeenCour %}
       <div class="payment-details">
         <div class="subtotal">
-          <span class="category">Sub-Total:</span> 
-          <span class="price"> {{item.totalprice}}</span>
-        </div>
-        <div class="gst">
-          <span class="category">VIP</span> 
-          <span class="price">15%</span>
+          <span class="category" style='color: #eff1f4'>Total:</span> 
+          <span class="price" style='color: #eff1f4'> {{item.totalprice}} $</span>
         </div>
         <div class="total">
           {% for it in lastprice %}
@@ -119,11 +114,7 @@
           {%endfor%}
         </div>
       </div>
-  </div>
-</form>
 <div class="payment-details">
-<form action="/projectapp/checkout" method="POST" id="form" class="form form-login" autocomplete="off" role="main">
-  {% csrf_token %}
 <input name="CID" type="hidden" value={{item.CID}}>
 <button type="submit">---Pay Now---</button>     
 </form> 
@@ -143,7 +134,7 @@
 	 align-items: center;
 	 width: 100vw;
 	 margin: 0;
-	 background: white;
+	 background: rgb(14, 13, 13);
 	 overflow-x: hidden;
 }
  #root {
@@ -411,10 +402,6 @@ document.addEventListener("DOMContentLoaded", e => {
       digits[i] = text.charAt(i);
 
     cvc_display.innerText = digits.join('');
-  }
-  
-  form.onsubmit = e => {
-    e.preventDefault();
   }
 });
   </script>

@@ -50,6 +50,7 @@ path("autorization",views.autorization,name="autorization"),
 path("changepatientdoctor",views.changepatientdoctor,name="changepatientdoctor"),
 path("addpatient",views.addpatient, name="addpatient"),
 path("bloodtestpage",views.bloodtestpage, name="bloodtestpage"),
+path("cleardrugprescription",views.cleardrugprescription, name="cleardrugprescription"),
 ]
 
     # The home page

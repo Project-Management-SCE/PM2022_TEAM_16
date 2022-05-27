@@ -1,6 +1,9 @@
 {%load static %}
 {% for item in PatientModel%}
-
+{% if messages %}
+{% for message in messages %}<script>alert("{% for message in messages %}{{ message }}\n{% endfor %}");</script>
+{% endfor %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,143 +46,157 @@
         <!-- Spinner End -->
 
 
-        <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
-            <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Kela</h3>
-                </a>
-                <div class="d-flex align-items-center ms-4 mb-4">
-                    <div class="position-relative">
-                        <img class="rounded-circle" src="/static/dashstatic/img/{{item.ID}}.png" alt="" style="width: 40px; height: 40px;">
-                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+               <!-- Sidebar Start -->
+               <div class="sidebar pe-4 pb-3">
+                <nav class="navbar bg-light navbar-light">
+                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                        <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Kela</h3>
+                    </a>
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            <img class="rounded-circle" src="/static/dashstatic/img/{{item.ID}}.png" alt="" style="width: 40px; height: 40px;">
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 class="mb-0">{{item.firstname}}</h6>                       
+                            <span></span>
+                        </div>
                     </div>
-                    <div class="ms-3">
-                        <h6 class="mb-0">{{item.firstname}}</h6>                       
-                        <span></span>
+                    <div class="navbar-nav w-100">
+                        <form action="/projectapp/userhome" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a></button>
+                        </form>                
+                        <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Message</a></button>
+                        </form>
+                        <form action="/projectapp/bloodtestpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Blood test</a></button>
+                        </form>
+                        <form action="/projectapp/pharmacy" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" id='332531235' type="hidden" value={{item.ID}} />
+                            <button class="button1" id='button' type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>Pharmacy</a>   </button>
+                        </form>
+                                 
                     </div>
-                </div>
-                <div class="navbar-nav w-100">
-                    <form action="/projectapp/userhome" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button1" type='submit'>
-                        <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a></button>
-                    </form>                
-                    <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button1" type='submit'>
-                        <a class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Message</a></button>
-                    </form>
-                    <form action="/projectapp/bloodtestpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button1" type='submit'>
-                        <a class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Blood test</a></button>
-                    </form>
-                    <form action="/projectapp/pharmacy" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" id='332531235' type="hidden" value={{item.ID}} />
-                        <button class="button1" id='button' type='submit'>
-                        <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>Pharmacy</a>   </button>
-                    </form>
-                             
-                </div>
-            </nav>
-        </div>
-        <!-- Sidebar End -->
-
-
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                {% if item.doctoranswer != '' %}
-                                <button type="submit" class="button1">
-                                    {% csrf_token %}
-                                    <input name="PID" type="hidden" value={{pat.ID}} />
-                                    <input name="DIC" type="hidden" value={{item.ID}} />            
-                                    <div class="d-flex align-items-center">                                
-                                        <img class="rounded-circle" src="/static/dashstatic/img/{{item.DID}}.png" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">   
-                                            <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
-                                            <small>{{pat.sentmessage}}</small>
+                </nav>
+            </div>
+            <!-- Sidebar End -->
+    
+    
+            <!-- Content Start -->
+            <div class="content">
+                <!-- Navbar Start -->
+                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                        <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                    </a>
+                    <a href="#" class="sidebar-toggler flex-shrink-0">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <div class="navbar-nav align-items-center ms-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-envelope me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Message</span>
+                            </a>
+                            <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main"></form>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">
+                                    {% if item.doctoranswer != '' %}
+                                    <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                        {% csrf_token %}
+                                        <input name="ID" type="hidden" value={{item.ID}} />
+                                        <button type="submit" class="button1">       
+                                        <div class="d-flex align-items-center">                                
+                                            <img class="rounded-circle" src="/static/dashstatic/img/{{item.DID}}.png" alt="" style="width: 40px; height: 40px;">
+                                            <div class="ms-2">   
+                                                <h6 class="fw-normal mb-0">Dr {{doc.lastname}} send you a message</h6>
+                                                <small>{{item.sentmessage}}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                </button>
-                                {%endif%}
+                                    </button> 
+                                    {%endif%}
+                                    </form>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    {% if item.adminanswer != '' %}
+                                    <button type="submit" class="button1">
+                                        {% csrf_token %}
+                                        <input name="PID" type="hidden" value={{pat.ID}} />
+                                        <input name="DIC" type="hidden" value={{item.ID}} />            
+                                        <div class="d-flex align-items-center">                                
+                                            <img class="rounded-circle" src="/static/dashstatic/img/222333444.png" alt="" style="width: 40px; height: 40px;">
+                                            <div class="ms-2">   
+                                                {%for admin in AdminModel%}
+                                                <h6 class="fw-normal mb-0">{{admin.lastname}} send you a message</h6>
+                                                {%endfor%}
+                                                <small>{{item.sentmessage}}</small>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    {%endif%}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-credit-card me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">in orders</span>
                             </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">
+                                    {%for c in CommandeenCour%}
+                                    <h6 class="fw-normal mb-0">{{c}}</h6>
+                                    <hr class="dropdown-divider">
+                                    {%endfor%}   
+                                    <form action="/projectapp/pay" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                        {% csrf_token %}
+                                        <input name="CID" type="hidden" value={{item.ID}} />
+                                        <button class="button1" type='submit'>
+                                            <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
+                                    </form>                      
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown" id="drop">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-credit-card me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">in orders</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                {%for c in CommandeenCour%}
-                                <h6 class="fw-normal mb-0">{{c}}</h6>
-                                <hr class="dropdown-divider">
-                                {%endfor%}   
-                                <form action="/projectapp/pay" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                    {% csrf_token %}
-                                    <input name="CID" id='CID' type="hidden" value={{item.ID}} />
-                                    <button class="button1" id='sal' type='submit'>
-                                        <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
-                                </form>                      
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <i class="fa fa-list me-lg-2"></i>
+                                <span class="d-none d-lg-inline-flex">Lastest meds</span>
                             </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="#" class="dropdown-item">
+                                    {% comment %} medical recomandation {% endcomment %}
+                                    {% for me in medslist%}
+                                    <h6 class="fw-normal mb-0">{{me}}</h6>
+                                    <hr class="dropdown-divider">
+                                    {%endfor%}   
+                          
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-list me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Lastest meds</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                {% for me in medslist%}
-                                <h6 class="fw-normal mb-0">{{me}}</h6>
-                                <hr class="dropdown-divider">
-                                {%endfor%}   
-                      
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                                <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/{{item.ID}}.png"  alt="" style="width: 40px; height: 40px;">
+                                <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                             </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                                <a href="userlogin" class="dropdown-item">Log Out</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/{{item.ID}}.png"  alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- Navbar End -->
-
+                </nav>
+    
 
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
@@ -205,6 +222,9 @@
                                         <input name="NAME" type="hidden" value={{m.name}} />
                                         <button class="button1" id={{m.name}} type='submit'>
                                             <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
+                                            {%if m.type == 'narcoleptics'%}
+                                            <img src="/static/pharmacieimg/eye.png" alt="" style="width: 30px; height: 30px;">
+                                            {%endif%}
                                     </form> 
                                 </div>
                             </nav>
@@ -243,13 +263,13 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="">Kela-Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="http://kevynkrancenblum.com">K</a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                        Distributed By <a class="border-bottom" href="http://kevynkrancenblum.com" target="_blank">Team16</a>
                         </div>
                     </div>
                 </div>

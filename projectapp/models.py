@@ -26,6 +26,7 @@ class PatientModel(models.Model):
     medrecom=models.TextField(db_column='medrecom')
     appointement=models.TextField(db_column='appointement')
     autorizations=models.TextField(db_column='autorizations')
+    latestreport=models.TextField(db_column='latestreport')
     class Meta:
         managed = True
         db_table = 'user'
@@ -39,6 +40,8 @@ class DoctorModel(models.Model):
     adminmess=models.TextField(db_column='adminmess')
     adminanswer=models.TextField(db_column='adminanswer')
     speciality=models.TextField(db_column='speciality')
+    doctormessages=models.TextField(db_column='doctormessages')
+    doctorsanswer=models.TextField(db_column='doctorsanswer')
     class Meta:
         managed = True
         db_table = 'doctor'
