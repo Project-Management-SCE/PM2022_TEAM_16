@@ -51,7 +51,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{%static 'dashstatic/img/myimg.png' %}"  alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="/static/dashstatic/img/adminimg.png"  alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -61,28 +61,19 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
-                    <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button1" type='submit'></button>
-                    </form>    
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Add/Remove</a>      
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <form action="/projectapp/addpatpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                        <form action="/projectapp/admindashbtn" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                             {% csrf_token %}
                             <input name="ID" type="hidden" value={{item.ID}} />
-                            <button class="button1" type='submit'><a class="dropdown-item">Add Patient</a></button>
-                        </form>  
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a></button>
+                        </form> 
+                    <div class="navbar-nav w-100">  
                         <form action="/projectapp/adddocpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                             {% csrf_token %}
                             <input name="ID" type="hidden" value={{item.ID}} />
-                            <button class="button1" type='submit'><a class="dropdown-item">Add Doctor</a></button>
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-plus me-2"></i>Add Doctor</a></button>
                         </form>    
-                        <a href="signup.html" class="dropdown-item">Add Doctor</a>
-                        <a href="404.html" class="dropdown-item">Remove Patient</a>
-                        <a href="blank.html" class="dropdown-item">Remove Doctor</a>
                     </div>
                 
                     <form action="/projectapp/adminpharmacy" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
@@ -91,10 +82,6 @@
                         <button class="button1" type='submit'>
                             <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>Pharmacy</a></button>
                     </form>    
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Blood tests</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-
                     </div>
                 </div>
             </nav>
@@ -163,12 +150,10 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{%static 'dashstatic/img/332531235.png' %}"  alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/adminimg.png"   alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
@@ -216,17 +201,21 @@
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-
+                                    <th> </th>
                                     <th scope="col">ID</th>
                                     <th scope="col">First Name</th>
                                     <th scope="col">Last Name</th>
                                     <th scope="col">Doctor Name</th>
                                     <th scope="col">See more</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for pat in PatientModel%}
                                 <tr>
+                                    <td>
+                                        <img class="rounded-circle" src="/static/dashstatic/img/{{pat.ID}}.png" alt="" style="width: 25px; height: 25px;">
+                                    </td>
                                     <td>{{pat.ID}}</td>
                                     <td>{{pat.firstname}}</td>
                                     <td>{{pat.lastname}}</td>
@@ -240,6 +229,13 @@
                                         <input name="FID" type="hidden" value={{pat.ID}} />
                                         <input name="ID" type="hidden" value={{item.ID}} />
                                     <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
+                                </form>
+                                        <form action="/projectapp/deletepatient" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                            {% csrf_token %}
+                                            <input name="PID" type="hidden" value={{pat.ID}} />
+                                            <input name="ID" type="hidden" value={{item.ID}} />
+                                        <td><button onclick="return confirm('Are you sure?')" type="submit" class='btn12' style="text-align:center;">delete</button></td> 
+                                </form> 
                                 </tr> 
                             </form>     
                                 {%endfor%}
@@ -264,24 +260,34 @@
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
-
+                                    <th scope="col"></th>
                                     <th scope="col">ID</th>
                                     <th scope="col">Firstname</th>
                                     <th scope="col">Lastname</th>
                                     <th scope="col">See more</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for pat in DoctorModel%}
+                                {% for doc in DoctorModel%}
                                 <tr>
-                                    <td>{{pat.ID}}</td>
-                                    <td>{{pat.firstname}}</td>
-                                    <td>{{pat.lastname}}</td>
+                                    <td>
+                                        <img class="rounded-circle" src="/static/dashstatic/img/{{doc.ID}}.png" alt="" style="width: 25px; height: 25px;">
+                                    </td>
+                                    <td>{{doc.ID}}</td>
+                                    <td>{{doc.firstname}}</td>
+                                    <td>{{doc.lastname}}</td>
                                     <form action="/projectapp/fichinfo" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                         {% csrf_token %}
-                                        <input name="FID" type="hidden" value={{pat.ID}} />
+                                        <input name="FID" type="hidden" value={{doc.ID}} />
                                         <input name="ID" type="hidden" value={{item.ID}} />
                                     <td><button id="but_more" type="submit" class='btn1' style="text-align:center;">More</button></td>
+                                    </form>
+                                    <form action="/projectapp/deletedoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                        {% csrf_token %}
+                                        <input name="DID" type="hidden" value={{doc.ID}} />
+                                        <input name="ID" type="hidden" value={{item.ID}} />
+                                    <td><button onclick="return confirm('Are you sure?')" type="submit" class='btn12' style="text-align:center;">delete</button></td> 
                                 </tr> 
                             </form>     
                                 {%endfor%}
@@ -336,40 +342,20 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblim.com"></a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Footer End -->
-        </div>
-        <!-- Content End -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light rounded-top p-4">
-                <div class="row">
-                    <div class="col-12 col-sm-6 text-center text-sm-start">
-                        &copy; <a href="#">requrt</a>, user. 
-                    </div>
-                    <div class="col-12 col-sm-6 text-center text-sm-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                    </br>
-                    Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Footer End -->
     </div>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -482,6 +468,24 @@
   text-decoration: none;
 }
 
+.btn12 {
+  text-align:center;
+  background: transparent;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  color: #6e1739;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-radius: 4px;
+  font-weight: 100;
+  font-size: 15;
+  overflow: hidden;
+  border: 2px solid #7c0a4c;
+  text-decoration: none;
+}
 
 
 </style>

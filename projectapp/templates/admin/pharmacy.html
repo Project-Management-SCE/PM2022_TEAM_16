@@ -225,6 +225,7 @@
                                                     <th scope="col">Phy. Quan</th>
                                                     <th scope="col">Int. Quan</th>
                                                     <th scope="col">See more</th>
+                                                    <th scope="col">Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -241,6 +242,12 @@
                                                         <input name="DID" type="hidden" value={{item.ID}} />
                                                     <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
                                                 </form>
+                                                <form action="/projectapp/deletemed" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                                    {% csrf_token %}
+                                                    <input name="MID" type="hidden" value={{med.ID}} />
+                                                    <input name="DID" type="hidden" value={{item.ID}} />
+                                                <td><button type="submit" class='btn12' style="text-align:center;">More</button></td>
+                                            </form>
                                                 </tr> 
                                                 {%endfor%}
                                             </tbody>

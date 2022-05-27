@@ -221,6 +221,17 @@ def workersdash(request):
     else:
         return render(request, 'doctors/loginpage.html')      
 
+def admindashbtn(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+         ID = request.POST.get('ID')
+         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+         if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            PatientModelall= PatientModel.objects.all()
+            newcustomerModelall = newcustomerModel.objects.all()
+            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,'newcustomerModel':newcustomerModelall })
+
 def dochomebut(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -378,6 +389,7 @@ def adddocpage(request):
         ID = request.POST.get('ID')
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         print(Adminmodel1)
+        print("in add page")
         if Adminmodel1:
             DoctorModelall= DoctorModel.objects.all()
             return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall}) 
@@ -416,7 +428,43 @@ def deletedoc(request):
         db_connection.commit()
         if Adminmodel1:
             DoctorModelall= DoctorModel.objects.all()
-            return render(request, 'admin/adddoc.html', {"Adminmodel":Adminmodel1,"message":mess,"DoctorModel":DoctorModelall}) 
+            PatientModelall= PatientModel.objects.all()
+            newcustomerModelall = newcustomerModel.objects.all()
+            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,'newcustomerModel':newcustomerModelall })
+
+
+def deletepatient(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        PID = request.POST.get('PID')
+        ID = request.POST.get('ID')    
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        cursor.execute("DELETE FROM `user` WHERE `user`.`ID` = '%s';"%(PID))
+        db_connection.commit()
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            PatientModelall= PatientModel.objects.all()
+            newcustomerModelall = newcustomerModel.objects.all()
+            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,'newcustomerModel':newcustomerModelall })
+
+
+
+def deletemed(request):
+    mess=MessageModel.objects.filter(ID=1)
+    if request.method == 'POST':
+        MID = request.POST.get('MID')
+        ID = request.POST.get('AID') 
+        print(ID)  
+        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+        cursor.execute("DELETE FROM `meds` WHERE `meds`.`ID` = '%s';"%(MID))
+        db_connection.commit()
+        if Adminmodel1:
+            DoctorModelall= DoctorModel.objects.all()
+            PatientModelall= PatientModel.objects.all()
+            newcustomerModelall = newcustomerModel.objects.all()
+            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,'newcustomerModel':newcustomerModelall })
+
+
 
 def allMedsdoc(request):   
     mess=MessageModel.objects.filter(ID=1)

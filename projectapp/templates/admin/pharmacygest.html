@@ -47,11 +47,11 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>KELA CLINIC</h3>
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Kela clinic</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{%static 'dashstatic/img/myimg.png' %}"  alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="/static/dashstatic/img/adminimg.png"  alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -61,58 +61,27 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <form action="/projectapp/doctordash" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button2" type='submit'>
-                        <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>HOME</a></button>
-                    </form>
+                        <form action="/projectapp/admindashbtn" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a></button>
+                        </form> 
+                    <div class="navbar-nav w-100">  
+                        <form action="/projectapp/adddocpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-plus me-2"></i>Add Doctor</a></button>
+                        </form>    
+                    </div>
                 
-                    <form action="/projectapp/doctorinfo" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                    <form action="/projectapp/adminpharmacy" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                         {% csrf_token %}
                         <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button2" type='submit'>
-                            <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>My portofolio</a></button>
-                    </form>  
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Medicines</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
-                                <input name="type" type="hidden" value='all' />
-                                <button class="button2" type='submit'>
-                                <a class="dropdown-item">all</a></button>
-                                </form>
-                            <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
-                                <input name="type" type="hidden" value='painkiller' />
-                                <button class="button2" type='submit'>
-                                <a class="dropdown-item">Painkillers</a></button>
-                                </form>
-                            <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
-                                <input name="type" type="hidden" value='narcoleptics' />
-                                <button class="button2" type='submit'>
-                                <a class="dropdown-item">Narcoleptic</a></button>
-                                </form>
-                            <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
-                                <input name="type" type="hidden" value='pastes' />
-                                <button class="button2" type='submit'>
-                                <a class="dropdown-item">Pastes</a></button>
-                                </form>
-                            <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
-                                <input name="type" type="hidden" value='anti-cold mecicine' />
-                                <button class="button2" type='submit'>
-                                <a class="dropdown-item">Anti-cold</a></button>
-                            </form>  
-                        </div>
+                        <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>Pharmacy</a></button>
+                    </form>    
                     </div>
                 </div>
             </nav>
@@ -130,9 +99,6 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -141,24 +107,19 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
-                            <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                            {% for pat in PatientModel%}
-                            {% if pat.messagesent != '' %}
-                            <button type="submit" class="button1">
-                                {% csrf_token %}
-                                <input name="PID" type="hidden" value={{pat.ID}} />
-                                <input name="DIC" type="hidden" value={{item.ID}} />            
+                            {% for item in DoctorModel%}
+                            {% if item.adminmess != NULL %}
+                            <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">                                
-                                    <img class="rounded-circle" src="/static/dashstatic/img/{{pat.ID}}.png" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="/static/dashstatic/img/{{item.ID}}.png" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">   
-                                        <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
-                                        <small>{{pat.sentmessage}}</small>
+                                        <h6 class="fw-normal mb-0">{{item.firstname}} send you a message</h6>
+                                        <small></small>
                                     </div>
                                 </div>
-                            </button>
+                            </a>
                             {%endif%}
                             {%endfor%}
-                            </form>
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
@@ -189,20 +150,16 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{%static 'dashstatic/img/332531235.png' %}"  alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/adminimg.png"   alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
             <!-- Sale & Revenue Start -->
                             <div class="container-fluid pt-4 px-4">
                                 <div class="bg-light text-center rounded p-4">
@@ -226,6 +183,7 @@
                                                     <th scope="col">Phy. Quan</th>
                                                     <th scope="col">Int. Quan</th>
                                                     <th scope="col">See more</th>
+                                                    <th scope="col">Delete</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -242,16 +200,19 @@
                                                         <input name="DID" type="hidden" value={{item.ID}} />
                                                     <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
                                                 </form>
+                                                <form action="/projectapp/deletemed" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                                    {% csrf_token %}
+                                                    <input name="MID" type="hidden" value={{med.ID}} />
+                                                    <input name="AID" type="hidden" value={{item.ID}} />
+                                                <td><button type="submit" class='btn12' style="text-align:center;">Delete</button></td>
+                                            </form>
                                                 </tr> 
                                                 {%endfor%}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>    </div>
-                    </div>
-                </div>
+                            </div>     
             <!-- Widgets End -->
 
 
@@ -260,24 +221,17 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblim.com"></a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Footer End -->
-        </div>
-        <!-- Content End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -323,7 +277,24 @@
   border: 2px solid #1ECD97;
   text-decoration: none;
 }
-
+.btn12 {
+  text-align:center;
+  background: transparent;
+  width: 80px;
+  position: relative;
+  padding: 5px;
+  color: #520d21;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  transition: all 500ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  border-radius: 4px;
+  font-weight: 200;
+  overflow: hidden;
+  border: 2px solid #5e171a;
+  text-decoration: none;
+}
 .button1 {     
     background-color: Transparent;
     background-repeat:no-repeat;

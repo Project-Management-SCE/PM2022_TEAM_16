@@ -51,6 +51,10 @@ path("changepatientdoctor",views.changepatientdoctor,name="changepatientdoctor")
 path("addpatient",views.addpatient, name="addpatient"),
 path("bloodtestpage",views.bloodtestpage, name="bloodtestpage"),
 path("cleardrugprescription",views.cleardrugprescription, name="cleardrugprescription"),
+path("deletepatient",views.deletepatient, name="deletepatient"),
+path("adddoctor",views.adddoctor, name="adddoctor"),
+path("admindashbtn",views.admindashbtn,name='admindashbtn'),
+path("deletemed",views.deletemed,name='deletemed'),
 ]
 
     # The home page
