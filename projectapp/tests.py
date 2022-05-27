@@ -33,7 +33,7 @@ class TestUrls(unittest.TestCase):
             "payement","checkout","addmedicalrecomandation","doctordash","addpatpage",
             "newcust","rdv","addprivaterecord","adminanswer","admintodoc",
             "adminpharmacy","adminmedinfo","medchange","addmeds","addmed", "logout", "autorization", "admintodocworkday",
-            "changepatientdoctor","addpatient"
+            "changepatientdoctor","addpatient","bloodtestpage","deletedoc",
             ]
         for u in list_url:
             url=reverse(u)
