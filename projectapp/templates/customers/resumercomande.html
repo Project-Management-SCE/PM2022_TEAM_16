@@ -42,7 +42,6 @@
         </div>
         <!-- Spinner End -->
 
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
@@ -101,27 +100,44 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-envelope me-lg-2"></i>
                             <span class="d-none d-lg-inline-flex">Message</span>
                         </a>
+                        <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main"></form>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 {% if item.doctoranswer != '' %}
+                                <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                    {% csrf_token %}
+                                    <input name="ID" type="hidden" value={{item.ID}} />
+                                    <button type="submit" class="button1">       
+                                    <div class="d-flex align-items-center">                                
+                                        <img class="rounded-circle" src="/static/dashstatic/img/{{item.DID}}.png" alt="" style="width: 40px; height: 40px;">
+                                        <div class="ms-2">   
+                                            <h6 class="fw-normal mb-0">Dr {{doc.lastname}} send you a message</h6>
+                                            <small>{{item.sentmessage}}</small>
+                                        </div>
+                                    </div>
+                                </button> 
+                                {%endif%}
+                                </form>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                {% if item.adminanswer != '' %}
                                 <button type="submit" class="button1">
                                     {% csrf_token %}
                                     <input name="PID" type="hidden" value={{pat.ID}} />
                                     <input name="DIC" type="hidden" value={{item.ID}} />            
                                     <div class="d-flex align-items-center">                                
-                                        <img class="rounded-circle" src="/static/dashstatic/img/{{item.DID}}.png" alt="" style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle" src="/static/dashstatic/img/222333444.png" alt="" style="width: 40px; height: 40px;">
                                         <div class="ms-2">   
-                                            <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
-                                            <small>{{pat.sentmessage}}</small>
+                                            {%for admin in AdminModel%}
+                                            <h6 class="fw-normal mb-0">{{admin.lastname}} send you a message</h6>
+                                            {%endfor%}
+                                            <small>{{item.sentmessage}}</small>
                                         </div>
                                     </div>
                                 </button>
@@ -156,6 +172,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
+                                {% comment %} medical recomandation {% endcomment %}
                                 {% for me in medslist%}
                                 <h6 class="fw-normal mb-0">{{me}}</h6>
                                 <hr class="dropdown-divider">
@@ -170,14 +187,11 @@
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="userlogin" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
-            <!-- Navbar End -->
 
 
             <!-- Sale & Revenue Start -->
@@ -206,8 +220,8 @@
                       <table class="table">
                           <thead>                          
                               <tr>
-                                  <th scope="col">Med name</th>
-                                  <th scope="col">Med Quantities</th>
+                                  <th scope="col"style='text-align: center;'>Med name</th>
+                                  <th scope="col"style='text-align: center;'>Med Quantities</th>
                                   <th scope="col"></th>
                                   <th scope="col">Total</th>
                               </tr>
@@ -215,27 +229,26 @@
                           <tbody>
                             {% for key, values in res.items %}
                               <tr>
-                                  <td id="key">{{key}}</td>
-                                    <td id={{key}}> {{values}}</td>
+                                  <td id="key"style='text-align: center;'>{{key}}</td>
+                                    <td id={{key}} style='text-align: center;'> {{values}}</td>
                                     <label class="form-check-label" for="inlineCheckbox1"></label>
                                 </div></td>
-                                <td><div class="form-switch form-check-inline" >
-                                  <input class="form-check-input" type="checkbox" id="Delete" name="yes" value="option1">
-                                  <label class="form-check-label" for="inlineCheckbox1">Delete</label>
-                              </div>
-                                  </td>
-                                  <td><button class="btn1" type='submit'>Change</button></td>
+                                <form action="/projectapp/updatecart" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                {% csrf_token %}
+                                <input name="CID" type="hidden" value={{item.ID}} > 
+                                <input name="medname" type="hidden" value={{key}}> 
+                                <input name="medquandti" type="hidden" value={{values}}> 
+                                    <td style='text-align: center;'><button type="submit" class="btn btn-outline-black m-7"><i class="fa fa-trash"></i></button></td></td>
+                                </form>
                               </tr>
                             {%endfor%}
                             <tr>
                               <td></td>
                               <td></td>
-                              <td></td>
-                              <td></td>
+                              <td style='text-align: right;'>Price to pay:</td>
                               {%for t in dic%}
-                              <td>{{t}}</td>
+                              <td class='h5 Heading text-success'style='text-align: left;'>{{t}} $</td>
                               {%endfor%}
-                          </tr>
                               <td></td>
                               <td></td>
                               <td></td>
@@ -243,7 +256,7 @@
                                 {% csrf_token %}
                                 <td>{{key}}</td>
                                 <input name="CID" type="hidden" value={{item.ID}} />
-                              <td><button class="btn" type='submit'>Buy</button></td>
+                              <td><button class="btn1" type='submit'>Buy</button></td>
                               </form>
                           </tbody>
                       </table>
@@ -259,13 +272,13 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="">Kela-Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="http://kevynkrancenblum.com">K</a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                        Distributed By <a class="border-bottom" href="http://kevynkrancenblum.com" target="_blank">Team16</a>
                         </div>
                     </div>
                 </div>
@@ -276,7 +289,6 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -304,7 +316,7 @@
     cursor:pointer;
     overflow: hidden;        
 }
-.btn {
+.btn1 {
   background: transparent;
   width: 100px;
   height: 30px;
@@ -320,10 +332,10 @@
   border: 2px solid #1ECD97;
   text-decoration: none;
 }
-.btn1 {
+.btn {
   background: transparent;
   position: relative;
-  color: #274890;
+  color: #773142;
   cursor: pointer;
   text-transform: uppercase;
   font-size: 12px;

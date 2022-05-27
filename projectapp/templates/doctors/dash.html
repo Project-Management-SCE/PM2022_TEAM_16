@@ -51,13 +51,13 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{%static 'dashstatic/img/myimg.png' %}"  alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="/static/dashstatic/img/{{item.ID}}.png"  alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">{{item.firstname}}</h6>
                         
-                        <span>Admin</span>
+                        <span>Doctor</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -130,9 +130,6 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -163,10 +160,6 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notification</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <h6 class="fw-normal mb-0">Profile updated</h6>
@@ -188,130 +181,111 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{%static 'dashstatic/img/332531235.png' %}"  alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/{{item.ID}}.png"  alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
-            <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 {% for item in message %}
                 <marquee direction="right" bgcolor="white">{{item.message}}</marquee>
               {% endfor %}
-            </div>
-            <!-- Sale & Revenue End -->
-            <!-- Widgets Start -->
-                    <div class="container-fluid pt-4 px-4">
-                        <div class="row g-4">
-                            <div class="col-sm-12 col-xl-6">
-                                <div class="bg-light rounded h-100 p-4">
-                                    <h6 class="mb-4 text-warning" style="text-align: center;"> Welcome</h6>
-                                    <div class="owl-item" style="width: 451.031px;"><div class="testimonial-item text-center">
-                                            <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/dashstatic/img/{{item.ID}}.png" style="width: 50px; height: 50px;">
-                                            <h5 class="mb-1">Dr.{{item.lastname}} {{item.firstname}}</h5>
-                                            <br>
-                                            <p class="text-danger">{{item.medicalrecord}}</p>
-                                            <h3 class="display-6 text-primary" >My appointements</h3>
-                                                <br>
-                                                <div class="form-floating mb-3">
-                                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" _mstaria-label="695734" style="text-align: center;">
-                                                            {%for i in dictOfWords%}
-                                                        <option value="{{i}}" _msthash="543777" _msttexthash="30446">{{i}}</option>>
-                                                            {%endfor%}
-                                                    </select>
-                                                    <label for="floatingSelect" _msthash="2144636" _msttexthash="327613" style="text-align: center;">Select a day</label>
-                                                </div>  
-                                    </div></div>
-                                </div>
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" ><div class="owl-item"><div class="testimonial-item text-center">
+                                        <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/dashstatic/img/{{item.ID}}.png" style="width: 70; height: 70;">
+                                        <h5 class="mb-1 ">Hello</h5>
+                                        <h1 class="Display 2 text-warning">Dr {{item.firstname}} {{item.lastname}}</h1>
+                                        <p>{{item.speciality}}</p>
+                                </div></div></div>
                             </div>
-                            <div class="col-sm-12 col-md-6 col-xl-4">
-                                <div class="h-100 bg-light rounded p-4">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
-                                        <h6 class="mb-0">Messages</h6>
-                                    </div>
-                                    {%for item in PatientModel%}
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2"  style="text-align:center">
+                                <h6 class="mb-0" style="text-align:center">Last Messages</h6>
+                            </div>
+                            {%for patient in PatientModel%}
                                     <div class="d-flex align-items-center border-bottom py-3">
-                                        <img class="rounded-circle flex-shrink-0" src="/static/dashstatic/img/{{item.ID}}.png" alt="" style="width: 40px; height: 40px;">
+                                        <img class="rounded-circle flex-shrink-0" src="/static/dashstatic/img/{{patient.ID}}.png" alt="" style="width: 40px; height: 40px;">
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">My last message</h6>
+                                                <h6 class="mb-0">{{patient.firstname}} {{patient.lastname}}</h6>
                                             </div>
-                                            <span>{{item.messagesent}}</span>
+                                            <span>{{patient.messagesent}}</span>
                                         </div>
-                                    {%endfor%}
-                                </div>
-                                    <div class="d-flex align-items-center border-bottom py-3">
-                                        <img class="rounded-circle flex-shrink-0" src="/static/dashstatic/img/{{item.ID}}.png" alt="" style="width: 40px; height: 40px;">
-                                        <div class="w-100 ms-3">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h6 class="mb-0">My last message</h6>
-                                            </div>
+                                    </div>
+                            {%endfor%}
+                                <div class="d-flex align-items-center border-bottom py-3">
+                                        <img class="rounded-circle flex-shrink-0" src="/static/dashstatic/img/adminimg.png" alt="" style="width: 40px; height: 40px;">
+                                    <div class="w-100 ms-3">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-0">My last message</h6>
+                                        </div>
                                             <span>{{item.adminanswer}}</span>
-                                        </div>
-                                </div>
-
-                            </div>
-                            </div>
-
-                            <div class="container-fluid pt-4 px-4">
-                                <div class="bg-light text-center rounded p-4">
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <h6 class="mb-0">Patient list</h6>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                                            <thead>
-                                                <tr class="text-dark">
-                
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">Firstname</th>
-                                                    <th scope="col">Lastname</th>
-                                                    <th scope="col">See more</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for pat in PatientModel%}
-                                                <tr>
-                                                    <td>{{pat.ID}}</td>
-                                                    <td>{{pat.firstname}}</td>
-                                                    <td>{{pat.lastname}}</td>
-                                                    <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                                        {% csrf_token %}
-                                                        <input name="PID" type="hidden" value={{pat.ID}} />
-                                                        <input name="DIC" type="hidden" value={{item.ID}} />
-                                                    <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
-                                                </tr> 
-                                                {%endfor%}
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
-                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="bg-light text-center rounded p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Patient list</h6>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+    
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Firstname</th>
+                                        <th scope="col">Lastname</th>
+                                        <th scope="col">See more</th>
+                                        <th scope="col">Next Meeting</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for pat in PatientModel%}
+                                    <tr>
+                                        <td>{{pat.ID}}</td>
+                                        <td>{{pat.firstname}}</td>
+                                        <td>{{pat.lastname}}</td>
+                                        <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                            {% csrf_token %}
+                                            <input name="PID" type="hidden" value={{pat.ID}} />
+                                            <input name="DIC" type="hidden" value={{item.ID}} />
+                                        <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
+                                        <td class="text-danger">{{pat.appointement}}</td>
+                                    </tr> 
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            
             <!-- Widgets End -->
-
-
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblim.com">Kk</a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>

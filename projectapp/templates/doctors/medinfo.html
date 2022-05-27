@@ -4,10 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Single med -->
 <head>
     <meta charset="utf-8">
-    <title>Kela - personal clinic online</title>
+    <title>KELA Clinic - your private Clinic</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -53,65 +52,65 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{%static 'dashstatic/img/myimg.png' %}"  alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="/static/dashstatic/img/{{doc.ID}}.png"  alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">{{item.firstname}}</h6>
+                        <h6 class="mb-0">{{doc.firstname}}</h6>
                         
-                        <span>Admin</span>
+                        <span>Doctor</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <form action="/projectapp/doctordash" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                         {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button2" type='submit'>
+                        <input name="ID" type="hidden" value={{doc.ID}} />
+                        <button class="button1" type='submit'>
                         <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>HOME</a></button>
                     </form>
                 
                     <form action="/projectapp/doctorinfo" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                         {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button2" type='submit'>
-                            <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>My portofolio</a></button>
+                        <input name="ID" type="hidden" value={{doc.ID}} />
+                        <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>Ask Others</a></button>
                     </form>  
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Medicines</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
+                                <input name="ID" type="hidden" value={{doc.ID}} />
                                 <input name="type" type="hidden" value='all' />
-                                <button class="button2" type='submit'>
+                                <button class="button1" type='submit'>
                                 <a class="dropdown-item">all</a></button>
                                 </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
+                                <input name="ID" type="hidden" value={{doc.ID}} />
                                 <input name="type" type="hidden" value='painkiller' />
-                                <button class="button2" type='submit'>
+                                <button class="button1" type='submit'>
                                 <a class="dropdown-item">Painkillers</a></button>
                                 </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
+                                <input name="ID" type="hidden" value={{doc.ID}} />
                                 <input name="type" type="hidden" value='narcoleptics' />
-                                <button class="button2" type='submit'>
+                                <button class="button1" type='submit'>
                                 <a class="dropdown-item">Narcoleptic</a></button>
                                 </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
+                                <input name="ID" type="hidden" value={{doc.ID}} />
                                 <input name="type" type="hidden" value='pastes' />
-                                <button class="button2" type='submit'>
+                                <button class="button1" type='submit'>
                                 <a class="dropdown-item">Pastes</a></button>
                                 </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
-                                <input name="ID" type="hidden" value={{item.ID}} />
+                                <input name="ID" type="hidden" value={{doc.ID}} />
                                 <input name="type" type="hidden" value='anti-cold mecicine' />
-                                <button class="button2" type='submit'>
+                                <button class="button1" type='submit'>
                                 <a class="dropdown-item">Anti-cold</a></button>
                             </form>  
                         </div>
@@ -120,6 +119,8 @@
             </nav>
         </div>
         <!-- Sidebar End -->
+
+
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
@@ -130,17 +131,37 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fa fa-envelope me-lg-2"></i>
+                            <span class="d-none d-lg-inline-flex">Message</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <hr class="dropdown-divider">
+                            <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% for pat in PatientModel%}
+                            {% if pat.messagesent != '' %}
+                            <button type="submit" class="button1">
+                                {% csrf_token %}
+                                <input name="PID" type="hidden" value={{pat.ID}} />
+                                <input name="DIC" type="hidden" value={{doc.ID}} />            
+                                <div class="d-flex align-items-center">                                
+                                    <img class="rounded-circle" src="/static/dashstatic/img/{{pat.ID}}.png" alt="" style="width: 40px; height: 40px;">
+                                    <div class="ms-2">   
+                                        <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
+                                        <small>{{pat.sentmessage}}</small>
+                                    </div>
+                                </div>
+                            </button>
+                            {%endif%}
+                            {%endfor%}
+                            <hr class="dropdown-divider">
+                            <a href="#" class="dropdown-item text-center">See all message</a>
+                            </form>
+                        </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notification</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <h6 class="fw-normal mb-0">Profile updated</h6>
@@ -162,25 +183,22 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/{{med.ID}}.jpg"  alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/{{doc.ID}}.png"  alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{doc.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
-
+            <div class="container-fluid pt-4 px-4">
+                {% for item in message %}
+                <marquee direction="right" bgcolor="white">{{item.message}}</marquee>
+              {% endfor %}
 
             <!-- Sale & Revenue Start -->
-            
-            <!-- Sale & Revenue End -->
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
@@ -257,13 +275,12 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblum.com">Kk</a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>

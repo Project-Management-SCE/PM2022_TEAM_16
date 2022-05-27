@@ -9,16 +9,36 @@
     </div>
     <form action="/projectapp/userhome" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
         {% csrf_token %}
-    <input name="ID" type="hidden" value={{item.ID}} />
     <div class="price">Select a Delivery method</div>
     <button class="payment-method">
-      At Home
-    </button>
-    <button class="payment-method">
+      <input name="ID" type="hidden" value={{item.ID}}>
       I will come
-    </button>
+    </button>   
     </form>
+    <form action="/projectapp/userhome" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+      {% csrf_token %}
+    <button disabled="" class="payment-method" style="text-align: center;">
+    Delivery Adress:
+    </button>
+    <button disabled=""  class="payment-method" style="text-align: center;">
+      City: &emsp;             
+      <input type="text" style="color: #17263b; width: 308px; text-align: center;margin-left: 5px;" placeholder="your Address" id="ID" name="ID">
+    </button>
+    <button disabled="" class="payment-method" style="text-align: center;">
+      Street:&emsp;
+      <input type="text" style="color: #17263b; width: 308px; text-align: center;margin-left: -10;" placeholder="your Address" id="ID" name="ID">
+    </button>
+    <button disabled="" class="payment-method" style="text-align: center;">
+      Apt No: 
+      <input type="text" style='color: #17263b; width: 308px; text-align: center;'  placeholder="your Address" id="ID" name="ID">
+    </button>  
+    <button type='submit' class="payment-method">
+      <input name="ID" type="hidden" value={{item.ID}}>
+      At home
+    </button>  
+  </form>
   </div>
+
 {%endfor%}
   <style>
       @import url('https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap');
@@ -39,8 +59,8 @@ body, html{
 .checkout-loading{
   overflow:hidden;
   text-align: center;
-  width: 400px;
-  height: 240px;
+  width: 500px;
+  height: 500px;
   position: absolute;
   top:0;left:0;right:0;bottom:0;
   margin: auto;
