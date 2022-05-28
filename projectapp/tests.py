@@ -2,6 +2,7 @@ from lib2to3.pgen2.token import EQEQUAL
 from unicodedata import name
 from django.test import TestCase
 from django.urls import resolve, reverse
+from numpy import record
 from projectapp.views import *
 from projectapp.models import *
 import unittest
@@ -70,6 +71,8 @@ class TestUrls(unittest.TestCase):
     # def test_list_url_is_resolved_allMedsdoc(self):
     #     url=reverse('allMedsdoc')
     #     print(resolve(url))
+
+
 
 class test_exist_med(unittest.TestCase):
 
@@ -403,11 +406,46 @@ class newcust_test(TestCase):
         record=newcustomerModel.objects.get()
         self.assertEqual(record,item)
 
-# class bloodtest_test(TestCase):
-#     def test_bloodtest1(self):
-#         item=bloodTestModel()
-#         item.CID='111222333'
-#         item.
+class bloodtest_test(TestCase):
+    def test_bloodtest1(self):
+        item=bloodTestModel()
+        item.CID='111222333'
+        item.alk_phos=59
+        item.hdl=38
+        item.iron=43
+        item.creat=0.8
+        item.hb=38
+        item.urea=37
+        item.save()
+        record=bloodTestModel.objects.get()
+        self.assertEqual(record,item)
+
+    def test_bloodtest2(self):
+        item=bloodTestModel()
+        item.CID='555666777'
+        item.alk_phos=58
+        item.hdl=37
+        item.iron=42
+        item.creat=0.7
+        item.hb=37
+        item.urea=36
+        item.save()
+        record=bloodTestModel.objects.get()
+        self.assertEqual(record,item)
+
+    def test_bloodtest3(self):
+        item=bloodTestModel()
+        item.CID='666777888'
+        item.alk_phos=57
+        item.hdl=36
+        item.iron=41
+        item.creat=0.6
+        item.hb=35
+        item.urea=35
+        item.save()
+        record=bloodTestModel.objects.get()
+        self.assertEqual(record,item)
+        
 
 
 """
@@ -563,6 +601,10 @@ class AuthenticationFormTest4(SeleniumTestCase):
         #time.sleep(0.5)
 """
 ##############################################################################################
+
+
+
+
 class integration_Admin_Test(LiveServerTestCase):
 
     def setUp(self):
@@ -618,12 +660,54 @@ class integration_patient_Test(LiveServerTestCase):
         response = self.client.post('http://127.0.0.1:8000/projectapp/userdash',data={'ID':'332531234','password':'Aa123455'})
         self.assertTrue(response,self.client.post("http://127.0.0.1:8000/projectapp/userlogin"))
 
-    # def test_doctorinfo(self):
+   
+class integration_doctor_Test(LiveServerTestCase):
 
-    #     response = self.client.post('http://127.0.0.1:8000/projectapp/bloodtestpage',data = {'ID':'332531235'})
-    #     self.assertEqual(response.status_code,200)
-    #     #self.assertTemplateUsed(response,'customers/bloodtestpage.html')    
+    def setUp(self):
+        self.client = Client()
 
+
+    def test_login(self):
+        #Get login page
+        response = self.client.get("http://127.0.0.1:8000/projectapp/login")
+      
+        #Check response code
+        self.assertEquals(response.status_code, 200)
+
+        
+        #Log the user in
+        self.client.login(ID='111222333', password="Aa123456")
+
+        #Check response code
+        response = self.client.post('http://127.0.0.1:8000/projectapp/workersdash',data={'ID':'111222333','password':'Aa123456'})
+        self.assertEquals(response.status_code, 200)
+        self.client.logout()
+        #Check response code
+        response = self.client.post('http://127.0.0.1:8000/projectapp/workersdash',data={'ID':'111222334','password':'Aa123455'})
+        self.assertTrue(response,self.client.post("http://127.0.0.1:8000/projectapp/login"))
+    
+class bloodtestpageTest(LiveServerTestCase):
+    def setUp(self):
+        self.client=Client()
+
+    def test_doctorinfo(self):
+        #Get login page
+        response = self.client.get("http://127.0.0.1:8000/projectapp/userlogin")
+      
+        #Check response code
+        self.assertEquals(response.status_code, 200)
+
+        
+        #Log the user in
+        self.client.login(ID='332531235', password="Aa123456")
+
+        #Check response code
+        response = self.client.post('http://127.0.0.1:8000/projectapp/userdash',data={'ID':'332531235','password':'Aa123456'})
+        self.assertEquals(response.status_code, 200)
+        #response = self.client.get('http://127.0.0.1:8000/projectapp/bloodtestpage')
+        #self.assertEqual(response.status_code,200)
+        #self.assertTemplateUsed(response,'customers/bloodtestpage.html')        
+    
 
 
 

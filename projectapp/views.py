@@ -1,12 +1,12 @@
 from random import random
 from tkinter import Frame
 from xml.etree.ElementTree import tostring
-from cv2 import COLOR_BGR2GRAY, destroyAllWindows
+#rom cv2 import COLOR_BGR2GRAY, destroyAllWindows
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.contrib import messages
-from traitlets import All
+#from traitlets import All
 from projectapp.models import *
 import mysql.connector
 from django.http import JsonResponse
@@ -16,16 +16,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-import numpy as np
-import cv2
-import pickle
+#import numpy as np
+#import cv2
+#import pickle
 from django.core.files.storage import FileSystemStorage
 import requests
 import json
 import os
 import time
-from PIL import Image  
-import PIL  
+#from PIL import Image  
+#import PIL  
 db_connection = mysql.connector.connect(
     host="database-1.cx6ixgbmnqky.eu-central-1.rds.amazonaws.com",
     user="Admin",
