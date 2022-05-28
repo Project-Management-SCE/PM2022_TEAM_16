@@ -17,8 +17,10 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from projectapp import views
+import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('projectapp/', include('projectapp.urls')),
+    path('__debug__/',include(debug_toolbar.urls)),
 ]
