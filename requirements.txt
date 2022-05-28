@@ -58,3 +58,4 @@ zipp==3.4.0
 selenium==4.1.3
 opencv-contrib-python-headless
 traitlets
+django-debug-toolbar
