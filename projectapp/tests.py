@@ -3,7 +3,7 @@ from unicodedata import name
 from django.test import TestCase
 from django.urls import resolve, reverse
 from projectapp.views import *
-from projectapp.models import Adminmodel
+from projectapp.models import *
 import unittest
 
 from django.test import Client
@@ -153,6 +153,8 @@ class doctor_test(TestCase):
         item.adminmess='hello world'
         item.adminanswer='hello you too'
         item.speciality='cancer'
+        item.doctormessages='hello'
+        item.doctorsanswer='bye'
         item.save()
         record=DoctorModel.objects.get()
         self.assertEqual(record,item)
@@ -167,6 +169,8 @@ class doctor_test(TestCase):
         item.adminmess='hello world'
         item.adminanswer='hello you too'
         item.speciality='cancer'
+        item.doctormessages='hello'
+        item.doctorsanswer='bye'
         item.save()
         record=DoctorModel.objects.get()
         self.assertEqual(record,item)
@@ -181,6 +185,8 @@ class doctor_test(TestCase):
         item.adminmess='hello world'
         item.adminanswer='hello you too'
         item.speciality='cancer'
+        item.doctormessages='hello'
+        item.doctorsanswer='bye'
         item.save()
         record=DoctorModel.objects.get()
         self.assertEqual(record,item)
@@ -208,6 +214,7 @@ class patient_test(TestCase):
         item.medrecom='get away of bees'
         item.appointement='tuesday'
         item.autorizations='no'
+        item.latestreport='is stupid'
         item.save()
         record=PatientModel.objects.get()
         self.assertEqual(record,item)
@@ -234,6 +241,7 @@ class patient_test(TestCase):
         item.medrecom='get away of bees'
         item.appointement='tuesday'
         item.autorizations='no'
+        item.latestreport='is stupid'
         item.save()
         record=PatientModel.objects.get()
         self.assertEqual(record,item)
@@ -260,6 +268,7 @@ class patient_test(TestCase):
         item.medrecom='get away of bees'
         item.appointement='tuesday'
         item.autorizations='no'
+        item.latestreport='is stupid'
         item.save()
         record=PatientModel.objects.get()
         self.assertEqual(record,item)
@@ -393,6 +402,13 @@ class newcust_test(TestCase):
         item.save()
         record=newcustomerModel.objects.get()
         self.assertEqual(record,item)
+
+# class bloodtest_test(TestCase):
+#     def test_bloodtest1(self):
+#         item=bloodTestModel()
+#         item.CID='111222333'
+#         item.
+
 
 """
 class SeleniumTestCase(StaticLiveServerTestCase):
@@ -547,59 +563,70 @@ class AuthenticationFormTest4(SeleniumTestCase):
         #time.sleep(0.5)
 """
 ##############################################################################################
-# class integration_Admin_Test(LiveServerTestCase):
+class integration_Admin_Test(LiveServerTestCase):
 
-#     def setUp(self):
-#         self.client = Client()
+    def setUp(self):
+        self.client = Client()
 
 
-#     def test_login(self):
-#         # Get login page
-#         response = self.client.get("http://127.0.0.1:8000/projectapp/login")
+    def test_login(self):
+        # Get login page
+        response = self.client.get("http://127.0.0.1:8000/projectapp/login")
       
-#         # Check response code
-#         self.assertEquals(response.status_code, 200)
+        # Check response code
+        self.assertEquals(response.status_code, 200)
 
-#         # Check 'Log in' in response
-#         #self.assertTrue('LOGIN' response.content)
+        # Check 'Log in' in response
+        #self.assertTrue('LOGIN' response.content)
 
-#         # Log the user in
-#         self.client.login(ID='222333444', password="Aa123456")
+        # Log the user in
+        self.client.login(ID='222333444', password="Aa123456")
 
-#     #     # Check response code
-#         response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
-#         self.assertEquals(response.status_code, 200)
-#         self.client.logout()
-#         # Check response code
-#         response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
-#         self.assertTrue(response.status_code, 404)
+    #     # Check response code
+        response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
+        self.assertEquals(response.status_code, 200)
+        self.client.logout()
+        # Check response code
+        response = self.client.get('http://127.0.0.1:8000/projectapp/workersdash')
+        self.assertTrue(response.status_code, 404)
 
-#     #     # Check 'Log out' in response
-#     #     self.assertTrue('Log out' in response.content)
+    #     # Check 'Log out' in response
+    #     self.assertTrue('Log out' in response.content)
 
-# class integration_patient_Test(LiveServerTestCase):
+class integration_patient_Test(LiveServerTestCase):
 
-#     def setUp(self):
-#         self.client = Client()
+    def setUp(self):
+        self.client = Client()
 
 
-#     def test_login(self):
-#         # Get login page
-#         response = self.client.get("http://127.0.0.1:8000/projectapp/userlogin")
+    def test_login(self):
+        #Get login page
+        response = self.client.get("http://127.0.0.1:8000/projectapp/userlogin")
       
-#         # Check response code
-#         self.assertEquals(response.status_code, 200)
+        #Check response code
+        self.assertEquals(response.status_code, 200)
 
         
-#         # Log the user in
-#         self.client.login(ID='332531235', password="Aa123456")
+        #Log the user in
+        self.client.login(ID='332531235', password="Aa123456")
 
-#     #     # Check response code
-#         response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
-#         self.assertEquals(response.status_code, 200)
-#         self.client.logout()
-#         # Check response code
-#         response = self.client.get('http://127.0.0.1:8000/projectapp/userdash')
-#         self.assertTrue(response.status_code, 404)
+        #Check response code
+        response = self.client.post('http://127.0.0.1:8000/projectapp/userdash',data={'ID':'332531235','password':'Aa123456'})
+        self.assertEquals(response.status_code, 200)
+        self.client.logout()
+        #Check response code
+        response = self.client.post('http://127.0.0.1:8000/projectapp/userdash',data={'ID':'332531234','password':'Aa123455'})
+        self.assertTrue(response,self.client.post("http://127.0.0.1:8000/projectapp/userlogin"))
+
+    # def test_doctorinfo(self):
+
+    #     response = self.client.post('http://127.0.0.1:8000/projectapp/bloodtestpage',data = {'ID':'332531235'})
+    #     self.assertEqual(response.status_code,200)
+    #     #self.assertTemplateUsed(response,'customers/bloodtestpage.html')    
+
+
+
+
+    
 
 
