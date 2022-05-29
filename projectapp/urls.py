@@ -9,7 +9,6 @@ urlpatterns = [
 path('', views.index, name='index'),
 path('userlogin', views.userlogin, name='userlogin'),
 path('userdash', views.userdash, name='userdash'),
-path('testcam', views.testcam, name='testcam'),
 path('sentmessage', views.sentmessage, name='sentmessage'),
 path('patientsending', views.patientsending, name='patientsending'),
 path('workersdash', views.workersdash, name='workersdash'),
