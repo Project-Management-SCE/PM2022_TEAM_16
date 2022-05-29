@@ -82,7 +82,7 @@
                                 <input name="ID" type="hidden" value={{item.ID}} />
                                 <input name="type" type="hidden" value='all' />
                                 <button class="button2" type='submit'>
-                                <a class="dropdown-item">all</a></button>
+                                <a class="dropdown-item">All</a></button>
                                 </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
@@ -132,10 +132,6 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
                             <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
@@ -186,7 +182,7 @@
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -200,7 +196,7 @@
                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Meds</h6>
-                                        <a href="">Show All</a>
+                                        <a href="">-</a>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table text-start align-middle table-bordered table-hover mb-0">

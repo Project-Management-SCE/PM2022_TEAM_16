@@ -279,7 +279,9 @@ def addmed(request):
         saveobj.save()
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
-        fs.save('C:\\Users\\kevyn\\Happysammy\\projectapp\\static\\pharmacieimg\\18.jpg', myfile)
+        med=MedsModel.objects.filter(name=name).first()
+        medid=med.ID
+        fs.save('projectapp\\static\\pharmacieimg\\'+str(medid)+'.jpg', myfile)
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         allmed=MedsModel.objects.all()      
         return render(request, 'admin/addmeds.html', {"AdminModel": Adminmodel1, "message":mess, 'meds':allmed})
@@ -333,58 +335,69 @@ def addpatpage(request):
 def addpatient(request):
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST' and request.FILES['myfile']and request.FILES['myfile2']and request.FILES['myfile3']and request.FILES['myfile4']:
-        ID = request.POST.get('AID') 
-        firstname = request.POST.get('firstname')
-        lastname = request.POST.get('lastname')
-        password = request.POST.get('password')
-        CID = request.POST.get('CID')
-        Age = request.POST.get('Age')
-        Weight = request.POST.get('Weight')
-        Size = request.POST.get('Size')
-        phone = request.POST.get('phone')
-        Allergies = request.POST.get('Allergies')
-        DID = request.POST.get('DID')
-        bloodtest(CID)
-        print(ID,firstname,lastname,password,CID,Age,Weight,Size,All,DID)
-        directory = str(firstname)
-        parent_dir = 'projectapp/images/'
-        path = os.path.join(parent_dir, directory)
-        print(path)
-        os.mkdir(path)
-        saveob=PatientModel()
-        saveob.ID=CID
-        saveob.firstname=firstname
-        saveob.lastname=lastname
-        saveob.password=password
-        saveob.DID=DID
-        saveob.age=Age
-        saveob.poids=Weight
-        saveob.taille=Size
-        saveob.BMI=(int(Weight))/((int(Size)/100)*(int(Size)/100))
-        saveob.phone=phone
-        saveob.allergies=Allergies
-        saveob.autorizations='no'
-        saveob.save()
-        img1 = request.FILES['myfile']
-        img2 = request.FILES['myfile2']
-        img3 = request.FILES['myfile3']
-        img4 = request.FILES['myfile4']
-        fs = FileSystemStorage()
-        fs.save(path+'/'+CID+'.jpg', img1)
-        fs.save(path+'/img2.jpg', img2)
-        fs.save(path+'/img3.jpg', img3)
-        fs.save(path+'/img4.jpg', img4)
-        cursor.execute("DELETE FROM `newcustomer` WHERE `newcustomer`.`phone` = '%s';"%(phone))
-        parent_dir2 = 'projectapp/static/dashstatic/img/'
-        fs = FileSystemStorage()
-        fs.save(parent_dir2+'/'+CID+'.jpg', img1)
-        db_connection.commit()
-        Adminmodel1 = Adminmodel.objects.filter(ID=ID)
-        if Adminmodel1:
-            newcustomerModelall = newcustomerModel.objects.all()
-            DoctorModelall= DoctorModel.objects.all()
-            PatientModelall= PatientModel.objects.all()
-            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,"newcustomerModel":newcustomerModelall }) 
+        try:
+            ID = request.POST.get('AID') 
+            firstname = request.POST.get('firstname')
+            lastname = request.POST.get('lastname')
+            password = request.POST.get('password')
+            CID = request.POST.get('CID')
+            Age = request.POST.get('Age')
+            Weight = request.POST.get('Weight')
+            Size = request.POST.get('Size')
+            phone = request.POST.get('phone')
+            Allergies = request.POST.get('Allergies')
+            DID = request.POST.get('DID')
+            bloodtest(CID)
+            print(ID,firstname,lastname,password,CID,Age,Weight,Size,Allergies,DID)
+            directory = str(firstname)
+            parent_dir = 'projectapp/images/'
+            path = os.path.join(parent_dir, directory)
+            print(path)
+            os.mkdir(path)
+            saveob=PatientModel()
+            saveob.ID=CID
+            saveob.firstname=firstname
+            saveob.lastname=lastname
+            saveob.password=password
+            saveob.DID=DID
+            saveob.age=Age
+            saveob.poids=Weight
+            saveob.taille=Size
+            saveob.BMI=(int(Weight))/((int(Size)/100)*(int(Size)/100))
+            saveob.phone=phone
+            saveob.allergies=Allergies
+            saveob.autorizations='no'
+            saveob.save()
+            img1 = request.FILES['myfile']
+            img2 = request.FILES['myfile2']
+            img3 = request.FILES['myfile3']
+            img4 = request.FILES['myfile4']
+            fs = FileSystemStorage()
+            fs.save(path+'/'+CID+'.jpg', img1)
+            fs.save(path+'/img2.jpg', img2)
+            fs.save(path+'/img3.jpg', img3)
+            fs.save(path+'/img4.jpg', img4)
+            cursor.execute("DELETE FROM `newcustomer` WHERE `newcustomer`.`phone` = '%s';"%(phone))
+            parent_dir2 = 'projectapp/static/dashstatic/img/'
+            fs = FileSystemStorage()
+            fs.save(parent_dir2+'/'+CID+'.png', img1)
+            db_connection.commit()
+            Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+            newcustomerModel1 = PatientModel.objects.filter(ID=CID)
+            print(newcustomerModel1)
+            if Adminmodel1:
+                newcustomerModelall = newcustomerModel.objects.all()
+                DoctorModelall= DoctorModel.objects.all()
+                PatientModelall= PatientModel.objects.all()
+                return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,"newcustomerModel":newcustomerModelall }) 
+        except:
+            messages.error(request," ID ALREADY TAKEN ")
+            Adminmodel1 = Adminmodel.objects.filter(ID=ID)
+            if Adminmodel1:
+                newcustomerModelall = newcustomerModel.objects.all()
+                DoctorModelall= DoctorModel.objects.all()
+                PatientModelall= PatientModel.objects.all()
+                return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess,"newcustomerModel":newcustomerModelall })
 
 def adddocpage(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -399,7 +412,7 @@ def adddocpage(request):
 
 def adddoctor(request):
     mess=MessageModel.objects.filter(ID=1)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES['myfile'] :
         AID = request.POST.get('AID')
         ID = request.POST.get('ID')
         firstname = request.POST.get('firstname')
@@ -416,6 +429,10 @@ def adddoctor(request):
         saveobj.adminmess=None
         saveobj.adminanswer=None
         saveobj.save()
+        img1 = request.FILES['myfile']
+        parent_dir2 = 'projectapp/static/dashstatic/img/'
+        fs = FileSystemStorage()
+        fs.save(parent_dir2+'/'+ID+'.png', img1)
         Adminmodel1 = Adminmodel.objects.filter(ID=AID)
         if Adminmodel1:
             DoctorModelall= DoctorModel.objects.all()
@@ -614,7 +631,9 @@ def changepatientdoctor(request):
         docpassid = request.POST.get('docpassid')
         DoctorModel1 = DoctorModel.objects.filter(ID=DID)
         PatientModel2 = PatientModel.objects.filter(ID=PID)
+        app=''
         cursor.execute("UPDATE `user` SET `DID` = '%s' WHERE `user`.`ID` = '%s';"%(docpassid,PID))
+        cursor.execute("UPDATE `user` SET `appointement` = '%s' WHERE `user`.`ID` = '%s';"%(app,PID))
         alldoc=DoctorModel.objects.all()
         db_connection.commit()
         allmeds=MedsModel.objects.all()
@@ -715,11 +734,11 @@ def patientsending(request):
         print(ID)
         TO = request.POST.get('TO')
         if TO=='My doctor':
-            messagetodoc= 'Reason:' + reason + '\n Message:'+ message
+            messagetodoc= 'Reason: ' + reason + ' | Message: '+ message
             cursor.execute("UPDATE `user` SET `messagesent` = '%s' WHERE `user`.`ID` = '%s';"%(messagetodoc,ID))
             db_connection.commit()
         elif TO=='The Manager':
-            messagetoadmin='Reason:'+reason+'\n Message:'+message
+            messagetoadmin='Reason: '+reason+' | Message: '+message
             cursor.execute("UPDATE `user` SET `adminmess` = '%s' WHERE `user`.`ID` = '%s';"%(messagetoadmin,ID))
             db_connection.commit()
         print(reason,message)
@@ -735,7 +754,7 @@ def doctoranswer(request):
         DID = request.POST.get('DID')
         reason = request.POST.get('reason')
         message = request.POST.get('message')
-        messagefromdoc= 'Reason:'+reason+'Message:'+message
+        messagefromdoc= 'Reason: '+reason+ ' | ' + ' Message: '+message
         cursor.execute("UPDATE `user` SET `doctoranswer` = '%s' WHERE `user`.`ID` = '%s';"%(messagefromdoc,PID))
         db_connection.commit()
         DoctorModel1 = DoctorModel.objects.filter(ID=DID)
@@ -757,7 +776,8 @@ def genmessage(request):
         if Adminmodel1:
             DoctorModelall= DoctorModel.objects.all()
             PatientModelall= PatientModel.objects.all()
-            return render(request, 'admin/dash.html', {"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess }) 
+            newcustomerModelall = newcustomerModel.objects.all()
+            return render(request, 'admin/dash.html', {"newcustomerModel":newcustomerModelall,"AdminModel": Adminmodel1,"DoctorModel": DoctorModelall , "PatientModel":PatientModelall , "message":mess }) 
 
 def adminsentmess(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -771,12 +791,12 @@ def adminsentmess(request):
         print(doctorid)
         TO = request.POST.get('TO')
         if TO=='doctor':
-           messagetodoc="DR "+doctorname+' Reason: '+reason+ '\n Message: '+message
+           messagetodoc="DR "+doctorname+' Reason: '+reason+ ' | Message: '+message
            cursor.execute("UPDATE `doctor` SET `doctormessages` = '%s' WHERE `doctor`.`ID` = '%s';"%(messagetodoc,doctorid))
            cursor.execute("UPDATE `doctor` SET `doctorsanswer` = '%s' WHERE `doctor`.`ID` = '%s';"%(messagetodoc,ID))
            db_connection.commit()
         if TO=='The Manager':
-            messagetoman='Reason:'+reason+'\n Message:'+message
+            messagetoman='Reason:'+reason+' | Message:'+message
             cursor.execute("UPDATE `doctor` SET `adminmess` = '%s' WHERE `doctor`.`ID` = '%s';"%(messagetoman,ID))
             db_connection.commit()
         print(reason,message)
@@ -785,20 +805,31 @@ def adminsentmess(request):
         print(PatientModel1)
         if DoctorModel1:
             return render(request, 'doctors/dash.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess})  
-"""
+
 def updatecart(request):
-    mess=MessageModel.objects.filter(ID=1)
-    if request.method == 'POST':
-        CID = request.POST.get('CID')
-        medname = request.POST.get('medname')
-        medquandti = request.POST.get('medquandti')
-        CommandeenCour = cartModel.objects.filter(CID=CID).first()
-        names=CommandeenCour.name
-        totalprice=CommandeenCour.totalprice
-        MIDS=CommandeenCour.MIDS
-        arrayname=names.split(",")
-        arrayMIDS=MIDS.split(",")
-"""
+   mess=MessageModel.objects.filter(ID=1)
+   if request.method == 'POST':
+        ID = request.POST.get('CID')
+        cursor.execute("DELETE FROM `customercart` WHERE `customercart`.`CID` = '%s';"%(ID))
+        db_connection.commit()
+        PatientModel1 = PatientModel.objects.filter(ID=ID)
+        PatientModeltest = PatientModel.objects.filter(ID=ID).first()
+        DID=PatientModeltest.DID
+        DoctorModel3 = DoctorModel.objects.filter(ID=DID).first()
+        print(DoctorModel3)
+        workday2=DoctorModel3.workdays
+        print(workday2)
+        x = workday2.split(",")
+        workday = { i : 10 for i in x }
+        meds = PatientModeltest.medrecom.split(",")
+        dictOfWords1 = { i : 10 for i in meds }
+        hours=['10:00','10:30','11:00','11:30','12:00','12:30','13:00']
+        dichours = { i : 10 for i in hours }
+        print(workday) 
+        DoctorModel1 = DoctorModel.objects.filter(ID=DID)
+        AdminModel1 = Adminmodel.objects.filter(ID=222333444)
+        if PatientModel1:
+            return render(request, 'customers/dash.html', {"DoctorModel": DoctorModel1,"AdminModel": AdminModel1,"PatientModel": PatientModel1, "message":mess,'dictOfWords':workday,'medslist':dictOfWords1,"dichours":dichours})  
 
 def checkout(request):
     mess=MessageModel.objects.filter(ID=1)
@@ -939,6 +970,7 @@ def admintodocworkday(request):
         return render(request, 'admin/ficheinfodoc.html', {"AdminModel": Adminmodel1, "DoctorModel":DoctorModel1, "message":mess })
 
 def pay(request):
+    mess=MessageModel.objects.filter(ID=1)
     allmed=MedsModel.objects.all()
     mess=MessageModel.objects.filter(ID=1)
     if request.method == 'POST':
@@ -953,6 +985,39 @@ def pay(request):
         PatientModel1 = PatientModel.objects.filter(ID=CID)
         print(res)
         return render(request, 'customers/resumercomande.html', {"PatientModel": PatientModel1, "message":mess, "med":allmed,"CommandeenCour":CommandeenCour,'res':res,'dic':dic})
+
+def newbloodtest(request):
+    if request.method == 'POST':
+            mess=MessageModel.objects.filter(ID=1)
+            creat = random.uniform(0, 1)
+            hdl = random.randint(0, 40)
+            hb = random.randint(0, 50)
+            iron = random.randint(0, 100)
+            urea = random.randint(0,50)
+            alk_phos = random.randint(0,100)
+            ID = request.POST.get('CID')
+            DID = request.POST.get('DID')
+            PatientModel1 = PatientModel.objects.filter(ID=ID)
+            cursor.execute("UPDATE `bloodTest` SET `alk_phos` = '%s' WHERE `bloodTest`.`CID` = '%s';"%(alk_phos,ID))
+            db_connection.commit()
+            cursor.execute("UPDATE `bloodTest` SET `hdl` = '%s' WHERE `bloodTest`.`CID` = '%s';"%(hdl,ID))
+            db_connection.commit()
+            cursor.execute("UPDATE `bloodTest` SET `iron` = '%s' WHERE `bloodTest`.`CID` = '%s';"%(iron,ID))
+            db_connection.commit()
+            cursor.execute("UPDATE `bloodTest` SET `creat` = '%s' WHERE `bloodTest`.`CID` = '%s';"%(creat,ID))
+            db_connection.commit()
+            cursor.execute("UPDATE `bloodTest` SET `hb` = '%s' WHERE `bloodTest`.`CID` = '%s';"%(hb,ID))
+            db_connection.commit()
+            cursor.execute("UPDATE `bloodTest` SET `urea` = '%s' WHERE `bloodTest`.`CID` = '%s';"%(urea,ID))
+            db_connection.commit()
+            DoctorModel1 = DoctorModel.objects.filter(ID=DID)
+            alldoc=DoctorModel.objects.all()
+            #display data of patients
+            allmeds=MedsModel.objects.all()
+            print(ID)
+            if DoctorModel1:
+                return render(request, 'doctors/patientinfo.html', {"DoctorModel": DoctorModel1,"PatientModel": PatientModel1, "message":mess,"alldoc":alldoc,'allmeds':allmeds})  
+            
 
 def bloodtest(id):
     tests = []

@@ -132,10 +132,6 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
                             <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
@@ -185,7 +181,7 @@
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -200,7 +196,7 @@
                         <div class="bg-light rounded h-100 p-4">
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage" ><div class="owl-item"><div class="testimonial-item text-center">
-                                        <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/dashstatic/img/{{item.ID}}.png" style="width: 70; height: 70;">
+                                        <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/dashstatic/img/{{item.ID}}.png" style="width: 180px; height: 180px;">
                                         <h5 class="mb-1 ">Hello</h5>
                                         <h1 class="Display 2 text-warning">Dr {{item.firstname}} {{item.lastname}}</h1>
                                         <p>{{item.speciality}}</p>
@@ -233,8 +229,18 @@
                                             <span>{{item.adminanswer}}</span>
                                     </div>
                                 </div>
+                                <div class="d-flex align-items-center border-bottom py-3">
+                                    <img class="rounded-circle flex-shrink-0" src="/static/dashstatic/img/{{item.ID}}.png" alt="" style="width: 40px; height: 40px;">
+                                <div class="w-100 ms-3">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-0">My Week schedule</h6>
+                                    </div>
+                                        <span>{{item.workdays}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </form>
                 </div>
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light text-center rounded p-4">
@@ -254,16 +260,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for pat in PatientModel%}
-                                    <tr>
+                                    {% for pat in PatientModel%}                             
+                                <tr>
                                         <td>{{pat.ID}}</td>
                                         <td>{{pat.firstname}}</td>
-                                        <td>{{pat.lastname}}</td>
+                                        <td>{{pat.lastname}}</td> 
                                         <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                            {% csrf_token %}
-                                            <input name="PID" type="hidden" value={{pat.ID}} />
-                                            <input name="DIC" type="hidden" value={{item.ID}} />
+                                        {% csrf_token %}                                      
+                                        <input name="PID" type="hidden" value={{pat.ID}} />
+                                        <input name="DIC" type="hidden" value={{item.ID}} />
                                         <td><button type="submit" class='btn1' style="text-align:center;">More</button></td>
+                                        </form>
                                         <td class="text-danger">{{pat.appointement}}</td>
                                     </tr> 
                                     {%endfor%}

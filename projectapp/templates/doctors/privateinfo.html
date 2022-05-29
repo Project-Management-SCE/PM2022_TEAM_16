@@ -83,14 +83,14 @@
                                 <input name="type" type="hidden" value='all' />
                                 <button class="button1" type='submit'>
                                 <a class="dropdown-item">all</a></button>
-                                </form>
+                            </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
                                 <input name="ID" type="hidden" value={{item.ID}} />
                                 <input name="type" type="hidden" value='painkiller' />
                                 <button class="button1" type='submit'>
                                 <a class="dropdown-item">Painkillers</a></button>
-                                </form>
+                            </form>
                             <form action="/projectapp/allMedsdoc" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                                 {% csrf_token %}
                                 <input name="ID" type="hidden" value={{item.ID}} />
@@ -132,29 +132,8 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
-                            <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                            {% for pat in PatientModel%}
-                            {% if pat.messagesent != '' %}
-                            <button type="submit" class="button1">
-                                {% csrf_token %}
-                                <input name="PID" type="hidden" value={{pat.ID}} />
-                                <input name="DIC" type="hidden" value={{item.ID}} />            
-                                <div class="d-flex align-items-center">                                
-                                    <img class="rounded-circle" src="/static/dashstatic/img/{{pat.ID}}.png" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">   
-                                        <h6 class="fw-normal mb-0">{{pat.firstname}} send you a message</h6>
-                                        <small>{{pat.sentmessage}}</small>
-                                    </div>
-                                </div>
-                            </button>
-                            {%endif%}
-                            {%endfor%}
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
@@ -185,7 +164,7 @@
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -203,10 +182,10 @@
                     <div class="border rounded p-4 pb-0 mb-4">
                     <figure class="text-center">
                         <blockquote class="blockquote">
-                            <p _msthash="3622762" _msttexthash="1893697">Something urgent ? don't worry</p>
+                            <p _msthash="3622762" _msttexthash="1893697">Message</p>
                         </blockquote>
                         <figcaption class="blockquote-footer"><font _mstmutation="1" _msthash="3263455" _msttexthash="693212">
-                            send me a  <cite title="Source Title" _mstmutation="1">message</cite></font>
+                            <cite title="Source Title" _mstmutation="1"></cite></font>
                         </figcaption>
                     </figure>
                     </div>
@@ -234,12 +213,12 @@
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" name="reason">                             
-                        <label for="floatingInput">Reason ? </label>
+                        <label for="floatingInput">Reason</label>
                     </div>
                     <div class="form-floating">
                         <textarea class="form-control" name="message"
                             id="floatingTextarea" style="height: 150px;"></textarea>
-                        <label for="floatingTextarea">Tell me more ? </label>
+                        <label for="floatingTextarea"></label>
                     </div>
                     <div class="form-floating mb-3" style="text-align:center;">
                         <br>
@@ -277,13 +256,12 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblim.com"></a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>

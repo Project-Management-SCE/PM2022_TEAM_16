@@ -98,10 +98,6 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
                             {% for item in DoctorModel%}
@@ -170,7 +166,7 @@
                                     </a>
                                     <h3>Add doctor</h3>
                                 </div>
-                                <form action="/projectapp/adddoctor" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                <form action="/projectapp/adddoctor" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <input name="AID" type="hidden" value={{item.ID}} />
                                 <div class="form-floating mb-3">

@@ -102,10 +102,6 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main"></form>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -223,7 +219,12 @@
                                   <th scope="col"style='text-align: center;'>Med name</th>
                                   <th scope="col"style='text-align: center;'>Med Quantities</th>
                                   <th scope="col"></th>
-                                  <th scope="col">Total</th>
+                                  <th scope="col"> <form action="/projectapp/updatecart" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                    {% csrf_token %}
+                                    <input name="CID" type="hidden" value={{item.ID}} > 
+                                        <td style='text-align: center;'><button type="submit" class="btn btn-outline-black m-3"><i class="fa fa-trash"></i></button></td></td>
+                                    </form>
+                                </th>
                               </tr>
                           </thead>
                           <tbody>
@@ -233,13 +234,7 @@
                                     <td id={{key}} style='text-align: center;'> {{values}}</td>
                                     <label class="form-check-label" for="inlineCheckbox1"></label>
                                 </div></td>
-                                <form action="/projectapp/updatecart" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                {% csrf_token %}
-                                <input name="CID" type="hidden" value={{item.ID}} > 
-                                <input name="medname" type="hidden" value={{key}}> 
-                                <input name="medquandti" type="hidden" value={{values}}> 
-                                    <td style='text-align: center;'><button type="submit" class="btn btn-outline-black m-7"><i class="fa fa-trash"></i></button></td></td>
-                                </form>
+
                               </tr>
                             {%endfor%}
                             <tr>

@@ -102,10 +102,7 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
+
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
                             {% for item in DoctorModel%}
@@ -214,7 +211,7 @@
                                 <div class="bg-light text-center rounded p-4">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Meds</h6>
-                                        <a href="">Show All</a>
+                                        <a href="">-</a>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table text-start align-middle table-bordered table-hover mb-0">
@@ -247,7 +244,7 @@
                                                         <input name="MID" type="hidden" value={{med.ID}} />
                                                         <input name="AID" type="hidden" value={{item.ID}} />
                                                         {% comment %} remove medical {% endcomment %}
-                                                    <td><button type="submit" class='btn1' style="text-align: center;">CHANGE</button></td>
+                                                    <td><button type="submit" class='btn1' style="text-align: center; font-size: 11px;">CHANGE</button></td>
                                                 </form>
                                                 </tr> 
                                                 {%endfor%}

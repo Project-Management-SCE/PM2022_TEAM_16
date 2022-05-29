@@ -106,10 +106,6 @@
                     </a>
                     <div class="navbar-nav align-items-center ms-auto">
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                                <i class="fa fa-envelope me-lg-2"></i>
-                                <span class="d-none d-lg-inline-flex">Message</span>
-                            </a>
                             <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main"></form>
                             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                                 <a href="#" class="dropdown-item">
@@ -223,7 +219,11 @@
                                         <button class="button1" id={{m.name}} type='submit'>
                                             <img src="/static/pharmacieimg/cart.png" alt="" style="width: 30px; height: 30px;"></button>
                                             {%if m.type == 'narcoleptics'%}
+                                            {%if item.autorizations == 'no' %}
                                             <img src="/static/pharmacieimg/eye.png" alt="" style="width: 30px; height: 30px;">
+                                            {%elif item.autorizations == 'yes'%}
+                                            <img src="/static/pharmacieimg/crosseye.png" alt="" style="width: 30px; height: 30px;">
+                                            {%endif%}
                                             {%endif%}
                                     </form> 
                                 </div>

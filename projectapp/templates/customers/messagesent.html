@@ -103,10 +103,6 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main"></form>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -215,20 +211,20 @@
                         <div class="form-floating mb-3">
                             <select class="form-select" id="floatingSelect"
                                 aria-label="Floating label select example" name="TO" >
-                                <option selected>To whom ? </option>
+                                <option selected></option>
                                 <option value="My doctor">My doctor</option>
                                 <option value="The Manager">The Manager</option>
                             </select>
-                            <label for="floatingSelect">Works with selects</label>
+                            <label for="floatingSelect">To</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingInput" name="reason">                             
-                            <label for="floatingInput">Reason ? </label>
+                            <label for="floatingInput">Reason</label>
                         </div>
                         <div class="form-floating">
                             <textarea class="form-control" name="message"
                                 id="floatingTextarea" style="height: 150px;"></textarea>
-                            <label for="floatingTextarea">Tell me more ? </label>
+                            <label for="floatingTextarea">Message</label>
                         </div>
                         <div class="form-floating mb-3" style="text-align:center;">
                             <br>

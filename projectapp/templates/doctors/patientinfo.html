@@ -130,10 +130,7 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
+
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
                             <form action="/projectapp/patientpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
@@ -142,7 +139,7 @@
                             <button type="submit" class="button1">
                                 {% csrf_token %}
                                 <input name="PID" type="hidden" value={{pat.ID}} />
-                                <input name="DIC" type="hidden" value={{item.ID}} />            
+                                <input name="DIC" type="hidden" value={{doc.ID}} />            
                                 <div class="d-flex align-items-center">                                
                                     <img class="rounded-circle" src="/static/dashstatic/img/{{pat.ID}}.png" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">   
@@ -157,6 +154,7 @@
                             <a href="#" class="dropdown-item text-center">See all message</a>
                         </div>
                     </div>
+                </form>
                     <div class="nav-item dropdown">
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
@@ -183,7 +181,7 @@
                             <span class="d-none d-lg-inline-flex">{{doc.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -204,9 +202,16 @@
                                     <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/dashstatic/img/{{pat1.ID}}.png" style="width: 240px; height: 240px;">
                                     <h2 class="text-warning ">{{pat1.lastname}}</h2>
                                     <h2 class="text-warning ">{{pat1.firstname}}</h2>
-                                    <h6 class="text-success">{{pat1.medicalrecord}}</h6>
+                                    <form action="/projectapp/newbloodtest" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                                        {% csrf_token %}
+                                        {% comment %} add medical recomandations {% endcomment %}
+                                        <input name="DID" type="hidden" value={{doc.ID}} />
+                                        <input name="CID" type="hidden" value={{pat1.ID}} />
+                                    <button type="submit" class="btn btn-outline-danger m-2">Add Blood test</button>
+                                    </form>
                             </div></div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6 col-xl-4">
@@ -267,7 +272,7 @@
                                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Meds recomandations</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Latest reports</button>
+                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Latest Diagnonsis</button>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
@@ -285,7 +290,7 @@
                                 </div>
                             </form>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                   {{pat1.latestreport}}
+                                    {{pat1.latestreport}}
                                 </div>
                             </div>
                         </div>
@@ -341,12 +346,12 @@
                             <br>
                             <div class="flex-row" style='width: fit-content;'>
                                 <div class="wrapper">
-                                    <canvas id="signature-pad"  height="200"></canvas>
+                                    <canvas id="signature-pad"  height="200" required></canvas>
                                 </div>
                             </div>
                             <div class="form-floating mb-3" style="text-align:center;">
                                 <br>
-                                <button type="submit" class='btn1' style="text-align:center;">Sent</a>
+                                <button type="submit" class='btn1' style="text-align:center;">Send</a>
                             </div>
                         </div>
                     </form>
@@ -381,7 +386,7 @@
                 </div>
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-0">Your answer</h6>
+                    <h6 class="mb-0">Message to {{pat1.firstname}} {{pat1.lastname}} </h6>
                 </br>
                     <form action="/projectapp/doctoranswer" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                     {% csrf_token %}
@@ -389,12 +394,12 @@
                     <input name="DID" type="hidden" value={{doc.ID}}>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingInput" name="reason">                             
-                        <label for="floatingInput">Reason ? </label>
+                        <label for="floatingInput">Reason</label>
                     </div>
                     <div class="form-floating">
                         <textarea class="form-control" name="message"
                             id="floatingTextarea" style="height: 150px;"></textarea>
-                        <label for="floatingTextarea">Answer </label>
+                        <label for="floatingTextarea">Message</label>
                     </div>
                     <div class="form-floating mb-3" style="text-align:center;">
                         <br>

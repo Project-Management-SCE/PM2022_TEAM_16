@@ -100,12 +100,12 @@ class newcustomerModel(models.Model):
 
 class bloodTestModel(models.Model):
     CID=models.CharField(db_column='CID',max_length=9,primary_key=True)
-    alk_phos=models.FloatField(db_column='alk_phos')
-    hdl=models.FloatField(db_column='hdl')
-    iron=models.FloatField(db_column='iron')
-    creat=models.FloatField(db_column='creat')
-    hb=models.FloatField(db_column='hb')
-    urea=models.FloatField(db_column='urea')
+    alk_phos=models.TextField(db_column='alk_phos')
+    hdl=models.TextField(db_column='hdl')
+    iron=models.TextField(db_column='iron')
+    creat=models.TextField(db_column='creat')
+    hb=models.TextField(db_column='hb')
+    urea=models.TextField(db_column='urea')
     class Meta:
         managed = True
         db_table = 'bloodTest'

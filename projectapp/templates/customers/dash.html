@@ -107,47 +107,8 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main"></form>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                {% if item.doctoranswer != '' %}
-                                <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                                    {% csrf_token %}
-                                    <input name="ID" type="hidden" value={{item.ID}} />
-                                    <button type="submit" class="button1">       
-                                    <div class="d-flex align-items-center">                                
-                                        <img class="rounded-circle" src="/static/dashstatic/img/{{item.DID}}.png" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">   
-                                            <h6 class="fw-normal mb-0">Dr {{doc.lastname}} send you a message</h6>
-                                            <small>{{item.sentmessage}}</small>
-                                        </div>
-                                    </div>
-                                </button> 
-                                {%endif%}
-                                </form>
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                {% if item.adminanswer != '' %}
-                                <button type="submit" class="button1">
-                                    {% csrf_token %}
-                                    <input name="PID" type="hidden" value={{pat.ID}} />
-                                    <input name="DIC" type="hidden" value={{item.ID}} />            
-                                    <div class="d-flex align-items-center">                                
-                                        <img class="rounded-circle" src="/static/dashstatic/img/222333444.png" alt="" style="width: 40px; height: 40px;">
-                                        <div class="ms-2">   
-                                            {%for admin in AdminModel%}
-                                            <h6 class="fw-normal mb-0">{{admin.lastname}} send you a message</h6>
-                                            {%endfor%}
-                                            <small>{{item.sentmessage}}</small>
-                                        </div>
-                                    </div>
-                                </button>
-                                {%endif%}
-                            </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">    
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -192,7 +153,7 @@
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="userlogin" class="dropdown-item">Log Out</a>
+                            <a href="/projectapp/userlogin" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -211,9 +172,9 @@
                             <div class="owl-item" style="width: 451.031px;"><div class="testimonial-item text-center">
                                     <img class="img-fluid rounded-circle mx-auto mb-4" src="/static/dashstatic/img/{{item.ID}}.png" style="width: 80px; height: 80px;">
                                     <h5 class="mb-1">{{item.lastname}} {{item.firstname}}</h5>
-                                    <p class="text-primary" >Doctor</p>
-                                    <h2 class="display-6 text-success" >{{doc.firstname}} {{doc.lastname}}</h2>
-                                    <h3 class="display-6 text-primary" >TAKE APPOINTEMENT</h3>
+                                    <h6 class="text-success" >My Doctor: {{doc.firstname}} {{doc.lastname}}</h6>
+                                    <br>
+                                    <h5 class="text-primary" >Book a phone appointment</h5>
                                     <label for="floatingSelect" _msthash="2144636" _msttexthash="327613" style="text-align: center;">Select a day</label>
                                         <div class="form-floating mb-3">
                                             <form action="/projectapp/rdv" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
@@ -230,7 +191,7 @@
                                                 {%endfor%}
                                         </select>
                                             <br>
-                                            <button class="btn" type='submit'>TAKE</button>
+                                            <button class="btn" type='submit'>Book</button>
                                             </form>
                                         </div>  
                             </div></div>

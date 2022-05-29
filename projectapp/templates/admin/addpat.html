@@ -1,5 +1,9 @@
 {%load static %}
 {% for item in Adminmodel%}
+{% if messages %}
+{% for message in messages %}<script>alert("{% for message in messages %}{{ message }}\n{% endfor %}");</script>
+{% endfor %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +55,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{%static 'dashstatic/img/myimg.png' %}"  alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="/static/dashstatic/img/adminimg.png"  alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -61,29 +65,27 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
-                    <form action="/projectapp/sentmessage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
-                        {% csrf_token %}
-                        <input name="ID" type="hidden" value={{item.ID}} />
-                        <button class="button1" type='submit'></button>
-                    </form>    
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Add/Remove</a>      
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <form action="/projectapp/addpatpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                        <form action="/projectapp/admindashbtn" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
                             {% csrf_token %}
                             <input name="ID" type="hidden" value={{item.ID}} />
-                            <button class="button1" type='submit'><a class="dropdown-item">Add Patient</a></button>
-                        </form>  
-                        <a href="signup.html" class="dropdown-item">Add Doctor</a>
-                        <a href="404.html" class="dropdown-item">Remove Patient</a>
-                        <a href="blank.html" class="dropdown-item">Remove Doctor</a>
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a></button>
+                        </form> 
+                    <div class="navbar-nav w-100">  
+                        <form action="/projectapp/adddocpage" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                            {% csrf_token %}
+                            <input name="ID" type="hidden" value={{item.ID}} />
+                            <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-plus me-2"></i>Add Doctor</a></button>
+                        </form>    
                     </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Pharmacy</a>            
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Blood tests</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-
-
+                
+                    <form action="/projectapp/adminpharmacy" method="POST" id="login-form" class="form form-login" autocomplete="off" role="main">
+                        {% csrf_token %}
+                        <input name="ID" type="hidden" value={{item.ID}} />
+                        <button class="button1" type='submit'>
+                            <a class="nav-item nav-link"><i class="fa fa-th me-2"></i>Pharmacy</a></button>
+                    </form>    
                     </div>
                 </div>
             </nav>
@@ -103,10 +105,6 @@
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <hr class="dropdown-divider">
                             {% for item in DoctorModel%}
@@ -152,17 +150,17 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{%static 'dashstatic/img/332531235.png' %}"  alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="/static/dashstatic/img/adminimg.png"   alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">{{item.firstname}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="/projectapp/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
+            <!-- Navbar End -->
+
             <!-- Navbar End -->
 
             
@@ -201,7 +199,7 @@
                                 </div>
                                 <div class="form-floating mb-4">
                                     <input type="text" name="phone" class="form-control" placeholder="Phone">
-                                    <label for="floatingPassword">Phone: {{nc.phone}}</label>
+                                    <label for="floatingPassword">Enter Phone {{nc.phone}}</label>
                                 </div>
                                 <div class="form-floating mb-4">
                                     <input name="password" type="text" class="form-control"  placeholder="password">
@@ -212,10 +210,10 @@
                                 <div class="input-group mb-3">
                                     <input name="Age" type="text" class="form-control" placeholder="Age" aria-label="Age">
                                     <span class="input-group-text">&</span>
-                                    <input name="Weight" type="text" class="form-control" placeholder="Weight" aria-label="Weight">
+                                    <input name="Weight" type="text" class="form-control" placeholder="Weight in kg" aria-label="Weight">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="text" name="Size" class="form-control" placeholder="Size" aria-label="size">
+                                    <input type="text" name="Size" class="form-control" placeholder="Height in cm" aria-label="size">
                                     <span class="input-group-text">&</span>
                                     <input type="text" name="Allergies" class="form-control" placeholder="Allergies" aria-label="Allergies">
                                 </div>
@@ -233,7 +231,7 @@
                                     <input class="form-control form-control-sm" type="file" name ='myfile4'>
                                     <br>
                                 </div>
-                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
+                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4 " style='color: #255143;' >Sign Up</button>
                             </div>
                         </form>
                         </div>
@@ -247,13 +245,12 @@
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Kela Clinic</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <a href="https://kevynkrancenblim.com">Kk</a>
                         </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                     </div>
                 </div>
