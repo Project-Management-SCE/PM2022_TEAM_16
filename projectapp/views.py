@@ -360,7 +360,7 @@ def addpatient(request):
         saveob.age=Age
         saveob.poids=Weight
         saveob.taille=Size
-        saveob.BMI=(int(Weight)*(int(Size)/100))*(int(Weight)*(int(Size)/100))
+        saveob.BMI=(int(Weight))/((int(Size)/100)*(int(Size)/100))
         saveob.phone=phone
         saveob.allergies=Allergies
         saveob.autorizations='no'
@@ -375,6 +375,9 @@ def addpatient(request):
         fs.save(path+'/img3.jpg', img3)
         fs.save(path+'/img4.jpg', img4)
         cursor.execute("DELETE FROM `newcustomer` WHERE `newcustomer`.`phone` = '%s';"%(phone))
+        parent_dir2 = 'projectapp/static/dashstatic/img/'
+        fs = FileSystemStorage()
+        fs.save(parent_dir2+'/'+CID+'.jpg', img1)
         db_connection.commit()
         Adminmodel1 = Adminmodel.objects.filter(ID=ID)
         if Adminmodel1:
@@ -980,102 +983,5 @@ def payement(request):
         return render(request, 'customers/pay.html',{"CommandeenCour":CommandeenCour1})
  ###########################################################################################################################################################################           
 
-def testcam(request):
-    mess=MessageModel.objects.filter(ID=1)
-    face_cascade = cv2.CascadeClassifier('C:\\Users\\kevyn\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\cv2\\data\\haarcascade_frontalface_alt2.xml')
-    recognizer = cv2.face.LBPHFaceRecognizer_create() 
-    recognizer.read('C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/trainner.yml')
-    labels = {}
-    with open("C:/Users/kevyn/Documents/GitHub/PM2022_TEAM_16/projectapp/labels.pickle", "rb") as f :
-        og_labels = pickle.load(f)
-        labels = {v:k for k,v in og_labels.items()}
-
-    cap = cv2.VideoCapture(0)
-    while(True):
-        ret,frame= cap.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.5,minNeighbors=5)
-        for(x,y,w,h) in faces:
-            #print(x,y,w,h)
-            roi_gray= gray[y:y+h ,x:x+w]
-            roi_color = frame[y:y+h ,x:x+w]
-            id_,conf = recognizer.predict(roi_gray)
-            if conf >= 45 or conf < 85 :
-                #print(id_)
-                #print(labels[id_])
-                font = cv2.FONT_HERSHEY_SIMPLEX
-                name = labels[id_]
-                name2=name
-                color = (255,255,255)
-                stroke= 2
-            cv2.putText(frame,name,(x+1,y+1),font,2,color, stroke, cv2.LINE_AA)
-            # use recognize
-            color = (250,0,0)
-            stroke=5
-            end_cord_x = x+w
-            end_cord_y = y + h 
-            cv2.rectangle(frame, (x,y),(end_cord_x,end_cord_y), color,stroke) #dessign le rectagle
-        cv2.imshow('Autentificator 2000!',frame)
-        #print(name2)
-        if cv2.waitKey(20) & 0xFF == ord('q'):
-            break
-        #if name1==name2:
-        #    name4='kevyn'
-        #    PatientModel1 = PatientModel.objects.filter(firstname=name4)
-        #    return render(request, 'customers/dash.html',{"PatientModel": PatientModel1})
-# When everything done, release the capture
-    cap.release()
-    cv2.destroyAllWindows()
-
-
-    med1='ciprofloxacin'
-    path = "https://api.fda.gov/drug/label.json?search=" + med1
-    response = requests.get(path)
-    js = response.json()["results"]
-    contect_medical = js[0]
-    WARNINGS  = ""
-    if 'boxed_warning' in contect_medical:
-            WARNINGS = contect_medical["boxed_warning"]
-    elif 'warnings' in contect_medical:
-        WARNINGS = contect_medical["warnings"]
-    else:
-        WARNINGS = contect_medical["warnings_and_cautions"]
-
-
-    test={'test':WARNINGS}
-
-all_med =  ["ciprofloxacin",
-            "Losartan",
-            "Linezolid",
-            "Ofloxacin",
-            "MEKINIST",
-            "Methylphenidate Hydrochloride",
-            "Glimepiride",
-            "Methocarbamol",
-            "Acetaminophen",
-            "Oasis TEARS PLUS",
-            "Selenium",
-            "Calcium Acetate",
-            "entresto",
-            "Etodolac",
-            "Ciclosporin",
-            "Lithium Bromatum",
-            "Flovent Diskus",
-            "Methyldopa",
-             "Tazorac"
-            ]
-
-med1='Losartan'
-path = "https://api.fda.gov/drug/label.json?search=" + med1
-response = requests.get(path)
-js = response.json()["results"]
-contect_medical = js[0]
-WARNINGS  = ""
-if 'boxed_warning' in contect_medical:
-    WARNINGS = contect_medical["boxed_warning"]
-elif 'warnings' in contect_medical:
-    WARNINGS = contect_medical["warnings"]
-else:
-    WARNINGS = contect_medical["warnings_and_cautions"]
 
 
