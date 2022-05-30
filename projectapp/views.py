@@ -35,7 +35,7 @@ db_connection = mysql.connector.connect(
 cursor = db_connection.cursor()
 print(db_connection)
 # START PAGE WITH ANIMATION
-"""
+
 medsnames =  ["Methylphenidate Hydrochloride",
                 "Glimepiride",
                 "Methocarbamol",
@@ -73,9 +73,7 @@ for med in medsnames:
                 Warn+=WARNINGS
 zip_iterator = zip(medsnames, Warn)
 a_dictionary = dict(zip_iterator)
-"""
-a_dictionary={1:1}
-print(a_dictionary)
+
 
 def index(request):
     return render(request, 'customers/homepage.html')
